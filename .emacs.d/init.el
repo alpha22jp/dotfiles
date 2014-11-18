@@ -49,6 +49,11 @@
 (set-default-coding-systems 'utf-8)
 (prefer-coding-system 'utf-8)
 
+;; proxy settings
+;;
+(when (locate-library "my-proxy")
+  (require 'my-proxy))
+
 ;; yel-yank
 ;; "M-y" で kill ring の履歴を辿れるようにする
 (defun yel-yank ()
