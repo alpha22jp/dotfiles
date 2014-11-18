@@ -9,7 +9,7 @@
 ;(frame-parameter nil 'font) ;; 使用中のフォントを調べる
 
 (add-to-list 'load-path
-	     (expand-file-name "~/.emacs.d/lisp"))
+	     (expand-file-name "~/.emacs.d"))
 
 (when (locate-library "package")
   (require 'package)
@@ -17,6 +17,9 @@
   ;; (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
   ;; (add-to-list 'package-archives '("ELPA" . "http://tromey.com/elpa/"))
   (package-initialize))
+
+(add-to-list 'load-path
+	     (expand-file-name "~/.emacs.d/lisp"))
 
 (add-hook 'window-setup-hook
           (lambda ()
