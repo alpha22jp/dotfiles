@@ -185,13 +185,8 @@
 ;;
 (when (locate-library "simplenote")
   (require 'simplenote)
-  (with-temp-buffer
-    (let (input)
-      (insert-file-contents "~/.authinfo")
-      (setq input (buffer-substring-no-properties (point-min) (point-max)))
-      (setq simplenote-email (nth 3 (split-string input)))
-      (setq simplenote-password (nth 5 (split-string input)))))
-  (setq simplenote-notes-mode 'markdown-mode)
+  (when (locate-library "my-simplenote")
+    (require 'my-simplenote))
   (simplenote-setup))
 
 ;; input method
