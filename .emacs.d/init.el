@@ -99,6 +99,15 @@
 (setq compile-command "LANG=C make")
 (setq compilation-scroll-output t)
 
+;; auto-complete
+;;
+(when (locate-library "auto-complete")
+  (require 'auto-complete)
+  (global-auto-complete-mode t)
+  (setq ac-auto-start 3)
+  (define-key ac-completing-map (kbd "C-n") 'ac-next)
+  (define-key ac-completing-map (kbd "C-p") 'ac-previous))
+
 ;; fuzzy-format
 ;;
 (when (locate-library "fuzzy-format")
