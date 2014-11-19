@@ -6,10 +6,10 @@
 ;; abcdefghijklmnopqrstuvwxyz
 ;; 0123456789
 ;;
-;(frame-parameter nil 'font) ;; 使用中のフォントを調べる
+;; (frame-parameter nil 'font) ;; 使用中のフォントを調べる
 
 (add-to-list 'load-path
-	     (expand-file-name "~/.emacs.d"))
+             (expand-file-name "~/.emacs.d"))
 
 (when (locate-library "package")
   (require 'package)
@@ -19,7 +19,7 @@
   (package-initialize))
 
 (add-to-list 'load-path
-	     (expand-file-name "~/.emacs.d/lisp"))
+             (expand-file-name "~/.emacs.d/lisp"))
 
 (add-hook 'window-setup-hook
           (lambda ()
@@ -27,13 +27,13 @@
             (set-face-background 'default "#101010")))
 
 (add-hook 'after-make-frame-functions
-	  (lambda (f)
-	    (with-selected-frame f
-	      (keyboard-translate ?\C-h ?\C-?))))
+          (lambda (f)
+            (with-selected-frame f
+              (keyboard-translate ?\C-h ?\C-?))))
 
 (setq default-frame-alist
       (append (list
-	       '(font . "Migu 1M-11")
+               '(font . "Migu 1M-11")
                '(cursor-color . "red3")
                '(alpha . 80)
                '(width .  80)
@@ -62,17 +62,16 @@
   (if (or (eq last-command 'yank-pop)
           (eq last-command 'yank))
       (yank-pop 1) (yank 1)))
-(global-set-key "\M-y" 'yel-yank)
 
 ;; iswitchb-mode
 ;; バッファ切り替え時のインクリメンタルサーチを使用
 (iswitchb-mode t)
 (add-hook 'iswitchb-define-mode-map-hook
-      (lambda ()
-        (define-key iswitchb-mode-map "\C-n" 'iswitchb-next-match)
-        (define-key iswitchb-mode-map "\C-p" 'iswitchb-prev-match)
-        (define-key iswitchb-mode-map "\C-f" 'iswitchb-next-match)
-        (define-key iswitchb-mode-map "\C-b" 'iswitchb-prev-match)))
+          (lambda ()
+            (define-key iswitchb-mode-map "\C-n" 'iswitchb-next-match)
+            (define-key iswitchb-mode-map "\C-p" 'iswitchb-prev-match)
+            (define-key iswitchb-mode-map "\C-f" 'iswitchb-next-match)
+            (define-key iswitchb-mode-map "\C-b" 'iswitchb-prev-match)))
 (setq iswitchb-buffer-ignore
       '("^ " "^*GNU Emacs*" "*Completions*" "*Messages*" "*buffer-selection*" "*GTAGS SELECT*"))
 
@@ -81,10 +80,10 @@
 (setq c-default-style "stroustrup")
 (which-function-mode t)
 (add-hook 'c-mode-common-hook
-	  '(lambda ()
+          '(lambda ()
              (setq tab-width 4)))
 (add-hook 'c++-mode-hook
-	  '(lambda ()
+          '(lambda ()
              (setq c-basic-offset 4)))
 
 ;; hexl mode settings
@@ -171,8 +170,8 @@
 ;; eshell mode settings
 ;;
 (add-hook 'eshell-mode-hook
-	  '(lambda ()
-	     (define-key eshell-mode-map (kbd "\C-a") 'eshell-bol)))
+          '(lambda ()
+             (define-key eshell-mode-map (kbd "\C-a") 'eshell-bol)))
 
 ;; markdown mode
 ;;
@@ -204,6 +203,7 @@
 (define-key ctl-x-map (kbd "C-b") 'bs-show)
 (define-key ctl-x-map (kbd "t") 'toggle-truncate-lines)
 (define-key ctl-x-map (kbd "C-z") 'kill-emacs)
+(global-set-key (kbd "M-y") 'yel-yank)
 (global-set-key (kbd "M-o") 'other-frame)
 (global-set-key (kbd "C-;") 'comment-dwim)
 (global-set-key (kbd "C-,") 'beginning-of-buffer)
@@ -246,10 +246,10 @@
 (global-set-key [C-tab] 'other-window)
 
 (custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(column-number-mode t)
  '(current-language-environment "Japanese")
  '(default-input-method "japanese-mozc")
