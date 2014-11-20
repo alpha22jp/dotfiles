@@ -134,13 +134,6 @@
   (require 'powerline)
   (powerline-default-theme))
 
-;; smooth-scroll
-;;
-(when (locate-library "smooth-scroll")
-  (require 'smooth-scroll)
-  (smooth-scroll-mode t)
-  (setq smooth-scroll/vscroll-step-size 4))
-
 ;; uniquify
 ;;
 (when (locate-library "uniquify")
