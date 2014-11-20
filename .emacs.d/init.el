@@ -241,6 +241,8 @@
 (global-set-key (kbd "C-M-.") 'cscope-find-global-definition)
 (global-set-key (kbd "M-g") 'goto-line)
 (global-set-key (kbd "C-z") 'undo)
+(global-set-key (kbd "C-c C-d") 'simplenote-push-buffer)
+(global-set-key (kbd "C-c C-e") 'simplenote-pull-buffer)
 (global-set-key [hiragana-katakana] 'dabbrev-expand)
 (global-set-key [henkan] 'toggle-input-method)
 (global-set-key [muhenkan] 'dabbrev-expand)
