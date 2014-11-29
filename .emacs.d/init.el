@@ -209,7 +209,10 @@
   (require 'mozc)
   (add-hook 'mozc-mode-hook
             '(lambda ()
-               (define-key mozc-mode-map [henkan] 'toggle-input-method))))
+               (define-key mozc-mode-map [henkan] 'toggle-input-method)))
+  (when (locate-library "ac-mozc")
+    (require 'ac-mozc)
+    (define-key ac-mode-map [muhenkan] 'ac-complete-mozc)))
 
 ;; global key bindings
 ;;
@@ -245,7 +248,6 @@
 (global-set-key (kbd "C-c C-e") 'simplenote-pull-buffer)
 (global-set-key [hiragana-katakana] 'dabbrev-expand)
 (global-set-key [henkan] 'toggle-input-method)
-(global-set-key [muhenkan] 'dabbrev-expand)
 (global-set-key [f1] 'delete-other-windows)
 (global-set-key [f2] 'elscreen-previous)
 (global-set-key [f3] 'elscreen-next)
