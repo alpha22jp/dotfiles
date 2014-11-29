@@ -9,7 +9,7 @@
 ;; (frame-parameter nil 'font) ;; 使用中のフォントを調べる
 
 (add-to-list 'load-path
-             (expand-file-name "~/.emacs.d"))
+             (expand-file-name "~/.emacs.d/elpa"))
 
 (when (locate-library "package")
   (require 'package)
