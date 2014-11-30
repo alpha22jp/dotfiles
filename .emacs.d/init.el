@@ -175,6 +175,8 @@
 ;;
 (add-hook 'git-commit-mode-hook
           '(lambda ()
+             (when (locate-library "auto-complete")
+               (auto-complete-mode t))
              (set-buffer-file-coding-system 'utf-8)))
 
 ;; cscope
