@@ -167,6 +167,7 @@
 (when (locate-library "psvn")
   (setq svn-status-prefix-key '[(hyper s)])
   (require 'psvn)
+  (require 'vc-svn) ;; Emacs23におけるSVN管理ファイル判定問題の対応のため
   (setq svn-status-hide-unmodified t)
   (setq svn-status-hide-unknown t)
   (setq svn-status-svn-file-coding-system 'utf-8))
