@@ -4,13 +4,17 @@
 [alias]
 	l = log --graph --abbrev-commit
 	graph = log --graph --date-order --all --pretty=format:'%h %Cred%d %Cgreen%ad %Cblue%cn %Creset%s' --date=short
+
 [user]
 	email = alpha22jp@gmail.com
 	name = alpha22jp
+
 [push]
 	default = matching
+
 [core]
 	quotepath = false
 	editor = vi
+
 [credential]
 	helper = cache --timeout=3600
