@@ -6,3 +6,4 @@ hardstatus alwayslastline '%{= kw}%02c:%s | %{= .y}%H | %L=%{= .b}%-w%46>%{= .r}
 defscrollback 10000
 termcapinfo xterm* ti@:te@
 markkeys h=^b:l=^f:$=^e:^u=^z:^d=^v
+shelltitle "$ |bash"
