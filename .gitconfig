@@ -12,3 +12,5 @@
 [core]
 	quotepath = false
 	editor = vi
+[credential]
+	helper = cache --timeout=3600
