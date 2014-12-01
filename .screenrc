@@ -2,7 +2,7 @@ escape ^o^o
 vbell off
 startup_message off
 autodetach on
-hardstatus alwayslastline "[%n] | %Y/%m/%d %C %A | %w"
+hardstatus alwayslastline '%{= kw}%02c:%s | %{= .y}%H | %L=%{= .b}%-w%46>%{= .r}%n %t*%{= .b}%+w'
 defscrollback 10000
 termcapinfo xterm* ti@:te@
 markkeys h=^b:l=^f:$=^e:^u=^z:^d=^v
