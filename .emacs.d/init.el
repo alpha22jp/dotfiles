@@ -102,8 +102,8 @@
 ;; auto-complete
 ;;
 (when (locate-library "auto-complete")
-  (require 'auto-complete)
-  (global-auto-complete-mode t)
+  (require 'auto-complete-config)
+  (ac-config-default)
   (setq ac-auto-start 3)
   (define-key ac-completing-map (kbd "C-n") 'ac-next)
   (define-key ac-completing-map (kbd "C-p") 'ac-previous))
@@ -176,9 +176,9 @@
 ;;
 (add-hook 'git-commit-mode-hook
           '(lambda ()
-             (when (locate-library "auto-complete")
-               (auto-complete-mode t))
              (set-buffer-file-coding-system 'utf-8)))
+(when (locate-library "auto-complete")
+  (add-to-list 'ac-modes 'git-commit-mode))
 
 ;; cscope
 ;;
