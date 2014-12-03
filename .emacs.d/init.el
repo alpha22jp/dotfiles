@@ -202,6 +202,12 @@
 (when (locate-library "auto-complete")
   (add-to-list 'ac-modes 'git-commit-mode))
 
+;; fringe
+;;
+(when (locate-library "git-gutter-fringe")
+  (require 'git-gutter-fringe)
+  (global-git-gutter-mode t))
+
 ;; cscope
 ;;
 (when (locate-library "xcscope")
