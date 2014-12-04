@@ -186,6 +186,7 @@
              (set-buffer-file-coding-system 'utf-8)))
 (when (locate-library "auto-complete")
   (add-to-list 'ac-modes 'git-commit-mode))
+(add-to-list 'process-coding-system-alist '("git" utf-8 . utf-8))
 
 ;; fringe
 ;;
