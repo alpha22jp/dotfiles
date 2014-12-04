@@ -99,6 +99,11 @@
 (setq compile-command "LANG=C make")
 (setq compilation-scroll-output t)
 
+;; diff settings
+;;
+(when (<= emacs-major-version 23)
+  (require 'diff-color nil t))
+
 ;; flymake
 ;;
 (when (locate-library "flymake")
