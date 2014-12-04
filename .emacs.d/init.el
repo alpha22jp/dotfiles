@@ -282,8 +282,8 @@
 (global-set-key [f8] 'igrep)
 (global-set-key [f9] 'svn-status-show-svn-log)
 (global-set-key [f10] 'svn-status)
-(global-set-key [f11] 'svn-file-show-svn-diff)
-(global-set-key [f12] 'svn-file-revert)
+(global-set-key [f11] 'vc-diff)
+(global-set-key [f12] 'vc-revert)
 (global-set-key [C-tab] 'other-window)
 
 (custom-set-variables
