@@ -103,6 +103,7 @@
 ;;
 (when (locate-library "flymake")
   (require 'flymake)
+  (require 'flymake-fringe nil t)
   (setq flymake-gui-warnings-enabled nil))
 
 ;; auto-complete
