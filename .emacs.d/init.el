@@ -104,6 +104,10 @@
 (when (locate-library "flymake")
   (require 'flymake)
   (require 'flymake-fringe nil t)
+  (defun flymake-get-make-cmdline (source base-dir)
+    (list "make" (list "-s" "-C" base-dir "LANG=C"
+                       (concat "CHK_SOURCES=" source)
+                       "SYNTAX_CHECK_MODE=1" "check-syntax")))
   (setq flymake-gui-warnings-enabled nil))
 
 ;; auto-complete
