@@ -207,6 +207,9 @@
 (when (locate-library "git-gutter-fringe")
   (require 'git-gutter-fringe)
   (global-git-gutter-mode t))
+(when (locate-library "git-gutter-fringe+")
+  (require 'git-gutter-fringe+)
+  (global-git-gutter+-mode t))
 
 ;; cscope
 ;;
