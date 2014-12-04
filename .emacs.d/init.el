@@ -33,7 +33,7 @@
 
 (setq default-frame-alist
       (append (list
-               '(font . "Migu 1M-11")
+               '(font . "Migu 2M-11")
                '(cursor-color . "red3")
                '(alpha . 80)
                '(width .  80)
