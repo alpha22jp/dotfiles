@@ -111,9 +111,7 @@
 (when (locate-library "auto-complete")
   (require 'auto-complete-config)
   (ac-config-default)
-  (setq ac-auto-start 3)
-  (define-key ac-completing-map (kbd "C-n") 'ac-next)
-  (define-key ac-completing-map (kbd "C-p") 'ac-previous))
+  (setq ac-auto-start 3))
 
 ;; fuzzy-format
 ;;
