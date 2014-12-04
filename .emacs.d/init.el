@@ -81,6 +81,7 @@
 (which-function-mode t)
 (add-hook 'c-mode-common-hook
           '(lambda ()
+             (flymake-mode t)
              (setq tab-width 4)))
 (add-hook 'c++-mode-hook
           '(lambda ()
@@ -103,23 +104,7 @@
 ;;
 (when (locate-library "flymake")
   (require 'flymake)
-  (add-hook 'find-file-hook 'flymake-find-file-hook)
-  (defun my:flymake-simple-generic-init (cmd &optional opts)
-    (let* ((temp-file (flymake-init-create-temp-buffer-copy
-                       'flymake-create-temp-inplace))
-           (local-file (file-relative-name
-                        temp-file
-                        (file-name-directory buffer-file-name))))
-      (list cmd (append opts (list local-file)))))
-  (defun my:flymake-init (cmd &optional opts)
-    (if (file-exists-p "Makefile")
-        (flymake-simple-make-init)
-      (my:flymake-simple-generic-init cmd opts)))
-  (defun my:flymake-c-init ()
-    (my:flymake-init
-     "gcc" '("-O2" "-Wall" "-Wextra" "-Wformat" "-fsyntax-only")))
-  (push '("\\.[cC]\\'" my:flymake-c-init)
-        flymake-allowed-file-name-masks))
+  (setq flymake-gui-warnings-enabled nil))
 
 ;; auto-complete
 ;;
