@@ -9,8 +9,8 @@ fi
 alias ls='ls -aF --color=auto'
 alias ll='ls -al'
 alias screen='screen -U -D -RR'
-alias ec='emacsclient -n -c -a ""'
-alias ecq='emacsclient -e "(kill-emacs)"'
+alias emacsc='emacsclient -n -c -a ""'
+alias emacsq='emacsclient -e "(kill-emacs)"'
 
 export PS1='\u@\h:\w\$ '
 
