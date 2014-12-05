@@ -1,32 +1,32 @@
-;;; diff-color.el --- diff¤ÎÉ½¼¨¤ò¥«¥é¥Õ¥ë¤Ë¤¹¤ë (Emacs23¸ş¤±)
+;;; diff-color.el --- diffã®è¡¨ç¤ºã‚’ã‚«ãƒ©ãƒ•ãƒ«ã«ã™ã‚‹ (Emacs23å‘ã‘)
 ;;
-;; »²¾È: http://www.clear-code.com/blog/2012/4/3.html
+;; å‚ç…§: http://www.clear-code.com/blog/2012/4/3.html
 
-;; diff¤ÎÉ½¼¨ÊıË¡¤òÊÑ¹¹
+;; diffã®è¡¨ç¤ºæ–¹æ³•ã‚’å¤‰æ›´
 (defun diff-mode-setup-faces ()
-  ;; ÄÉ²Ã¤µ¤ì¤¿¹Ô¤ÏÎĞ¤ÇÉ½¼¨
+  ;; è¿½åŠ ã•ã‚ŒãŸè¡Œã¯ç·‘ã§è¡¨ç¤º
   (set-face-attribute 'diff-added nil :background "#335533")
-  ;; ºï½ü¤µ¤ì¤¿¹Ô¤ÏÀÖ¤ÇÉ½¼¨
+  ;; å‰Šé™¤ã•ã‚ŒãŸè¡Œã¯èµ¤ã§è¡¨ç¤º
   (set-face-attribute 'diff-removed nil :background "#553333")
-  ;; Ê¸»úÃ±°Ì¤Ç¤ÎÊÑ¹¹²Õ½ê¤Ï¿§¤òÈ¿Å¾¤·¤Æ¶¯Ä´
+  ;; æ–‡å­—å˜ä½ã§ã®å¤‰æ›´ç®‡æ‰€ã¯è‰²ã‚’åè»¢ã—ã¦å¼·èª¿
   (set-face-attribute 'diff-refine-change nil
                       :foreground nil :background nil
                       :weight 'bold :inverse-video t))
 (add-hook 'diff-mode-hook 'diff-mode-setup-faces)
 
-;; diff¤òÉ½¼¨¤·¤¿¤é¤¹¤°¤ËÊ¸»úÃ±°Ì¤Ç¤Î¶¯Ä´É½¼¨¤â¹Ô¤¦
+;; diffã‚’è¡¨ç¤ºã—ãŸã‚‰ã™ãã«æ–‡å­—å˜ä½ã§ã®å¼·èª¿è¡¨ç¤ºã‚‚è¡Œã†
 (defun diff-mode-refine-automatically ()
   (diff-auto-refine-mode t))
 (add-hook 'diff-mode-hook 'diff-mode-refine-automatically)
 
-;; diff´ØÏ¢¤ÎÀßÄê
+;; diffé–¢é€£ã®è¨­å®š
 (defun magit-setup-diff ()
-  ;; diff¤òÉ½¼¨¤·¤Æ¤¤¤ë¤È¤­¤ËÊ¸»úÃ±°Ì¤Ç¤ÎÊÑ¹¹²Õ½ê¤â¶¯Ä´É½¼¨¤¹¤ë
-  ;; 'all¤Ç¤Ï¤Ê¤¯t¤Ë¤¹¤ë¤È¸½ºßÁªÂòÃæ¤Îhunk¤Î¤ß¶¯Ä´É½¼¨¤¹¤ë
+  ;; diffã‚’è¡¨ç¤ºã—ã¦ã„ã‚‹ã¨ãã«æ–‡å­—å˜ä½ã§ã®å¤‰æ›´ç®‡æ‰€ã‚‚å¼·èª¿è¡¨ç¤ºã™ã‚‹
+  ;; 'allã§ã¯ãªãtã«ã™ã‚‹ã¨ç¾åœ¨é¸æŠä¸­ã®hunkã®ã¿å¼·èª¿è¡¨ç¤ºã™ã‚‹
   (setq magit-diff-refine-hunk 'all)
-  ;; diffÍÑ¤Îface¤òÀßÄê¤¹¤ë
+  ;; diffç”¨ã®faceã‚’è¨­å®šã™ã‚‹
   (diff-mode-setup-faces)
-  ;; diff¤ÎÉ½¼¨ÀßÄê¤¬¾å½ñ¤­¤µ¤ì¤Æ¤·¤Ş¤¦¤Î¤Ç¥Ï¥¤¥é¥¤¥È¤òÌµ¸ú¤Ë¤¹¤ë
+  ;; diffã®è¡¨ç¤ºè¨­å®šãŒä¸Šæ›¸ãã•ã‚Œã¦ã—ã¾ã†ã®ã§ãƒã‚¤ãƒ©ã‚¤ãƒˆã‚’ç„¡åŠ¹ã«ã™ã‚‹
   (set-face-attribute 'magit-item-highlight nil :inherit nil))
 (add-hook 'magit-mode-hook 'magit-setup-diff)
 

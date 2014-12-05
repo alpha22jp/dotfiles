@@ -1,6 +1,6 @@
-;;; flymake-fringe.el --- flymake¤Î¥¨¥é¡¼¤òfringe¤ËÉ½¼¨¤¹¤ë (Emacs23¸ş¤±)
+;;; flymake-fringe.el --- flymakeã®ã‚¨ãƒ©ãƒ¼ã‚’fringeã«è¡¨ç¤ºã™ã‚‹ (Emacs23å‘ã‘)
 ;;
-;; »²¾È: http://d.hatena.ne.jp/kitokitoki/20101230/p2
+;; å‚ç…§: http://d.hatena.ne.jp/kitokitoki/20101230/p2
 
 ;;; Code:
 
@@ -9,7 +9,7 @@
   (require 'fringe-helper)
   (require 'flymake)
 
-  (set-face-background 'flymake-errline nil)    ;´ûÂ¸¤Î¥Õ¥§¥¤¥¹¤òÌµ¸ú¤Ë¤¹¤ë
+  (set-face-background 'flymake-errline nil)    ;æ—¢å­˜ã®ãƒ•ã‚§ã‚¤ã‚¹ã‚’ç„¡åŠ¹ã«ã™ã‚‹
   (set-face-foreground 'flymake-errline nil)
   (set-face-background 'flymake-warnline nil)
   (set-face-foreground 'flymake-warnline nil)

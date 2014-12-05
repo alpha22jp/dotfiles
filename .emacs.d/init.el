@@ -6,7 +6,7 @@
 ;; abcdefghijklmnopqrstuvwxyz
 ;; 0123456789
 ;;
-;; (frame-parameter nil 'font) ;; »ÈÍÑÃæ¤Î¥Õ¥©¥ó¥È¤òÄ´¤Ù¤ë
+;; (frame-parameter nil 'font) ;; ä½¿ç”¨ä¸­ã®ãƒ•ã‚©ãƒ³ãƒˆã‚’èª¿ã¹ã‚‹
 
 (add-to-list 'load-path
              (expand-file-name "~/.emacs.d/elpa"))
@@ -39,9 +39,9 @@
                '(height . 40))
               default-frame-alist))
 
-(setq kill-whole-line t) ;; ¹ÔÆ¬¤Ç "C-k" ¤¹¤ë¤È²ş¹Ô¤ò´Ş¤à¹ÔÁ´ÂÎ¤òºï½ü
-(setq auto-save-default nil) ;; ¼«Æ°¥»¡¼¥Ö¤·¤Ê¤¤
-(setq make-backup-files nil) ;; ¥Ğ¥Ã¥¯¥¢¥Ã¥×¥Õ¥¡¥¤¥ë¤òºîÀ®¤·¤Ê¤¤
+(setq kill-whole-line t) ;; è¡Œé ­ã§ "C-k" ã™ã‚‹ã¨æ”¹è¡Œã‚’å«ã‚€è¡Œå…¨ä½“ã‚’å‰Šé™¤
+(setq auto-save-default nil) ;; è‡ªå‹•ã‚»ãƒ¼ãƒ–ã—ãªã„
+(setq make-backup-files nil) ;; ãƒãƒƒã‚¯ã‚¢ãƒƒãƒ—ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ä½œæˆã—ãªã„
 
 ;; coding system settings
 ;;
@@ -54,7 +54,7 @@
   (require 'my-proxy))
 
 ;; yel-yank
-;; "M-y" ¤Ç kill ring ¤ÎÍúÎò¤òÃ©¤ì¤ë¤è¤¦¤Ë¤¹¤ë
+;; "M-y" ã§ kill ring ã®å±¥æ­´ã‚’è¾¿ã‚Œã‚‹ã‚ˆã†ã«ã™ã‚‹
 (defun yel-yank ()
   "yank to cycle kill ring"
   (interactive "*")
@@ -63,7 +63,7 @@
       (yank-pop 1) (yank 1)))
 
 ;; iswitchb-mode
-;; ¥Ğ¥Ã¥Õ¥¡ÀÚ¤êÂØ¤¨»ş¤Î¥¤¥ó¥¯¥ê¥á¥ó¥¿¥ë¥µ¡¼¥Á¤ò»ÈÍÑ
+;; ãƒãƒƒãƒ•ã‚¡åˆ‡ã‚Šæ›¿ãˆæ™‚ã®ã‚¤ãƒ³ã‚¯ãƒªãƒ¡ãƒ³ã‚¿ãƒ«ã‚µãƒ¼ãƒã‚’ä½¿ç”¨
 (iswitchb-mode t)
 (add-hook 'iswitchb-define-mode-map-hook
           (lambda ()
@@ -170,7 +170,7 @@
   (require 'gtags)
   (setq gtags-path-style 'relative)
   (setq gtags-select-buffer-single nil)
-  (setq gtags-ignore-case nil) ;; ¸¡º÷»ş¤ËÂçÊ¸»ú¡¦¾®Ê¸»ú¤ò¶èÊÌ¤¹¤ë
+  (setq gtags-ignore-case nil) ;; æ¤œç´¢æ™‚ã«å¤§æ–‡å­—ãƒ»å°æ–‡å­—ã‚’åŒºåˆ¥ã™ã‚‹
   (setq gtags-prefix-key nil)
   (setq gtags-auto-update t)
   (setq gtags-suggested-key-mapping t)
@@ -181,7 +181,7 @@
 (when (locate-library "psvn")
   (setq svn-status-prefix-key '[(hyper s)])
   (require 'psvn)
-  (require 'vc-svn) ;; Emacs23¤Ë¤ª¤±¤ëSVN´ÉÍı¥Õ¥¡¥¤¥ëÈ½ÄêÌäÂê¤ÎÂĞ±ş¤Î¤¿¤á
+  (require 'vc-svn) ;; Emacs23ã«ãŠã‘ã‚‹SVNç®¡ç†ãƒ•ã‚¡ã‚¤ãƒ«åˆ¤å®šå•é¡Œã®å¯¾å¿œã®ãŸã‚
   (setq svn-status-hide-unmodified t)
   (setq svn-status-hide-unknown t)
   (setq svn-status-svn-file-coding-system 'utf-8))
@@ -196,7 +196,7 @@
 (add-to-list 'process-coding-system-alist '("git" utf-8 . utf-8))
 
 ;; my-vc-status
-;; VC¥Ğ¥Ã¥¯¥¨¥ó¥É¤Ë±ş¤¸¤¿status´Ø¿ô¤ò¸Æ¤Ó½Ğ¤¹
+;; VCãƒãƒƒã‚¯ã‚¨ãƒ³ãƒ‰ã«å¿œã˜ãŸstatusé–¢æ•°ã‚’å‘¼ã³å‡ºã™
 (defun my-vc-status ()
   (interactive)
   (require 'vc)
