@@ -62,12 +62,17 @@
           (eq last-command 'yank))
       (yank-pop 1) (yank 1)))
 
-;; helm
-;;
-(when (locate-library "helm")
-  (require 'helm-config)
-  (helm-mode 1)
-  (define-key helm-read-file-map (kbd "<tab>") 'helm-execute-persistent-action))
+;; iswitchb-mode
+;; バッファ切り替え時のインクリメンタルサーチを使用
+(iswitchb-mode t)
+(add-hook 'iswitchb-define-mode-map-hook
+          (lambda ()
+            (define-key iswitchb-mode-map "\C-n" 'iswitchb-next-match)
+            (define-key iswitchb-mode-map "\C-p" 'iswitchb-prev-match)
+            (define-key iswitchb-mode-map "\C-f" 'iswitchb-next-match)
+            (define-key iswitchb-mode-map "\C-b" 'iswitchb-prev-match)))
+(setq iswitchb-buffer-ignore
+      '("^ " "^*GNU Emacs*" "*Completions*" "*Messages*" "*buffer-selection*" "*GTAGS SELECT*"))
 
 ;; c/c++ mode settings
 ;;
@@ -275,11 +280,6 @@
 (global-set-key (kbd "C-M-.") 'cscope-find-global-definition)
 (global-set-key (kbd "M-g") 'goto-line)
 (global-set-key (kbd "C-z") 'undo)
-(global-set-key (kbd "C-c h") 'helm-mini)
-(global-set-key (kbd "C-c b") 'helm-descbinds)
-(global-set-key (kbd "C-c o") 'helm-occur)
-(global-set-key (kbd "C-c s") 'helm-ag)
-(global-set-key (kbd "C-c y") 'helm-show-kill-ring)
 (global-set-key (kbd "C-c C-d") 'simplenote-push-buffer)
 (global-set-key (kbd "C-c C-e") 'simplenote-pull-buffer)
 (global-set-key [hiragana-katakana] 'dabbrev-expand)
