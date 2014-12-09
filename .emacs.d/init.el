@@ -53,27 +53,6 @@
 (when (locate-library "my-proxy")
   (require 'my-proxy))
 
-;; yel-yank
-;; "M-y" で kill ring の履歴を辿れるようにする
-(defun yel-yank ()
-  "yank to cycle kill ring"
-  (interactive "*")
-  (if (or (eq last-command 'yank-pop)
-          (eq last-command 'yank))
-      (yank-pop 1) (yank 1)))
-
-;; iswitchb-mode
-;; バッファ切り替え時のインクリメンタルサーチを使用
-(iswitchb-mode t)
-(add-hook 'iswitchb-define-mode-map-hook
-          (lambda ()
-            (define-key iswitchb-mode-map "\C-n" 'iswitchb-next-match)
-            (define-key iswitchb-mode-map "\C-p" 'iswitchb-prev-match)
-            (define-key iswitchb-mode-map "\C-f" 'iswitchb-next-match)
-            (define-key iswitchb-mode-map "\C-b" 'iswitchb-prev-match)))
-(setq iswitchb-buffer-ignore
-      '("^ " "^*GNU Emacs*" "*Completions*" "*Messages*" "*buffer-selection*" "*GTAGS SELECT*"))
-
 ;; c/c++ mode settings
 ;;
 (setq c-default-style "stroustrup")
@@ -250,6 +229,11 @@
     (require 'ac-mozc)
     (define-key ac-mode-map [muhenkan] 'ac-complete-mozc)))
 
+;; anything
+;;
+(when (locate-library "anything")
+  (require 'anything-startup))
+
 ;; global key bindings
 ;;
 (keyboard-translate ?\C-h ?\C-?)
@@ -257,7 +241,6 @@
 (define-key ctl-x-map (kbd "C-b") 'bs-show)
 (define-key ctl-x-map (kbd "t") 'toggle-truncate-lines)
 (define-key ctl-x-map (kbd "C-z") 'kill-emacs)
-(global-set-key (kbd "M-y") 'yel-yank)
 (global-set-key (kbd "M-o") 'other-frame)
 (global-set-key (kbd "C-;") 'comment-dwim)
 (global-set-key (kbd "C-,") 'beginning-of-buffer)
@@ -282,6 +265,9 @@
 (global-set-key (kbd "C-z") 'undo)
 (global-set-key (kbd "C-c C-d") 'simplenote-push-buffer)
 (global-set-key (kbd "C-c C-e") 'simplenote-pull-buffer)
+(global-set-key (kbd "C-x b") 'anything-for-files)
+(global-set-key (kbd "M-y") 'anything-show-kill-ring)
+(global-set-key (kbd "C-x M-x") 'anything-M-x)
 (global-set-key [hiragana-katakana] 'dabbrev-expand)
 (global-set-key [henkan] 'toggle-input-method)
 (global-set-key [f1] 'delete-other-windows)
