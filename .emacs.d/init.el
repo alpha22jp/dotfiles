@@ -43,11 +43,6 @@
 (setq auto-save-default nil) ;; 自動セーブしない
 (setq make-backup-files nil) ;; バックアップファイルを作成しない
 
-;; coding system settings
-;;
-(set-default-coding-systems 'utf-8)
-(prefer-coding-system 'utf-8)
-
 ;; proxy settings
 ;;
 (when (locate-library "my-proxy")
@@ -168,12 +163,12 @@
 
 ;; magit
 ;;
-(add-hook 'git-commit-mode-hook
-          '(lambda ()
-             (set-buffer-file-coding-system 'utf-8)))
+;; (add-hook 'git-commit-mode-hook
+;;           '(lambda ()
+;;              (set-buffer-file-coding-system 'utf-8)))
 (when (locate-library "auto-complete")
   (add-to-list 'ac-modes 'git-commit-mode))
-(add-to-list 'process-coding-system-alist '("git" utf-8 . utf-8))
+;(add-to-list 'process-coding-system-alist '("git" utf-8 . utf-8))
 
 ;; my-vc-status
 ;; VCバックエンドに応じたstatus関数を呼び出す
@@ -249,6 +244,12 @@
                (setq wgrep-enable-key "r")      ; "r" キーで編集モードに
                (wgrep-ag-setup))))
 
+;; coding system settings
+;;
+(set-language-environment "Japanese")
+(prefer-coding-system 'utf-8)
+(setq default-process-coding-system 'utf-8)
+
 ;; global key bindings
 ;;
 (keyboard-translate ?\C-h ?\C-?)
@@ -307,9 +308,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(column-number-mode t)
- '(current-language-environment "Japanese")
  '(default-input-method "japanese-mozc")
- '(default-file-name-coding-system 'utf-8)
  '(scroll-bar-mode (quote right))
  '(show-paren-mode t)
  '(tool-bar-mode nil)
