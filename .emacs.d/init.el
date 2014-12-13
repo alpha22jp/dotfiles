@@ -84,6 +84,8 @@
 (when (locate-library "flymake")
   (require 'flymake)
   (require 'flymake-fringe nil t)
+  (when (locate-library "flymake-popup")
+    (require 'flymake-popup))
   (defun flymake-get-make-cmdline (source base-dir)
     (list "make" (list "-s" "-C" base-dir "LANG=C"
                        (concat "CHK_SOURCES=" source)
