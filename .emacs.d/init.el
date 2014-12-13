@@ -298,7 +298,7 @@
 (define-key global-map [(control f5)] 'gtags-find-tag)
 (define-key global-map [(control f6)] 'gtags-find-rtag)
 (global-set-key [f7] 'compile)
-(global-set-key [f8] 'igrep)
+(global-set-key [f8] 'ag)
 (global-set-key [f9] 'svn-status-show-svn-log)
 (global-set-key [f10] 'my-vc-status)
 (global-set-key [f11] 'vc-diff)
