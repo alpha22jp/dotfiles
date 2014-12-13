@@ -165,12 +165,13 @@
 
 ;; magit
 ;;
-;; (add-hook 'git-commit-mode-hook
-;;           '(lambda ()
-;;              (set-buffer-file-coding-system 'utf-8)))
 (when (locate-library "auto-complete")
   (add-to-list 'ac-modes 'git-commit-mode))
-;(add-to-list 'process-coding-system-alist '("git" utf-8 . utf-8))
+(when (not (functionp 'process-live-p))
+  (defun process-live-p (process)
+    "Returns non-nil if PROCESS is alive"
+    (memq (process-status process)
+	  '(run open listen connect stop))))
 
 ;; my-vc-status
 ;; VCバックエンドに応じたstatus関数を呼び出す
