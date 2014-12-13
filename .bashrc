@@ -12,6 +12,9 @@ alias screen='screen -U -D -RR'
 alias emacsc='emacsclient -n -c -a ""'
 alias emacsq='emacsclient -e "(kill-emacs)"'
 
+# For debug
+ulimit -c unlimited
+
 export PS1='\u@\h:\w\$ '
 
 if [ "$TERM" == "screen" ]; then
