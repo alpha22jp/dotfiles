@@ -236,7 +236,8 @@
 ;;
 (when (locate-library "ag")
   (require 'ag)
-  (setq ag-highlight-search t)
+  (when (>= emacs-major-version 24)
+    (setq ag-highlight-search t))
   (setq ag-reuse-buffers t))
 (when (locate-library "wgrep-ag")
   (add-hook 'ag-mode-hook
