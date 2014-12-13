@@ -60,6 +60,7 @@
 (add-hook 'c-mode-common-hook
           '(lambda ()
              (flymake-mode t)
+             (setq indent-tabs-mode nil)
              (setq tab-width 4)))
 (add-hook 'c++-mode-hook
           '(lambda ()
