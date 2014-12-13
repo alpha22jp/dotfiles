@@ -235,6 +235,20 @@
 (when (locate-library "anything")
   (require 'anything-startup))
 
+;; wgrep-ag
+;;
+(when (locate-library "ag")
+  (require 'ag)
+  (setq ag-highlight-search t)
+  (setq ag-reuse-buffers t))
+(when (locate-library "wgrep-ag")
+  (add-hook 'ag-mode-hook
+            '(lambda ()
+               (require 'wgrep-ag)
+               (setq wgrep-auto-save-buffer t)  ; 編集完了と同時に保存
+               (setq wgrep-enable-key "r")      ; "r" キーで編集モードに
+               (wgrep-ag-setup))))
+
 ;; global key bindings
 ;;
 (keyboard-translate ?\C-h ?\C-?)
