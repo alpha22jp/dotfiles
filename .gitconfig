@@ -2,6 +2,7 @@
 	path = .gitconfig.local
 
 [alias]
+	s = status -s
 	l = log --graph --abbrev-commit --name-status
 	graph = log --graph --date-order --all --pretty=format:'%h %Cred%d %Cgreen%ad %Cblue%cn %Creset%s' --date=short
 
