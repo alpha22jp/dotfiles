@@ -231,7 +231,10 @@
 ;; anything
 ;;
 (when (locate-library "anything")
-  (require 'anything-startup))
+  (require 'anything-startup)
+  ;; バッファ補完候補の除外設定に "flymake:" を追加
+  (setq anything-c-boring-buffer-regexp
+        "\\(\\` \\)\\|\\*anything\\|\\*ac-mode\\| \\*Echo Area\\| \\*Minibuf\\|flymake:"))
 
 ;; wgrep-ag
 ;;
