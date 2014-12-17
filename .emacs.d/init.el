@@ -297,7 +297,7 @@
 (global-set-key [f1] 'delete-other-windows)
 (global-set-key [f2] 'elscreen-previous)
 (global-set-key [f3] 'elscreen-next)
-(global-set-key [f4] 'split-window-horizontally)
+(global-set-key [f4] 'split-window-vertically)
 (global-set-key [f5] 'cscope-find-global-definition)
 (global-set-key [f6] 'cscope-find-this-symbol)
 (define-key global-map [(control f5)] 'gtags-find-tag)
