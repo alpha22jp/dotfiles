@@ -56,6 +56,7 @@
           '(lambda ()
              (flymake-mode t)
 	     (local-unset-key (kbd "C-M-h"))
+	     (setq comment-column 4)
              (setq indent-tabs-mode nil)
              (setq tab-width 4)))
 (add-hook 'c++-mode-hook
