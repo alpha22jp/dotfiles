@@ -1,0 +1,65 @@
+status	key	command
+Precomposition	Ctrl Shift Space	InsertFullSpace
+Precomposition	Shift Muhenkan	ToggleAlphanumericMode
+Precomposition	Shift Space	InsertAlternateSpace
+Precomposition	Space	InsertSpace
+Precomposition	Backspace	Revert
+Composition	Backspace	Backspace
+Composition	Ctrl a	MoveCursorToBeginning
+Composition	Ctrl b	MoveCursorLeft
+Composition	Ctrl d	Delete
+Composition	Ctrl e	MoveCursorToEnd
+Composition	Ctrl f	MoveCursorRight
+Composition	Ctrl g	Cancel
+Composition	Ctrl h	Backspace
+Composition	Ctrl m	Commit
+Composition	Shift Space	InsertHalfSpace
+Composition	Delete	Delete
+Composition	Right	MoveCursorRight
+Composition	Left	MoveCursorLeft
+Composition	Home	MoveCursorToBeginning
+Composition	End	MoveCursorToEnd
+Composition	Enter	Commit
+Composition	ESC	Cancel
+Composition	F10	ConvertToHalfAlphanumeric
+Composition	F2	ConvertWithoutHistory
+Composition	F6	ConvertToHiragana
+Composition	F7	ConvertToFullKatakana
+Composition	F8	ConvertToHalfWidth
+Composition	F9	ConvertToFullAlphanumeric
+Composition	Space	Convert
+Composition	Tab	PredictAndConvert
+Suggestion	Down	PredictAndConvert
+Suggestion	Shift Enter	CommitFirstSuggestion
+Conversion	Backspace	Cancel
+Conversion	Ctrl a	SegmentFocusFirst
+Conversion	Ctrl b	SegmentFocusLeft
+Conversion	Ctrl e	SegmentFocusLast
+Conversion	Ctrl f	SegmentFocusRight
+Conversion	Ctrl g	Cancel
+Conversion	Ctrl h	Cancel
+Conversion	Ctrl i	SegmentWidthShrink
+Conversion	Ctrl m	Commit
+Conversion	Ctrl n	ConvertNext
+Conversion	Ctrl o	SegmentWidthExpand
+Conversion	Ctrl p	ConvertPrev
+Conversion	Right	SegmentFocusRight
+Conversion	Left	SegmentFocusLeft
+Conversion	Up	ConvertPrev
+Conversion	Down	ConvertNext
+Conversion	Home	SegmentFocusFirst
+Conversion	End	SegmentFocusLast
+Conversion	Delete	Cancel
+Conversion	Space	ConvertNext
+Conversion	Enter	Commit
+Conversion	ESC	Cancel
+Conversion	Tab	PredictAndConvert
+Conversion	F10	ConvertToHalfAlphanumeric
+Conversion	F6	ConvertToHiragana
+Conversion	F7	ConvertToFullKatakana
+Conversion	F8	ConvertToHalfWidth
+Conversion	F9	ConvertToFullAlphanumeric
+Conversion	PageDown	ConvertNextPage
+Conversion	PageUp	ConvertPrevPage
+DirectInput	Henkan	IMEOn
+Precomposition	Henkan	IMEOff
