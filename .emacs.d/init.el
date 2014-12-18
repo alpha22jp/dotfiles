@@ -20,10 +20,10 @@
 (add-to-list 'load-path
              (expand-file-name "~/.emacs.d/lisp"))
 
-(add-hook 'window-setup-hook
-          (lambda ()
-            (set-face-foreground 'default "#cfcfcf")
-            (set-face-background 'default "#101010")))
+;; (add-hook 'window-setup-hook
+;;           (lambda ()
+;;             (set-face-foreground 'default "#cfcfcf")
+;;             (set-face-background 'default "#101010")))
 
 (add-hook 'after-make-frame-functions
           (lambda (f)
@@ -34,7 +34,7 @@
       (append (list
                '(font . "Migu 2M-11")
                '(cursor-color . "red3")
-               '(alpha . 80)
+               '(alpha . 90)
                '(width .  80)
                '(height . 40))
               default-frame-alist))
@@ -43,6 +43,13 @@
 (setq kill-whole-line t) ;; 行頭で "C-k" すると改行を含む行全体を削除
 (setq auto-save-default nil) ;; 自動セーブしない
 (setq make-backup-files nil) ;; バックアップファイルを作成しない
+
+;; color-theme
+;;
+(when (locate-library "color-theme")
+  (require 'color-theme)
+  (require 'color-theme-sanityinc-solarized)
+  (color-theme-sanityinc-solarized-dark))
 
 ;; proxy settings
 ;;
