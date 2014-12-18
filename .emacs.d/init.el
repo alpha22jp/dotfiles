@@ -118,6 +118,12 @@
                (goto-char (point-min))))
           my:template-replacement-alist)))
 
+;; autopair
+;;
+(when (locate-library "autopair")
+  (require 'autopair)
+  (autopair-global-mode))
+
 ;; flymake
 ;;
 (when (locate-library "flymake")
