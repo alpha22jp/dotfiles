@@ -106,6 +106,7 @@
     (file-name-extension (file-name-nondirectory (buffer-file-name))))
   (defvar my:template-replacement-alist
     '(("%file%"          . (lambda () (file-name-nondirectory (buffer-file-name))))
+      ("%file-base%"     . (lambda () (my:template-get-filename-base)))
       ("%date%"          . (lambda () (format-time-string "%Y-%m-%d")))
       ("%include-guard%" . (lambda () (format "__%s_%s__"
                                               (upcase (my:template-get-filename-base))
