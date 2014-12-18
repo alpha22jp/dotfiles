@@ -44,6 +44,12 @@
 (setq auto-save-default nil) ;; 自動セーブしない
 (setq make-backup-files nil) ;; バックアップファイルを作成しない
 
+;; input-method有効時のカーソル色を変更
+;;
+(add-hook 'input-method-activate-hook
+          (lambda() (set-cursor-color "blue")))
+(add-hook 'input-method-inactivate-hook
+          (lambda() (set-cursor-color "red3")))
 ;; color-theme
 ;;
 (when (locate-library "color-theme-sanityinc-solarized")
