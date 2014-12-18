@@ -46,10 +46,12 @@
 
 ;; color-theme
 ;;
-(when (locate-library "color-theme")
-  (require 'color-theme)
-  (require 'color-theme-sanityinc-solarized)
-  (color-theme-sanityinc-solarized-dark))
+(when (locate-library "color-theme-sanityinc-solarized")
+  (if (>= emacs-major-version 24)
+      (load-theme 'sanityinc-solarized-dark t)
+    (when (require 'color-theme nil t)
+      (require 'color-theme-sanityinc-solarized)
+      (color-theme-sanityinc-solarized-dark))))
 
 ;; proxy settings
 ;;
