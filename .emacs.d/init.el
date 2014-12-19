@@ -47,9 +47,10 @@
 ;; input-method有効時のカーソル色を変更
 ;;
 (add-hook 'input-method-activate-hook
-          (lambda() (set-cursor-color "blue")))
+          (lambda() (set-cursor-color "yellow3")))
 (add-hook 'input-method-inactivate-hook
           (lambda() (set-cursor-color "red3")))
+
 ;; color-theme
 ;;
 (when (locate-library "color-theme-sanityinc-solarized")
