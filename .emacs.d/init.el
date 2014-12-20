@@ -234,6 +234,14 @@
     (memq (process-status process)
 	  '(run open listen connect stop))))
 
+;; git-gutter+
+;;
+(when (locate-library "git-gutter+")
+  (require 'git-gutter+)
+  (global-git-gutter+-mode t)
+  (when (locate-library "git-gutter-fringe+")
+    (require 'git-gutter-fringe+)))
+
 ;; my-vc-status
 ;; VCバックエンドに応じたstatus関数を呼び出す
 (defun my-vc-status ()
@@ -242,15 +250,6 @@
   (cond ((eq (vc-deduce-backend) 'SVN) (call-interactively 'svn-status))
         ((eq (vc-deduce-backend) 'Git) (call-interactively 'magit-status))
         (t (message "Buffer is not version controlled"))))
-
-;; fringe
-;;
-(when (locate-library "git-gutter-fringe")
-  (require 'git-gutter-fringe)
-  (global-git-gutter-mode t))
-(when (locate-library "git-gutter-fringe+")
-  (require 'git-gutter-fringe+)
-  (global-git-gutter+-mode t))
 
 ;; cscope
 ;;
