@@ -18,6 +18,8 @@
 (package-install 'markdown-mode)
 (package-install 'simplenote)
 (package-install 'color-theme-sanityinc-solarized)
+(package-install 'multiple-cursors)
+(package-install 'region-bindings-mode)
 
 (message "Install completed.")
 

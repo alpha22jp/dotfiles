@@ -312,6 +312,22 @@
                (setq wgrep-enable-key "r")      ; "r" キーで編集モードに
                (wgrep-ag-setup))))
 
+;; multiple-cursors
+;;
+(when (locate-library "multiple-cursors")
+  (require 'multiple-cursors)
+  (when (locate-library "region-bindings-mode")
+    (require 'region-bindings-mode)
+    (region-bindings-mode-enable)
+    (define-key region-bindings-mode-map "a" 'mc/mark-all-like-this-dwim)
+    (define-key region-bindings-mode-map "m" 'mc/mark-more-like-this-extended)
+    (define-key region-bindings-mode-map "p" 'mc/mark-previous-like-this)
+    (define-key region-bindings-mode-map "n" 'mc/mark-next-like-this)
+    (define-key region-bindings-mode-map "u" 'mc/unmark-next-like-this)
+    (define-key region-bindings-mode-map "U" 'mc/unmark-previous-like-this)
+    (define-key region-bindings-mode-map "s" 'mc/skip-to-next-like-this)
+    (define-key region-bindings-mode-map "S" 'mc/skip-to-previous-like-this)))
+
 ;; coding system settings
 ;;
 (set-language-environment "Japanese")
@@ -326,7 +342,7 @@
 (define-key ctl-x-map (kbd "t") 'toggle-truncate-lines)
 (define-key ctl-x-map (kbd "C-z") 'kill-emacs)
 (global-set-key (kbd "M-o") 'other-frame)
-(global-set-key (kbd "C-;") 'comment-dwim)
+(global-set-key (kbd "C-;") 'mc/mark-all-dwim)
 (global-set-key (kbd "C-,") 'beginning-of-buffer)
 (global-set-key (kbd "C-.") 'end-of-buffer)
 (global-set-key (kbd "M-i") 'indent-region)
