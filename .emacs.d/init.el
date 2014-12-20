@@ -156,9 +156,7 @@
   (ac-config-default)
   (setq ac-auto-start nil)
   (ac-set-trigger-key "TAB")
-  (setq ac-use-menu-map t)
-  (define-key ac-menu-map (kbd "C-n") 'ac-next)
-  (define-key ac-menu-map (kbd "C-p") 'ac-previous))
+  (setq ac-use-menu-map t))
 
 ;; fuzzy-format
 ;;
