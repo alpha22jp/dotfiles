@@ -263,6 +263,10 @@
 ;;
 (when (locate-library "anything")
   (require 'anything-startup)
+  (when (>= emacs-major-version 24)
+    ;; 補完バッファのヘッダのフェイスを変更 (選択行と重複して見にくいので)
+    (set-face-attribute 'anything-header nil
+                        :inherit nil :underline t :weight 'bold))
   ;; バッファ補完候補の除外設定に "flymake:" を追加
   (setq anything-c-boring-buffer-regexp
         "\\(\\` \\)\\|\\*anything\\|\\*ac-mode\\| \\*Echo Area\\| \\*Minibuf\\|flymake:"))
