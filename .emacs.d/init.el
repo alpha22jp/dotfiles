@@ -64,15 +64,15 @@
 (setq c-default-style "stroustrup")
 (which-function-mode t)
 (add-hook 'c-mode-common-hook
-          '(lambda ()
-             (flymake-mode t)
-	     (local-unset-key (kbd "C-M-h"))
-	     (setq comment-column 4)
-             (setq indent-tabs-mode nil)
-             (setq tab-width 4)))
+          (lambda ()
+	    (flymake-mode t)
+	    (local-unset-key (kbd "C-M-h"))
+	    (setq comment-column 4)
+	    (setq indent-tabs-mode nil)
+	    (setq tab-width 4)))
 (add-hook 'c++-mode-hook
-          '(lambda ()
-             (setq c-basic-offset 4)))
+          (lambda ()
+	    (setq c-basic-offset 4)))
 
 ;; hexl mode settings
 ;;
@@ -115,10 +115,10 @@
                                               (upcase (my:template-get-filename-base))
                                               (upcase (my:template-get-filename-ext)))))))
   (defun my:template-insert-template ()
-    (mapc '(lambda (c)
-             (progn
-               (replace-string (car c) (funcall (cdr c)) nil)
-               (goto-char (point-min))))
+    (mapc (lambda (c)
+	    (progn
+	      (replace-string (car c) (funcall (cdr c)) nil)
+	      (goto-char (point-min))))
           my:template-replacement-alist)))
 
 ;; autopair
@@ -164,11 +164,9 @@
   (setq elscreen-prefix-key "\C-o")
   (elscreen-start)
   (add-hook 'dired-mode-hook
-            '(lambda ()
-               (local-unset-key "\C-o")))
+            (lambda () (local-unset-key "\C-o")))
   (add-hook 'svn-status-mode-hook
-            '(lambda ()
-               (local-unset-key "\C-o"))))
+            (lambda () (local-unset-key "\C-o"))))
 
 ;; powerline
 ;;
@@ -249,8 +247,8 @@
 ;; eshell mode settings
 ;;
 (add-hook 'eshell-mode-hook
-          '(lambda ()
-             (define-key eshell-mode-map (kbd "\C-a") 'eshell-bol)))
+          (lambda ()
+	    (define-key eshell-mode-map (kbd "\C-a") 'eshell-bol)))
 
 ;; markdown mode
 ;;
@@ -272,8 +270,8 @@
 (when (locate-library "mozc")
   (require 'mozc)
   (add-hook 'mozc-mode-hook
-            '(lambda ()
-               (define-key mozc-mode-map [henkan] 'toggle-input-method)))
+            (lambda ()
+	      (define-key mozc-mode-map [henkan] 'toggle-input-method)))
   (when (locate-library "ac-mozc")
     (require 'ac-mozc)
     (define-key ac-mode-map [muhenkan] 'ac-complete-mozc)))
@@ -295,11 +293,11 @@
   (setq ag-reuse-buffers t))
 (when (locate-library "wgrep-ag")
   (add-hook 'ag-mode-hook
-            '(lambda ()
-               (require 'wgrep-ag)
-               (setq wgrep-auto-save-buffer t)  ; 編集完了と同時に保存
-               (setq wgrep-enable-key "r")      ; "r" キーで編集モードに
-               (wgrep-ag-setup))))
+            (lambda ()
+	      (require 'wgrep-ag)
+	      (setq wgrep-auto-save-buffer t)  ; 編集完了と同時に保存
+	      (setq wgrep-enable-key "r")      ; "r" キーで編集モードに
+	      (wgrep-ag-setup))))
 
 ;; multiple-cursors
 ;;
