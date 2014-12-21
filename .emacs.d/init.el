@@ -168,12 +168,6 @@
   (add-hook 'svn-status-mode-hook
             (lambda () (local-unset-key "\C-o"))))
 
-;; powerline
-;;
-(when (locate-library "powerline")
-  (require 'powerline)
-  (powerline-default-theme))
-
 ;; uniquify
 ;;
 (when (locate-library "uniquify")
