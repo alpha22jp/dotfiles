@@ -125,8 +125,6 @@
 ;;
 (when (locate-library "autopair")
   (require 'autopair)
-  (add-hook 'input-method-activate-hook '(lambda () (autopair-mode -1)))
-  (add-hook 'input-method-inactivate-hook '(lambda () (autopair-mode 1)))
   (autopair-global-mode))
 
 ;; flymake
