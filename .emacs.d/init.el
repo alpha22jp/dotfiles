@@ -45,13 +45,6 @@
 (setq make-backup-files nil) ;; バックアップファイルを作成しない
 (setq inhibit-startup-screen t) ;; スタートアップ画面を表示しない
 
-;; input-method有効時のカーソル色を変更
-;;
-(add-hook 'input-method-activate-hook
-          (lambda() (set-cursor-color "yellow3")))
-(add-hook 'input-method-inactivate-hook
-          (lambda() (set-cursor-color "red3")))
-
 ;; color-theme
 ;;
 (when (locate-library "color-theme-sanityinc-solarized")
