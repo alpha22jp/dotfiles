@@ -265,17 +265,6 @@
     (require 'my-simplenote))
   (simplenote-setup))
 
-;; input method
-;;
-(when (locate-library "mozc")
-  (require 'mozc)
-  (add-hook 'mozc-mode-hook
-            (lambda ()
-	      (define-key mozc-mode-map [henkan] 'toggle-input-method)))
-  (when (locate-library "ac-mozc")
-    (require 'ac-mozc)
-    (define-key ac-mode-map [muhenkan] 'ac-complete-mozc)))
-
 ;; anything
 ;;
 (when (locate-library "anything")
@@ -320,6 +309,16 @@
 (set-language-environment "Japanese")
 (prefer-coding-system 'utf-8)
 (setq default-process-coding-system 'utf-8)
+
+;; input method
+;;
+(when (locate-library "mozc")
+  (require 'mozc)
+  (setq default-input-method "japanese-mozc")
+  (define-key mozc-mode-map [henkan] 'toggle-input-method)
+  (when (locate-library "ac-mozc")
+    (require 'ac-mozc)
+    (define-key ac-mode-map [muhenkan] 'ac-complete-mozc)))
 
 ;; global key bindings
 ;;
@@ -379,7 +378,6 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(column-number-mode t)
- '(default-input-method "japanese-mozc")
  '(scroll-bar-mode (quote right))
  '(show-paren-mode t)
  '(tool-bar-mode nil)
