@@ -43,6 +43,7 @@
 (setq kill-whole-line t) ;; 行頭で "C-k" すると改行を含む行全体を削除
 (setq auto-save-default nil) ;; 自動セーブしない
 (setq make-backup-files nil) ;; バックアップファイルを作成しない
+(setq inhibit-startup-screen t) ;; スタートアップ画面を表示しない
 
 ;; input-method有効時のカーソル色を変更
 ;;
