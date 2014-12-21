@@ -39,7 +39,7 @@
                '(height . 40))
               default-frame-alist))
 
-(defalias 'yes-or-no-p 'y-or-n-p) ;; "yes/no" が必要なときも "y/n" だけにする
+(fset 'yes-or-no-p 'y-or-n-p) ;; "yes/no" が必要なときも "y/n" だけにする
 (setq kill-whole-line t) ;; 行頭で "C-k" すると改行を含む行全体を削除
 (setq auto-save-default nil) ;; 自動セーブしない
 (setq make-backup-files nil) ;; バックアップファイルを作成しない
