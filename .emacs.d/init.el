@@ -286,24 +286,15 @@
 	      (setq wgrep-enable-key "r")      ; "r" キーで編集モードに
 	      (wgrep-ag-setup))))
 
-;; multiple-cursors
+;; iedit
 ;;
-(when (locate-library "multiple-cursors")
-  (require 'multiple-cursors)
-  (when (locate-library "region-bindings-mode")
-    (require 'region-bindings-mode)
-    (region-bindings-mode-enable)
-    (define-key region-bindings-mode-map (kbd "a") 'mc/mark-all-like-this-dwim)
-    (define-key region-bindings-mode-map (kbd "m") 'mc/mark-more-like-this-extended)
-    (define-key region-bindings-mode-map (kbd "p") 'mc/mark-previous-like-this)
-    (define-key region-bindings-mode-map (kbd "n") 'mc/mark-next-like-this)
-    (define-key region-bindings-mode-map (kbd "u") 'mc/unmark-next-like-this)
-    (define-key region-bindings-mode-map (kbd "U") 'mc/unmark-previous-like-this)
-    (define-key region-bindings-mode-map (kbd "s") 'mc/skip-to-next-like-this)
-    (define-key region-bindings-mode-map (kbd "S") 'mc/skip-to-previous-like-this)
-    (define-key region-bindings-mode-map (kbd "<tab>") 'mc/cycle-forward)
-    (define-key region-bindings-mode-map (kbd "<backtab>") 'mc/cycle-backward)
-    (define-key region-bindings-mode-map (kbd "C-t") 'multiple-cursors-mode)))
+(when (locate-library "iedit")
+  (require 'iedit)
+  (define-key iedit-mode-keymap (kbd "C-m") 'iedit-toggle-selection)
+  (define-key iedit-mode-keymap (kbd "M-p") 'iedit-expand-up-a-line)
+  (define-key iedit-mode-keymap (kbd "M-n") 'iedit-expand-down-a-line)
+  (define-key iedit-mode-keymap (kbd "M-h") 'iedit-restrict-function)
+  (define-key iedit-mode-keymap (kbd "M-i") 'iedit-restrict-current-line))
 
 ;; coding system settings
 ;;
@@ -329,7 +320,7 @@
 (define-key ctl-x-map (kbd "t") 'toggle-truncate-lines)
 (define-key ctl-x-map (kbd "C-z") 'kill-emacs)
 (global-set-key (kbd "M-o") 'other-frame)
-(global-set-key (kbd "C-t") 'mc/mark-all-dwim)
+(global-set-key (kbd "C-t") 'iedit-mode)
 (global-set-key (kbd "C-;") 'comment-dwim)
 (global-set-key (kbd "C-,") 'beginning-of-buffer)
 (global-set-key (kbd "C-.") 'end-of-buffer)
