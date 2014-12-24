@@ -312,6 +312,13 @@
     (require 'ac-mozc)
     (define-key ac-mode-map [muhenkan] 'ac-complete-mozc)))
 
+;; recentf-ext
+;;
+(when (locate-library "recentf-ext")
+  (setq recentf-save-file "~/.emacs.d/.recentf")
+  (setq recentf-max-saved-items 100)
+  (require 'recentf-ext))
+
 ;; region bindings mode
 ;;
 (when (locate-library "region-bindings-mode")
