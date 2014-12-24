@@ -312,6 +312,13 @@
     (require 'ac-mozc)
     (define-key ac-mode-map [muhenkan] 'ac-complete-mozc)))
 
+;; region bindings mode
+;;
+(when (locate-library "region-bindings-mode")
+  (require 'region-bindings-mode)
+  (region-bindings-mode-enable)
+  (define-key region-bindings-mode-map (kbd "<tab>") 'indent-region))
+
 ;; global key bindings
 ;;
 (keyboard-translate ?\C-h ?\C-?)
