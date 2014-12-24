@@ -3,26 +3,30 @@
 
 ;;; Code:
 
-(package-refresh-contents)
+(setq my:pkg-install-list
+  '(ag
+    anything
+    autopair
+    auto-complete
+    color-theme-sanityinc-solarized
+    elscreen
+    fuzzy-format
+    git-gutter+
+    git-gutter-fringe+
+    iedit
+    magit
+    markdown-mode
+    region-bindings-mode
+    recentf-ext
+    simplenote
+    wgrep-ag
+    xcscope))
 
-(package-install 'anything)
-(package-install 'autopair)
-(package-install 'auto-complete)
-(package-install 'fuzzy-format)
-(package-install 'elscreen)
-(package-install 'xcscope)
-(package-install 'git-gutter+)
-(package-install 'git-gutter-fringe+)
-(package-install 'magit)
-(package-install 'ag)
-(package-install 'wgrep-ag)
-(package-install 'markdown-mode)
-(package-install 'simplenote)
-(package-install 'color-theme-sanityinc-solarized)
-(package-install 'multiple-cursors)
-(package-install 'region-bindings-mode)
-
-(message "Install completed.")
+(defun my:pkg-install ()
+  (interactive)
+  (package-refresh-contents)
+  (dolist (pkg my:pkg-install-list)
+    (if (not (locate-library (symbol-name pkg))) (package-install pkg))))
 
 (provide 'my-pkg-install)
 
