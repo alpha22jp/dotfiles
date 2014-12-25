@@ -314,12 +314,12 @@
     (require 'ac-mozc)
     (define-key ac-mode-map [muhenkan] 'ac-complete-mozc)))
 
-;; recentf-ext
+;; recentf
 ;;
-(when (locate-library "recentf-ext")
-  (setq recentf-save-file "~/.emacs.d/.recentf")
-  (setq recentf-max-saved-items 100)
-  (require 'recentf-ext))
+(setq recentf-save-file "~/.emacs.d/.recentf")
+(setq recentf-max-saved-items 100)
+(setq recentf-exclude '("/.simplenote/*" "/TAGS$" "/COMMIT_EDITMSG$"))
+(when (locate-library "recentf-ext") (require 'recentf-ext))
 
 ;; region bindings mode
 ;;
