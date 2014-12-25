@@ -288,15 +288,32 @@
 	      (setq wgrep-enable-key "r")      ; "r" キーで編集モードに
 	      (wgrep-ag-setup))))
 
-;; iedit
+;; recentf
 ;;
-(when (locate-library "iedit")
-  (require 'iedit)
-  (define-key iedit-mode-keymap (kbd "C-m") 'iedit-toggle-selection)
-  (define-key iedit-mode-keymap (kbd "M-p") 'iedit-expand-up-a-line)
-  (define-key iedit-mode-keymap (kbd "M-n") 'iedit-expand-down-a-line)
-  (define-key iedit-mode-keymap (kbd "M-h") 'iedit-restrict-function)
-  (define-key iedit-mode-keymap (kbd "M-i") 'iedit-restrict-current-line))
+(setq recentf-save-file "~/.emacs.d/.recentf")
+(setq recentf-max-saved-items 100)
+(setq recentf-exclude '("/.simplenote/*" "/TAGS$" "/COMMIT_EDITMSG$"))
+(when (locate-library "recentf-ext") (require 'recentf-ext))
+
+;; multiple-cursors
+;;
+(when (locate-library "multiple-cursors")
+  (require 'multiple-cursors)
+  (when (locate-library "mc-extras") (require 'mc-extras)))
+
+;; region bindings mode
+;;
+(when (locate-library "region-bindings-mode")
+  (require 'region-bindings-mode)
+  (region-bindings-mode-enable)
+  (define-key region-bindings-mode-map (kbd "<tab>") 'indent-region)
+  (define-key region-bindings-mode-map (kbd "a") 'mc/mark-all-like-this-dwim)
+  (define-key region-bindings-mode-map (kbd "p") 'mc/mark-previous-like-this)
+  (define-key region-bindings-mode-map (kbd "n") 'mc/mark-next-like-this)
+  (define-key region-bindings-mode-map (kbd "u") 'mc/remove-current-cursor)
+  (define-key region-bindings-mode-map (kbd "M-n") 'mc/cycle-forward)
+  (define-key region-bindings-mode-map (kbd "M-p") 'mc/cycle-backward)
+  (define-key region-bindings-mode-map (kbd "C-t") 'multiple-cursors-mode))
 
 ;; coding system settings
 ;;
@@ -314,20 +331,6 @@
     (require 'ac-mozc)
     (define-key ac-mode-map [muhenkan] 'ac-complete-mozc)))
 
-;; recentf
-;;
-(setq recentf-save-file "~/.emacs.d/.recentf")
-(setq recentf-max-saved-items 100)
-(setq recentf-exclude '("/.simplenote/*" "/TAGS$" "/COMMIT_EDITMSG$"))
-(when (locate-library "recentf-ext") (require 'recentf-ext))
-
-;; region bindings mode
-;;
-(when (locate-library "region-bindings-mode")
-  (require 'region-bindings-mode)
-  (region-bindings-mode-enable)
-  (define-key region-bindings-mode-map (kbd "<tab>") 'indent-region))
-
 ;; global key bindings
 ;;
 (keyboard-translate ?\C-h ?\C-?)
@@ -336,7 +339,7 @@
 (define-key ctl-x-map (kbd "t") 'toggle-truncate-lines)
 (define-key ctl-x-map (kbd "C-z") 'kill-emacs)
 (global-set-key (kbd "M-o") 'other-frame)
-(global-set-key (kbd "C-t") 'iedit-mode)
+(global-set-key (kbd "C-t") 'mc/mark-all-dwim)
 (global-set-key (kbd "C-;") 'comment-dwim)
 (global-set-key (kbd "C-,") 'beginning-of-buffer)
 (global-set-key (kbd "C-.") 'end-of-buffer)

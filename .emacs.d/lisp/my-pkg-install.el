@@ -13,9 +13,10 @@
     fuzzy-format
     git-gutter+
     git-gutter-fringe+
-    iedit
     magit
     markdown-mode
+    multiple-cursors
+    mc-extras
     region-bindings-mode
     recentf-ext
     simplenote
