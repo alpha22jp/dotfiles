@@ -68,6 +68,7 @@
 (add-hook 'c-mode-common-hook
           (lambda ()
 	    (flymake-mode t)
+            (c-toggle-hungry-state 1)
 	    (local-unset-key (kbd "C-M-h"))
 	    (setq comment-column 4)
 	    (setq indent-tabs-mode nil)
