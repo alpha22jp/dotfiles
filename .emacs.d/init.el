@@ -20,6 +20,8 @@
 (add-to-list 'load-path
              (expand-file-name "~/.emacs.d/lisp"))
 
+(when (locate-library "my-pkg-install") (require 'my-pkg-install))
+
 ;; (add-hook 'window-setup-hook
 ;;           (lambda ()
 ;;             (set-face-foreground 'default "#cfcfcf")
