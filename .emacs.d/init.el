@@ -92,7 +92,7 @@
 
 ;; diff settings
 ;;
-(when (<= emacs-major-version 23)
+(when (locate-library "diff-color")
   (require 'diff-color nil t))
 
 ;; autoinsert

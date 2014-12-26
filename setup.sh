@@ -37,11 +37,11 @@ done
 emacs_files=(
     "my-pkg-install.el"
     "autopair.el"
+    "diff-color.el"
     "flymake-popup.el"
     "psvn.el"
 )
 emacs23_files=(
-    "diff-color.el"
     "flymake-fringe.el"
 )
 
