@@ -34,12 +34,17 @@
 
 (setq default-frame-alist
       (append (list
-               '(font . "Migu 2M-11")
                '(cursor-color . "red3")
                '(alpha . 90)
                '(width .  80)
                '(height . 40))
               default-frame-alist))
+
+;; font setting
+;;
+(setq my:font (if (string-match "apple-darwin" system-configuration)
+                  "Ricty Diminished-16" "Migu 2M-11"))
+(add-to-list 'default-frame-alist (cons 'font my:font))
 
 (fset 'yes-or-no-p 'y-or-n-p) ;; "yes/no" が必要なときも "y/n" だけにする
 (setq kill-whole-line t) ;; 行頭で "C-k" すると改行を含む行全体を削除
