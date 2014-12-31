@@ -32,11 +32,6 @@
 ;;             (set-face-foreground 'default "#cfcfcf")
 ;;             (set-face-background 'default "#101010")))
 
-(add-hook 'after-make-frame-functions
-          (lambda (f)
-            (with-selected-frame f
-              (keyboard-translate ?\C-h ?\C-?))))
-
 (setq default-frame-alist
       (append (list
                '(cursor-color . "red3")
@@ -49,6 +44,17 @@
 ;;
 (setq my:font (if (eq my:os-type 'mac) "Ricty Diminished-16" "Migu 2M-11"))
 (add-to-list 'default-frame-alist (cons 'font my:font))
+
+;; keyboard-translate settings
+;;
+(defun my:keyboard-translate ()
+  (when (eq my:os-type 'mac) (keyboard-translate ?¥ ?\\))
+  (keyboard-translate ?\C-h ?\C-?))
+
+(add-hook 'after-make-frame-functions
+          (lambda (f)
+            (with-selected-frame f (my:keyboard-translate))))
+(my:keyboard-translate)
 
 (fset 'yes-or-no-p 'y-or-n-p) ;; "yes/no" が必要なときも "y/n" だけにする
 (setq kill-whole-line t) ;; 行頭で "C-k" すると改行を含む行全体を削除
@@ -343,7 +349,6 @@
 
 ;; global key bindings
 ;;
-(keyboard-translate ?\C-h ?\C-?)
 (global-set-key (kbd "C-M-h") 'help-for-help)
 (define-key ctl-x-map (kbd "C-b") 'bs-show)
 (define-key ctl-x-map (kbd "t") 'toggle-truncate-lines)
