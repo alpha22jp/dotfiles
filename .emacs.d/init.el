@@ -8,6 +8,11 @@
 ;;
 ;; (frame-parameter nil 'font) ;; 使用中のフォントを調べる
 
+;; os-type
+;;
+(defvar my:os-type
+  (if (string-match "apple-darwin" system-configuration) 'mac 'linux))
+
 (add-to-list 'load-path
              (expand-file-name "~/.emacs.d/elpa"))
 
@@ -42,8 +47,7 @@
 
 ;; font setting
 ;;
-(setq my:font (if (string-match "apple-darwin" system-configuration)
-                  "Ricty Diminished-16" "Migu 2M-11"))
+(setq my:font (if (eq my:os-type 'mac) "Ricty Diminished-16" "Migu 2M-11"))
 (add-to-list 'default-frame-alist (cons 'font my:font))
 
 (fset 'yes-or-no-p 'y-or-n-p) ;; "yes/no" が必要なときも "y/n" だけにする
