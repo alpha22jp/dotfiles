@@ -20,6 +20,7 @@
     region-bindings-mode
     recentf-ext
     simplenote
+    swift-mode
     wgrep-ag
     xcscope))
 

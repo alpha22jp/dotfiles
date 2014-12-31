@@ -100,6 +100,14 @@
 ;;
 (add-to-list 'auto-mode-alist '("\\.as$" . java-mode))
 
+;; swift mode settings
+;;
+(when (locate-library "swift-mode")
+  (add-hook 'swift-mode-hook
+            (lambda ()
+              (auto-complete-mode t)
+              (setq indent-tabs-mode nil))))
+
 ;; compilation settings
 ;;
 (setq compile-command "LANG=C make")
@@ -172,7 +180,7 @@
 ;;
 (when (locate-library "fuzzy-format")
   (require 'fuzzy-format)
-  (setq fuzzy-format-default-indent-tabs-mode t)
+  (setq fuzzy-format-default-indent-tabs-mode nil)
   (global-fuzzy-format-mode t))
 
 ;; elscreen
