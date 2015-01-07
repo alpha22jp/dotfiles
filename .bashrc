@@ -6,10 +6,18 @@ if [ -f /etc/bashrc ]; then
 fi
 
 # dircolors
-eval `dircolors -b`
+if [ `uname` = Darwin ]; then
+    export LSCOLORS="gxfxcxdxbxegedabagacad"
+else
+    eval `dircolors -b`
+fi
 
 # User specific aliases and functions
-alias ls='ls -aF --color=auto'
+if [ `uname` = Darwin ]; then
+    alias ls="ls -aFG"
+else
+    alias ls='ls -aF --color=auto'
+fi
 alias ll='ls -al'
 alias screen='screen -U -D -RR'
 alias emacsc='emacsclient -n -c -a ""'
