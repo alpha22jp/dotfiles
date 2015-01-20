@@ -62,6 +62,12 @@
 (setq make-backup-files nil) ;; バックアップファイルを作成しない
 (setq inhibit-startup-screen t) ;; スタートアップ画面を表示しない
 
+;; exec-path-from-shell
+;;
+(when (locate-library "exec-path-from-shell")
+  (require 'exec-path-from-shell)
+  (exec-path-from-shell-initialize))
+
 ;; color-theme
 ;;
 (when (locate-library "color-theme-sanityinc-solarized")

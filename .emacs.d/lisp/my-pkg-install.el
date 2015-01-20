@@ -10,6 +10,7 @@
     auto-complete
     color-theme-sanityinc-solarized
     elscreen
+    exec-path-from-shell
     fuzzy-format
     git-gutter+
     git-gutter-fringe+
