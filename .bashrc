@@ -32,3 +32,8 @@ export PS1='\u@\h:\w\$ '
 if [ "$TERM" == "screen" ]; then
     export PROMPT_COMMAND='echo -ne "\ek$(basename $(pwd))\e\\"'
 fi
+
+# Source local definitions
+if [ -f $HOME/.bashrc.local ]; then
+    . $HOME/.bashrc.local
+fi
