@@ -5,17 +5,12 @@ if [ -f /etc/bashrc ]; then
     . /etc/bashrc
 fi
 
-# dircolors
-if [ `uname` = Darwin ]; then
-    export LSCOLORS="gxfxcxdxbxegedabagacad"
-else
-    eval `dircolors -b`
-fi
-
 # User specific aliases and functions
 if [ `uname` = Darwin ]; then
+    export LSCOLORS="gxfxcxdxbxegedabagacad"
     alias ls="ls -aFG"
 else
+    eval `dircolors -b`
     alias ls='ls -aF --color=auto'
 fi
 alias ll='ls -al'
@@ -26,6 +21,7 @@ alias emacsq='emacsclient -e "(kill-emacs)"'
 # For debug
 ulimit -c unlimited
 
+# Shell prompt setting
 export PS1='\u@\h:\w\$ '
 
 # For screen and tmux
