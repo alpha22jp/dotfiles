@@ -283,14 +283,6 @@
     "Major mode for editing Markdown files" t)
   (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode)))
 
-;; simplenote
-;;
-(when (locate-library "simplenote")
-  (require 'simplenote)
-  (when (locate-library "my-simplenote")
-    (require 'my-simplenote))
-  (simplenote-setup))
-
 ;; simplenote2
 ;;
 (when (locate-library "simplenote2")
