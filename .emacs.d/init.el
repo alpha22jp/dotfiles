@@ -291,6 +291,14 @@
     (require 'my-simplenote))
   (simplenote-setup))
 
+;; simplenote2
+;;
+(when (locate-library "simplenote2")
+  (require 'simplenote2)
+  (when (locate-library "my-simplenote2")
+    (require 'my-simplenote2))
+  (simplenote2-setup))
+
 ;; anything
 ;;
 (when (locate-library "anything")
@@ -390,8 +398,8 @@
 (global-set-key (kbd "C-M-.") 'gtags-find-tag)
 (global-set-key (kbd "M-g") 'goto-line)
 (global-set-key (kbd "C-z") 'undo)
-(global-set-key (kbd "C-c C-d") 'simplenote-push-buffer)
-(global-set-key (kbd "C-c C-e") 'simplenote-pull-buffer)
+(global-set-key (kbd "C-c C-d") 'simplenote2-push-buffer)
+(global-set-key (kbd "C-c C-e") 'simplenote2-pull-buffer)
 (global-set-key (kbd "C-x b") 'anything-for-files)
 (global-set-key (kbd "M-y") 'anything-show-kill-ring)
 (global-set-key (kbd "C-x M-x") 'anything-M-x)
