@@ -61,6 +61,7 @@
 (setq auto-save-default nil) ;; 自動セーブしない
 (setq make-backup-files nil) ;; バックアップファイルを作成しない
 (setq inhibit-startup-screen t) ;; スタートアップ画面を表示しない
+(setq read-file-name-completion-ignore-case t) ;; ファイル名補完でignore case
 
 ;; exec-path-from-shell
 ;;
