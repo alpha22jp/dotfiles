@@ -62,6 +62,7 @@
 (setq make-backup-files nil) ;; バックアップファイルを作成しない
 (setq inhibit-startup-screen t) ;; スタートアップ画面を表示しない
 (setq read-file-name-completion-ignore-case t) ;; ファイル名補完でignore case
+(setq find-file-visit-truename t) ;; シンボリックリンクを実体のパスで開く
 
 ;; exec-path-from-shell
 ;;
