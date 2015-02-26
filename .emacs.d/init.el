@@ -330,6 +330,8 @@
 ;;
 (when (locate-library "multiple-cursors")
   (require 'multiple-cursors)
+  (when (locate-library "autopair")
+    (add-to-list 'mc/unsupported-minor-modes 'autopair-mode))
   (when (locate-library "mc-extras") (require 'mc-extras)))
 
 ;; region bindings mode
