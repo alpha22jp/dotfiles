@@ -131,12 +131,6 @@
 (when (locate-library "autoinsert")
   (require 'autoinsert)
   (auto-insert-mode)
-  (custom-set-variables
-   '(auto-insert-query t)
-   '(auto-insert-alist
-     '((("\\.\\(c\\|cpp\\)$" . "C/C++ source") . ["template.c" my:template-insert-template])
-       (("\\.\\(h\\|hpp\\)$" . "C/C++ header") . ["template.h" my:template-insert-template])))
-   '(auto-insert-directory "~/.emacs.d/template/"))
   (defun my:template-get-filename-base ()
     (file-name-sans-extension (file-name-nondirectory (buffer-file-name))))
   (defun my:template-get-filename-ext ()
@@ -421,6 +415,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(auto-insert-alist (quote ((("\\.\\(c\\|cpp\\)$" . "C/C++ source") . ["template.c" my:template-insert-template]) (("\\.\\(h\\|hpp\\)$" . "C/C++ header") . ["template.h" my:template-insert-template]))))
+ '(auto-insert-directory "~/.emacs.d/template/")
+ '(auto-insert-query t)
  '(column-number-mode t)
  '(scroll-bar-mode (quote right))
  '(show-paren-mode t)
