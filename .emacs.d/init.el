@@ -341,13 +341,12 @@
   (require 'region-bindings-mode)
   (region-bindings-mode-enable)
   (define-key region-bindings-mode-map (kbd "<tab>") 'indent-region)
-  (define-key region-bindings-mode-map (kbd "a") 'mc/mark-all-like-this-dwim)
-  (define-key region-bindings-mode-map (kbd "p") 'mc/mark-previous-like-this)
-  (define-key region-bindings-mode-map (kbd "n") 'mc/mark-next-like-this)
-  (define-key region-bindings-mode-map (kbd "u") 'mc/remove-current-cursor)
-  (define-key region-bindings-mode-map (kbd "M-n") 'mc/cycle-forward)
-  (define-key region-bindings-mode-map (kbd "M-p") 'mc/cycle-backward)
-  (define-key region-bindings-mode-map (kbd "C-t") 'multiple-cursors-mode))
+  (define-key region-bindings-mode-map (kbd "C-t") 'mc/mark-all-like-this-dwim)
+  (define-key region-bindings-mode-map (kbd "M-p") 'mc/mark-previous-like-this)
+  (define-key region-bindings-mode-map (kbd "M-n") 'mc/mark-next-like-this)
+  (define-key region-bindings-mode-map (kbd "M-u") 'mc/remove-current-cursor)
+  (define-key region-bindings-mode-map (kbd "C-M-n") 'mc/cycle-forward)
+  (define-key region-bindings-mode-map (kbd "C-M-p") 'mc/cycle-backward))
 
 ;; coding system settings
 ;;
