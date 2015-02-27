@@ -116,6 +116,14 @@
               (auto-complete-mode t)
               (setq indent-tabs-mode nil))))
 
+;; ruby mode settings
+;;
+(when (locate-library "rcodetools")
+  (require 'rcodetools)
+  (add-hook 'ruby-mode-hook
+            (lambda ()
+              (local-set-key (kbd "C-c C-c") 'xmp))))
+
 ;; compilation settings
 ;;
 (setq compile-command "LANG=C make")
