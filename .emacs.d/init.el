@@ -1,12 +1,16 @@
-;; .emacs.d/init.el for Emacs 23,24
+;;; .emacs.d/init.el --- init.el for Emacs 23,24
 ;;   Author: alpha22jp <alpha22jp@gmail.com>
 ;;   Created: 2008/06/05
+
+;;; Commentary:
 
 ;; ABCEDFGHIJKLMNOPQRSTUVWXYZ
 ;; abcdefghijklmnopqrstuvwxyz
 ;; 0123456789
 ;;
 ;; (frame-parameter nil 'font) ;; 使用中のフォントを調べる
+
+;;; Code:
 
 ;; os-type
 ;;
@@ -274,6 +278,7 @@
 ;; my-vc-status
 ;; VCバックエンドに応じたstatus関数を呼び出す
 (defun my-vc-status ()
+  "Call VC status function depending on backend."
   (interactive)
   (require 'vc)
   (cond ((eq (vc-deduce-backend) 'SVN) (call-interactively 'svn-status))
@@ -449,3 +454,7 @@
  ;; If there is more than one, they won't work right.
  '(flymake-errline ((t (:underline nil))))
  '(flymake-warnline ((t (:underline nil)))))
+
+(provide 'init)
+
+;;; init.el ends here
