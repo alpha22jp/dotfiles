@@ -177,6 +177,17 @@
                        "SYNTAX_CHECK_MODE=1" "check-syntax")))
   (setq flymake-gui-warnings-enabled nil))
 
+;; flycheck
+;;
+(when (locate-library "flycheck")
+  ;; エラーをポップアップで表示
+  (setq flycheck-display-errors-function
+        (lambda (errors)
+          (let ((messages (mapcar #'flycheck-error-message errors)))
+            (popup-tip (mapconcat 'identity messages "\n")))))
+  (setq flycheck-display-errors-delay 0.5)
+  (add-hook 'after-init-hook #'global-flycheck-mode))
+
 ;; auto-complete
 ;;
 (when (locate-library "auto-complete")
