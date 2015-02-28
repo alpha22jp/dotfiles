@@ -46,8 +46,9 @@
 
 ;; font setting
 ;;
-(setq my:font (if (eq my:os-type 'mac) "Ricty Diminished-16" "Migu 2M-11"))
-(add-to-list 'default-frame-alist (cons 'font my:font))
+(add-to-list
+ 'default-frame-alist
+ (cons 'font (if (eq my:os-type 'mac) "Ricty Diminished-16" "Migu 2M-11")))
 
 ;; keyboard-translate settings
 ;;
