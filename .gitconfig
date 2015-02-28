@@ -15,7 +15,7 @@
 
 [core]
 	quotepath = false
-	editor = vi
+	editor = emacsclient
 
 [credential]
 	helper = cache --timeout=3600
