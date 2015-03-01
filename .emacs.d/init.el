@@ -390,7 +390,7 @@
 
 ;; global key bindings
 ;;
-(global-set-key (kbd "C-M-h") 'help-for-help)
+(global-set-key (kbd "M-h") 'help-for-help)
 (define-key ctl-x-map (kbd "C-b") 'bs-show)
 (define-key ctl-x-map (kbd "t") 'toggle-truncate-lines)
 (define-key ctl-x-map (kbd "C-z") 'kill-emacs)
