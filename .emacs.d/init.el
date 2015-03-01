@@ -274,7 +274,11 @@
   (require 'git-gutter+)
   (global-git-gutter+-mode t)
   (when (locate-library "git-gutter-fringe+")
-    (require 'git-gutter-fringe+)))
+    (require 'git-gutter-fringe+))
+  (define-key git-gutter+-mode-map (kbd "M-n") 'git-gutter+-next-hunk)
+  (define-key git-gutter+-mode-map (kbd "M-p") 'git-gutter+-previous-hunk)
+  (define-key git-gutter+-mode-map (kbd "M-l") 'git-gutter+-show-hunk)
+  (define-key git-gutter+-mode-map (kbd "M-r") 'git-gutter+-revert-hunk))
 
 ;; my-vc-status
 ;; VCバックエンドに応じたstatus関数を呼び出す
@@ -396,11 +400,8 @@
 (global-set-key (kbd "C-,") 'beginning-of-buffer)
 (global-set-key (kbd "C-.") 'end-of-buffer)
 (global-set-key (kbd "M-i") 'indent-region)
-(global-set-key (kbd "M-n") 'end-of-defun)
-(global-set-key (kbd "M-p") 'beginning-of-defun)
-(global-set-key (kbd "C-M-n") 'git-gutter+-next-hunk)
-(global-set-key (kbd "C-M-p") 'git-gutter+-previous-hunk)
-(global-set-key (kbd "M-r") 'replace-string)
+(global-set-key (kbd "C-M-n") 'end-of-defun)
+(global-set-key (kbd "C-M-p") 'beginning-of-defun)
 ;(global-set-key (kbd "M-j") 'bs-cycle-next)
 ;(global-set-key (kbd "M-k") 'bs-cycle-previous)
 ;(global-set-key (kbd "M-h") 'elscreen-previous)
