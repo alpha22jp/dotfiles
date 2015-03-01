@@ -280,6 +280,21 @@
   (define-key git-gutter+-mode-map (kbd "M-l") 'git-gutter+-show-hunk)
   (define-key git-gutter+-mode-map (kbd "M-r") 'git-gutter+-revert-hunk))
 
+;; diff-hl
+;;
+(when (locate-library "diff-hl")
+  (require 'diff-hl)
+  (global-diff-hl-mode)
+  (define-key diff-hl-mode-map (kbd "M-n") 'diff-hl-next-hunk)
+  (define-key diff-hl-mode-map (kbd "M-p") 'diff-hl-previous-hunk)
+  (define-key diff-hl-mode-map (kbd "M-l") 'diff-hl-diff-goto-hunk)
+  (define-key diff-hl-mode-map (kbd "M-r") 'diff-hl-revert-hunk)
+  ;; git-gutter+が使えるときはdiff-hlはオフにする
+  (add-hook 'find-file-hook
+            (lambda ()
+              (when (and (locate-library "git-gutter+") (git-gutter+-mode))
+                (diff-hl-mode 0)))))
+
 ;; my-vc-status
 ;; VCバックエンドに応じたstatus関数を呼び出す
 (defun my-vc-status ()
