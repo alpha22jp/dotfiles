@@ -190,8 +190,7 @@
         (lambda (errors)
           (let ((messages (mapcar #'flycheck-error-message errors)))
             (popup-tip (mapconcat 'identity messages "\n")))))
-  (setq flycheck-display-errors-delay 0.5)
-  (add-hook 'after-init-hook #'global-flycheck-mode))
+  (setq flycheck-display-errors-delay 0.5))
 
 ;; auto-complete
 ;;
