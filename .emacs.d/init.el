@@ -380,6 +380,7 @@
   (region-bindings-mode-enable)
   (define-key region-bindings-mode-map (kbd "<tab>") 'indent-region)
   (define-key region-bindings-mode-map (kbd "C-t") 'mc/mark-all-like-this-dwim)
+  (define-key region-bindings-mode-map (kbd "C-l") 'mc/edit-lines)
   (define-key region-bindings-mode-map (kbd "M-p") 'mc/mark-previous-like-this)
   (define-key region-bindings-mode-map (kbd "M-n") 'mc/mark-next-like-this)
   (define-key region-bindings-mode-map (kbd "M-u") 'mc/remove-current-cursor)
