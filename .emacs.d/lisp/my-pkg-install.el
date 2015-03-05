@@ -5,23 +5,27 @@
 
 (setq my:pkg-install-list
   '(ag
-    anything
     autopair
     auto-complete
     color-theme-sanityinc-solarized
+    diff-hl
     elscreen
     exec-path-from-shell
+    flymake
+    flycheck
     fuzzy-format
     git-gutter+
     git-gutter-fringe+
+    helm
+    helm-gtags
     magit
     markdown-mode
     multiple-cursors
     mc-extras
+    rcodetools
     region-bindings-mode
     recentf-ext
-    simplenote
-    swift-mode
+    simplenote2
     wgrep-ag
     xcscope))
 
