@@ -343,6 +343,15 @@
   (setq anything-c-boring-buffer-regexp
         "\\(\\` \\)\\|\\*anything\\|\\*ac-mode\\| \\*Echo Area\\| \\*Minibuf\\|flymake:"))
 
+;; helm
+;;
+(when (locate-library "helm")
+  (require 'helm-config)
+  (setq helm-delete-minibuffer-contents-from-point t)
+  (eval-after-load "helm-files"
+    '(progn
+       (define-key helm-find-files-map (kbd "C-i") 'helm-execute-persistent-action))))
+
 ;; wgrep-ag
 ;;
 (when (locate-library "ag")
@@ -406,14 +415,17 @@
 ;; global key bindings
 ;;
 (global-set-key (kbd "M-h") 'help-for-help)
-(define-key ctl-x-map (kbd "b") 'anything-for-files)
-(define-key ctl-x-map (kbd "C-b") 'bs-show)
+(define-key ctl-x-map (kbd "b") 'helm-mini)
+(define-key ctl-x-map (kbd "C-b") 'helm-buffers-list)
+(define-key ctl-x-map (kbd "C-d") 'helm-descbinds)
+(define-key ctl-x-map (kbd "C-f") 'helm-find-files)
 (define-key ctl-x-map (kbd "t") 'toggle-truncate-lines)
 (define-key ctl-x-map (kbd "C-z") 'kill-emacs)
-(define-key ctl-x-map (kbd "M-x") 'anything-M-x)
+(define-key ctl-x-map (kbd "x") 'helm-M-x)
 (global-set-key (kbd "M-o") 'other-frame)
 (global-set-key (kbd "C-t") 'mc/mark-all-dwim)
 (global-set-key (kbd "C-;") 'comment-dwim)
+(global-set-key (kbd "C-:") 'helm-mini)
 (global-set-key (kbd "C-,") 'beginning-of-buffer)
 (global-set-key (kbd "C-.") 'end-of-buffer)
 (global-set-key (kbd "M-i") 'indent-region)
@@ -429,7 +441,7 @@
 (global-set-key (kbd "C-z") 'undo)
 (global-set-key (kbd "C-c C-d") 'simplenote2-push-buffer)
 (global-set-key (kbd "C-c C-e") 'simplenote2-pull-buffer)
-(global-set-key (kbd "M-y") 'anything-show-kill-ring)
+(global-set-key (kbd "M-y") 'helm-show-kill-ring)
 (global-set-key [hiragana-katakana] 'dabbrev-expand)
 (global-set-key [henkan] 'toggle-input-method)
 (global-set-key [f1] 'delete-other-windows)
@@ -467,7 +479,8 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(flymake-errline ((t (:underline nil))))
- '(flymake-warnline ((t (:underline nil)))))
+ '(flymake-warnline ((t (:underline nil))))
+ '(helm-selection ((t (:inherit highlight :background "dark green")))))
 
 (provide 'init)
 
