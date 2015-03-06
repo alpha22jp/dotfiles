@@ -361,6 +361,8 @@
   ;; customize
   (setq helm-c-gtags-path-style 'relative)
   (setq helm-c-gtags-ignore-case t)
+  (setq helm-gtags-auto-update t)
+  (setq helm-gtags-pulse-at-cursor nil)
   ;; key bindings
   (add-hook 'helm-gtags-mode-hook
             '(lambda ()
