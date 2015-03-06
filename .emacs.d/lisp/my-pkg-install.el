@@ -17,6 +17,7 @@
     git-gutter+
     git-gutter-fringe+
     helm
+    helm-ag
     helm-descbinds
     helm-gtags
     magit

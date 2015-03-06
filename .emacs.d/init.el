@@ -368,6 +368,11 @@
                (local-set-key (kbd "M-s") 'helm-gtags-find-symbol)
                (local-set-key (kbd "M-,") 'helm-gtags-pop-stack))))
 
+;; helm-ag
+;;
+(when (locate-library "helm-ag")
+  (setq helm-ag-insert-at-point 'symbol))
+
 ;; wgrep-ag
 ;;
 (when (locate-library "ag")
@@ -468,7 +473,7 @@
 (define-key global-map [(control f5)] 'gtags-find-tag)
 (define-key global-map [(control f6)] 'gtags-find-rtag)
 (global-set-key [f7] 'compile)
-(global-set-key [f8] 'ag)
+(global-set-key [f8] 'helm-ag)
 (global-set-key [f9] 'svn-status-show-svn-log)
 (global-set-key [f10] 'my-vc-status)
 (global-set-key [f11] 'vc-diff)
