@@ -431,10 +431,9 @@
 ;; global key bindings
 ;;
 (global-set-key (kbd "M-h") 'help-for-help)
-(define-key ctl-x-map (kbd "b") 'helm-mini)
-(define-key ctl-x-map (kbd "C-b") 'helm-buffers-list)
+(define-key ctl-x-map (kbd "b") 'helm-for-files)
+(define-key ctl-x-map (kbd "C-b") 'bs-show)
 (define-key ctl-x-map (kbd "C-d") 'helm-descbinds)
-(define-key ctl-x-map (kbd "C-f") 'helm-find-files)
 (define-key ctl-x-map (kbd "t") 'toggle-truncate-lines)
 (define-key ctl-x-map (kbd "C-z") 'kill-emacs)
 (define-key ctl-x-map (kbd "x") 'helm-M-x)
