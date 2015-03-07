@@ -30,11 +30,6 @@
 
 (require 'my-pkg-install nil 'noerror)
 
-;; (add-hook 'window-setup-hook
-;;           (lambda ()
-;;             (set-face-foreground 'default "#cfcfcf")
-;;             (set-face-background 'default "#101010")))
-
 (setq default-frame-alist
       (append (list
                '(cursor-color . "red3")
@@ -75,12 +70,17 @@
 
 ;; color-theme
 ;;
-(when (locate-library "color-theme-sanityinc-solarized")
-  (if (>= emacs-major-version 24)
-      (load-theme 'sanityinc-solarized-dark t)
-    (when (require 'color-theme nil t)
-      (require 'color-theme-sanityinc-solarized)
-      (color-theme-sanityinc-solarized-dark))))
+(if (locate-library "color-theme-sanityinc-solarized")
+    (if (>= emacs-major-version 24)
+        (load-theme 'sanityinc-solarized-dark t)
+      (when (require 'color-theme nil 'noerror)
+        (require 'color-theme-sanityinc-solarized nil 'noerror)
+        (color-theme-sanityinc-solarized-dark)))
+  ;; No theme found, use manual settings
+  (add-hook 'window-setup-hook
+            (lambda ()
+              (set-face-foreground 'default "#cfcfcf")
+              (set-face-background 'default "#101010"))))
 
 ;; proxy settings
 ;;
