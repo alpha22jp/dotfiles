@@ -55,6 +55,13 @@
             (with-selected-frame f (my:keyboard-translate))))
 (my:keyboard-translate)
 
+;; general settings
+;;
+(tool-bar-mode 0) ;; ツールバーを表示しない
+(tooltip-mode 0) ;; ツールチップを表示しない
+(set-scroll-bar-mode 'right) ;; スクロールバーを右側に表示
+(column-number-mode) ;; モードラインに桁数を表示する
+(show-paren-mode) ;; 対応する括弧を強調表示する
 (fset 'yes-or-no-p 'y-or-n-p) ;; "yes/no" が必要なときも "y/n" だけにする
 (setq kill-whole-line t) ;; 行頭で "C-k" すると改行を含む行全体を削除
 (setq auto-save-default nil) ;; 自動セーブしない
@@ -137,6 +144,11 @@
 ;;
 (when (require 'autoinsert nil 'noerror)
   (auto-insert-mode)
+  (setq auto-insert-alist
+        '((("\\.\\(c\\|cpp\\)$" . "C/C++ source") . ["template.c" my:template-insert-template])
+          (("\\.\\(h\\|hpp\\)$" . "C/C++ header") . ["template.h" my:template-insert-template])))
+  (setq auto-insert-directory "~/.emacs.d/template/")
+  (setq auto-insert-query t)
   (defun my:template-get-filename-base ()
     (file-name-sans-extension (file-name-nondirectory (buffer-file-name))))
   (defun my:template-get-filename-ext ()
@@ -463,14 +475,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(auto-insert-alist (quote ((("\\.\\(c\\|cpp\\)$" . "C/C++ source") . ["template.c" my:template-insert-template]) (("\\.\\(h\\|hpp\\)$" . "C/C++ header") . ["template.h" my:template-insert-template]))))
- '(auto-insert-directory "~/.emacs.d/template/")
- '(auto-insert-query t)
- '(column-number-mode t)
- '(scroll-bar-mode (quote right))
- '(show-paren-mode t)
- '(tool-bar-mode nil)
- '(tooltip-mode nil))
+)
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
