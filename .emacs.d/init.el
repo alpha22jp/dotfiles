@@ -506,7 +506,7 @@
  ;; If there is more than one, they won't work right.
  '(flymake-errline ((t (:underline nil))))
  '(flymake-warnline ((t (:underline nil))))
- '(helm-selection ((t (:inherit highlight :background "dark green")))))
+ '(helm-selection ((t (:inherit highlight :background "firebrick4")))))
 
 (provide 'init)
 
