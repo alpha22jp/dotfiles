@@ -349,6 +349,9 @@
   (require 'helm-config)
   (setq helm-delete-minibuffer-contents-from-point t)
   (setq helm-buffer-max-length 35)
+  ;; バッファの並び順を変更しない
+  (defadvice helm-buffers-sort-transformer (around ignore activate)
+    (setq ad-return-value (ad-get-arg 0)))
   (eval-after-load "helm-files"
     '(progn
        (define-key helm-find-files-map (kbd "C-i") 'helm-execute-persistent-action))))
