@@ -20,8 +20,7 @@
 (add-to-list 'load-path
              (expand-file-name "~/.emacs.d/elpa"))
 
-(when (locate-library "package")
-  (require 'package)
+(when (require 'package nil 'noerror)
   (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
   ;; (add-to-list 'package-archives '("ELPA" . "http://tromey.com/elpa/"))
   (package-initialize))
@@ -29,7 +28,7 @@
 (add-to-list 'load-path
              (expand-file-name "~/.emacs.d/lisp"))
 
-(when (locate-library "my-pkg-install") (require 'my-pkg-install))
+(require 'my-pkg-install nil 'noerror)
 
 ;; (add-hook 'window-setup-hook
 ;;           (lambda ()
@@ -71,8 +70,7 @@
 
 ;; exec-path-from-shell
 ;;
-(when (locate-library "exec-path-from-shell")
-  (require 'exec-path-from-shell)
+(when (require 'exec-path-from-shell nil 'noerror)
   (exec-path-from-shell-initialize))
 
 ;; color-theme
@@ -86,8 +84,7 @@
 
 ;; proxy settings
 ;;
-(when (locate-library "my-proxy")
-  (require 'my-proxy))
+(require 'my-proxy nil 'noerror)
 
 ;; c/c++ mode settings
 ;;
@@ -115,16 +112,14 @@
 
 ;; swift mode settings
 ;;
-(when (locate-library "swift-mode")
-  (add-hook 'swift-mode-hook
-            (lambda ()
-              (auto-complete-mode t)
-              (setq indent-tabs-mode nil))))
+(add-hook 'swift-mode-hook
+          (lambda ()
+            (auto-complete-mode t)
+            (setq indent-tabs-mode nil)))
 
 ;; ruby mode settings
 ;;
-(when (locate-library "rcodetools")
-  (require 'rcodetools)
+(when (require 'rcodetools nil 'noerror)
   (add-hook 'ruby-mode-hook
             (lambda ()
               (local-set-key (kbd "C-c C-c") 'xmp))))
@@ -136,13 +131,11 @@
 
 ;; diff settings
 ;;
-(when (locate-library "diff-color")
-  (require 'diff-color nil t))
+(require 'diff-color nil 'noerror)
 
 ;; autoinsert
 ;;
-(when (locate-library "autoinsert")
-  (require 'autoinsert)
+(when (require 'autoinsert nil 'noerror)
   (auto-insert-mode)
   (defun my:template-get-filename-base ()
     (file-name-sans-extension (file-name-nondirectory (buffer-file-name))))
@@ -164,18 +157,14 @@
 
 ;; autopair
 ;;
-(when (locate-library "autopair")
-  (require 'autopair)
+(when (require 'autopair nil 'noerror)
   (autopair-global-mode))
 
 ;; flymake
 ;;
-(when (locate-library "flymake")
-  (require 'flymake)
-  (require 'flymake-fringe nil t)
-  (when (and (locate-library "popup")
-	     (locate-library "flymake-popup"))
-    (require 'flymake-popup))
+(when (require 'flymake nil 'noerror)
+  (require 'flymake-fringe nil 'noerror)
+  (when (locate-library "popup") (require 'flymake-popup nil 'noerror))
   (defun flymake-get-make-cmdline (source base-dir)
     (list "make" (list "-s" "-C" base-dir "LANG=C"
                        (concat "CHK_SOURCES=" source)
@@ -194,8 +183,7 @@
 
 ;; auto-complete
 ;;
-(when (locate-library "auto-complete")
-  (require 'auto-complete-config)
+(when (require 'auto-complete-config nil 'noerror)
   (ac-config-default)
   (setq ac-auto-start nil)
   (ac-set-trigger-key "TAB")
@@ -203,15 +191,13 @@
 
 ;; fuzzy-format
 ;;
-(when (locate-library "fuzzy-format")
-  (require 'fuzzy-format)
+(when (require 'fuzzy-format nil 'noerror)
   (setq fuzzy-format-default-indent-tabs-mode nil)
   (global-fuzzy-format-mode t))
 
 ;; elscreen
 ;;
-(when (locate-library "elscreen")
-  (require 'elscreen)
+(when (require 'elscreen nil 'noerror)
   (setq elscreen-prefix-key "\C-o")
   (elscreen-start)
   (add-hook 'dired-mode-hook
@@ -221,14 +207,12 @@
 
 ;; uniquify
 ;;
-(when (locate-library "uniquify")
-  (require 'uniquify)
+(when (require 'uniquify nil 'noerror)
   (setq uniquify-buffer-name-style 'post-forward-angle-brackets))
 
 ;; igrep
 ;;
-(when (locate-library "igrep")
-  (require 'igrep)
+(when (require 'igrep nil 'noerror)
   (setq igrep-program "lgrep")
   (setq igrep-options "-Au8")
   (setq igrep-regex-option nil)
@@ -237,8 +221,7 @@
 
 ;; gtags
 ;;
-(when (locate-library "gtags")
-  (require 'gtags)
+(when (require 'gtags nil 'noerror)
   (setq gtags-path-style 'relative)
   (setq gtags-select-buffer-single nil)
   (setq gtags-ignore-case nil) ;; 検索時に大文字・小文字を区別する
@@ -249,9 +232,8 @@
 
 ;; psvn
 ;;
-(when (locate-library "psvn")
-  (setq svn-status-prefix-key '[(hyper s)])
-  (require 'psvn)
+(when (require 'psvn nil 'noerror)
+;  (setq svn-status-prefix-key '[(hyper s)])
   (require 'vc-svn) ;; Emacs23におけるSVN管理ファイル判定問題の対応のため
   (setq svn-status-hide-unmodified t)
   (setq svn-status-hide-unknown t)
@@ -269,11 +251,9 @@
 
 ;; git-gutter+
 ;;
-(when (locate-library "git-gutter+")
-  (require 'git-gutter+)
+(when (require 'git-gutter+)
   (global-git-gutter+-mode t)
-  (when (locate-library "git-gutter-fringe+")
-    (require 'git-gutter-fringe+))
+  (require 'git-gutter-fringe+ nil 'noerror)
   (define-key git-gutter+-mode-map (kbd "M-n") 'git-gutter+-next-hunk)
   (define-key git-gutter+-mode-map (kbd "M-p") 'git-gutter+-previous-hunk)
   (define-key git-gutter+-mode-map (kbd "M-l") 'git-gutter+-show-hunk)
@@ -281,8 +261,7 @@
 
 ;; diff-hl
 ;;
-(when (locate-library "diff-hl")
-  (require 'diff-hl)
+(when (require 'diff-hl nil 'noerror)
   (global-diff-hl-mode)
   (define-key diff-hl-mode-map (kbd "M-n") 'diff-hl-next-hunk)
   (define-key diff-hl-mode-map (kbd "M-p") 'diff-hl-previous-hunk)
@@ -306,8 +285,7 @@
 
 ;; cscope
 ;;
-(when (locate-library "xcscope")
-  (require 'xcscope))
+(require 'xcscope nil 'noerror)
 
 ;; eshell mode settings
 ;;
@@ -317,24 +295,18 @@
 
 ;; markdown mode
 ;;
-(when (locate-library "markdown-mode")
-  (autoload 'markdown-mode "markdown-mode"
-    "Major mode for editing Markdown files" t)
-  (add-to-list 'auto-mode-alist
-               '("\\.md\\'\\|app\\.simplenote\\.com_" . markdown-mode)))
+(add-to-list 'auto-mode-alist
+             '("\\.md\\'\\|app\\.simplenote\\.com_" . markdown-mode))
 
 ;; simplenote2
 ;;
-(when (locate-library "simplenote2")
-  (require 'simplenote2)
-  (when (locate-library "my-simplenote2")
-    (require 'my-simplenote2))
+(when (require 'simplenote2 nil 'noerror)
+  (require 'my-simplenote2 nil 'noerror)
   (simplenote2-setup))
 
 ;; anything
 ;;
-(when (locate-library "anything")
-  (require 'anything-startup)
+(when (require 'anything-startup nil 'noerror)
   (when (>= emacs-major-version 24)
     ;; 補完バッファのヘッダのフェイスを変更 (選択行と重複して見にくいので)
     (set-face-attribute 'anything-header nil
@@ -345,8 +317,7 @@
 
 ;; helm
 ;;
-(when (locate-library "helm")
-  (require 'helm-config)
+(when (require 'helm-config nil 'noerror)
   (setq helm-delete-minibuffer-contents-from-point t)
   (setq helm-buffer-max-length 35)
   ;; バッファの並び順を変更しない
@@ -358,8 +329,7 @@
 
 ;; helm-gtags
 ;;
-(when (locate-library "helm-gtags")
-  (require 'helm-gtags)
+(when (require 'helm-gtags nil 'noerror)
   (add-hook 'c-mode-hook (lambda () (helm-gtags-mode)))
   ;; customize
   (setq helm-c-gtags-path-style 'relative)
@@ -376,43 +346,38 @@
 
 ;; helm-ag
 ;;
-(when (locate-library "helm-ag")
-  (setq helm-ag-insert-at-point 'symbol))
+(setq helm-ag-insert-at-point 'symbol)
 
 ;; wgrep-ag
 ;;
-(when (locate-library "ag")
-  (require 'ag)
+(when (require 'ag nil 'noerror)
   (when (>= emacs-major-version 24)
     (setq ag-highlight-search t))
   (setq ag-reuse-buffers t))
-(when (locate-library "wgrep-ag")
+(when (require 'wgrep-ag nil 'noerror)
   (add-hook 'ag-mode-hook
             (lambda ()
-	      (require 'wgrep-ag)
-	      (setq wgrep-auto-save-buffer t)  ; 編集完了と同時に保存
-	      (setq wgrep-enable-key "r")      ; "r" キーで編集モードに
-	      (wgrep-ag-setup))))
+              (setq wgrep-auto-save-buffer t)  ; 編集完了と同時に保存
+              (setq wgrep-enable-key "r")      ; "r" キーで編集モードに
+              (wgrep-ag-setup))))
 
 ;; recentf
 ;;
 (setq recentf-save-file "~/.emacs.d/.recentf")
 (setq recentf-max-saved-items 100)
 (setq recentf-exclude '("/.simplenote2/*" "/TAGS$" "/COMMIT_EDITMSG$"))
-(when (locate-library "recentf-ext") (require 'recentf-ext))
+(require 'recentf-ext nil 'noerror)
 
 ;; multiple-cursors
 ;;
-(when (locate-library "multiple-cursors")
-  (require 'multiple-cursors)
+(when (require 'multiple-cursors nil 'noerror)
   (when (locate-library "autopair")
     (add-to-list 'mc/unsupported-minor-modes 'autopair-mode))
-  (when (locate-library "mc-extras") (require 'mc-extras)))
+  (require 'mc-extras nil 'noerror))
 
 ;; region bindings mode
 ;;
-(when (locate-library "region-bindings-mode")
-  (require 'region-bindings-mode)
+(when (require 'region-bindings-mode nil 'noerror)
   (region-bindings-mode-enable)
   (define-key region-bindings-mode-map (kbd "<tab>") 'indent-region)
   (define-key region-bindings-mode-map (kbd "C-t") 'mc/mark-all-like-this-dwim)
@@ -440,12 +405,10 @@
 
 ;; input method
 ;;
-(when (locate-library "mozc")
-  (require 'mozc)
+(when (require 'mozc nil 'noerror)
   (setq default-input-method "japanese-mozc")
   (define-key mozc-mode-map [henkan] 'toggle-input-method)
-  (when (locate-library "ac-mozc")
-    (require 'ac-mozc)
+  (when (require 'ac-mozc nil 'noerror)
     (define-key ac-mode-map [muhenkan] 'ac-complete-mozc)))
 
 ;; global key bindings
