@@ -423,6 +423,15 @@
   (define-key region-bindings-mode-map (kbd "C-M-n") 'mc/cycle-forward)
   (define-key region-bindings-mode-map (kbd "C-M-p") 'mc/cycle-backward))
 
+;; projectile
+;;
+(when (locate-library "projectile")
+  (projectile-global-mode)
+  (setq projectile-completion-system 'helm)
+  (define-key projectile-mode-map (kbd "C-c C-f") 'projectile-find-file)
+  (define-key projectile-mode-map (kbd "C-c C-r") 'projectile-recentf)
+  (define-key projectile-mode-map (kbd "C-c C-s") 'helm-projectile-ag))
+
 ;; coding system settings
 ;;
 (set-language-environment "Japanese")

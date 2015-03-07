@@ -24,6 +24,7 @@
     markdown-mode
     multiple-cursors
     mc-extras
+    projectile
     rcodetools
     region-bindings-mode
     recentf-ext
