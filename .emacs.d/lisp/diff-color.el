@@ -8,6 +8,14 @@
   (set-face-attribute 'diff-added nil :background "#335533")
   ;; 削除された行は赤で表示
   (set-face-attribute 'diff-removed nil :background "#553333")
+  ;; 追加された行の強調表示
+  (set-face-attribute 'diff-refine-added nil
+                      :foreground nil :background nil
+		      :inherit 'diff-added :inverse-video t)
+  ;; 削除された行の強調表示
+  (set-face-attribute 'diff-refine-removed nil
+                      :foreground nil :background nil
+		      :inherit 'diff-removed :inverse-video t)
   ;; 文字単位での変更箇所は色を反転して強調
   (set-face-attribute 'diff-refine-change nil
                       :foreground nil :background nil
