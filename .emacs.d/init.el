@@ -353,7 +353,7 @@
 
 ;; helm
 ;;
-(require 'helm-config nil 'noerror)
+(defvar my:helmp (require 'helm-config nil 'noerror))
 (eval-after-load "helm"
   '(progn
      (setq helm-delete-minibuffer-contents-from-point t)
@@ -465,16 +465,15 @@
 ;; global key bindings
 ;;
 (global-set-key (kbd "M-h") 'help-for-help)
-(define-key ctl-x-map (kbd "b") 'helm-for-files)
 (define-key ctl-x-map (kbd "C-b") 'bs-show)
 (define-key ctl-x-map (kbd "C-d") 'helm-descbinds)
 (define-key ctl-x-map (kbd "t") 'toggle-truncate-lines)
 (define-key ctl-x-map (kbd "C-z") 'kill-emacs)
-(define-key ctl-x-map (kbd "x") 'helm-M-x)
+(define-key ctl-x-map (kbd "x") (if my:helmp 'helm-M-x 'anything-M-x))
 (global-set-key (kbd "M-o") 'other-frame)
 (global-set-key (kbd "C-t") 'mc/mark-all-dwim)
 (global-set-key (kbd "C-;") 'comment-dwim)
-(global-set-key (kbd "C-:") 'helm-mini)
+(global-set-key (kbd "C-:") (if my:helmp 'helm-mini 'anything-for-files))
 (global-set-key (kbd "C-,") 'beginning-of-buffer)
 (global-set-key (kbd "C-.") 'end-of-buffer)
 (global-set-key (kbd "M-i") 'indent-region)
@@ -490,7 +489,8 @@
 (global-set-key (kbd "C-z") 'undo)
 (global-set-key (kbd "C-c C-d") 'simplenote2-push-buffer)
 (global-set-key (kbd "C-c C-e") 'simplenote2-pull-buffer)
-(global-set-key (kbd "M-y") 'helm-show-kill-ring)
+(global-set-key (kbd "M-y")
+                (if my:helmp 'helm-show-kill-ring 'anything-show-kill-ring))
 (global-set-key [hiragana-katakana] 'dabbrev-expand)
 (global-set-key [henkan] 'toggle-input-method)
 (global-set-key [f1] 'delete-other-windows)
