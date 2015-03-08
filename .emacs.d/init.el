@@ -422,18 +422,16 @@
 
 ;; region bindings mode
 ;;
-(require 'region-bindings-mode nil 'noerror)
-(eval-after-load "region-bindings-mode"
-  '(progn
-     (region-bindings-mode-enable)
-     (define-key region-bindings-mode-map (kbd "<tab>") 'indent-region)
-     (define-key region-bindings-mode-map (kbd "C-t") 'mc/mark-all-like-this-dwim)
-     (define-key region-bindings-mode-map (kbd "C-l") 'mc/edit-lines)
-     (define-key region-bindings-mode-map (kbd "M-p") 'mc/mark-previous-like-this)
-     (define-key region-bindings-mode-map (kbd "M-n") 'mc/mark-next-like-this)
-     (define-key region-bindings-mode-map (kbd "M-u") 'mc/remove-current-cursor)
-     (define-key region-bindings-mode-map (kbd "C-M-n") 'mc/cycle-forward)
-     (define-key region-bindings-mode-map (kbd "C-M-p") 'mc/cycle-backward)))
+(when (require 'region-bindings-mode nil 'noerror)
+  (region-bindings-mode-enable)
+  (define-key region-bindings-mode-map (kbd "<tab>") 'indent-region)
+  (define-key region-bindings-mode-map (kbd "C-t") 'mc/mark-all-like-this-dwim)
+  (define-key region-bindings-mode-map (kbd "C-l") 'mc/edit-lines)
+  (define-key region-bindings-mode-map (kbd "M-p") 'mc/mark-previous-like-this)
+  (define-key region-bindings-mode-map (kbd "M-n") 'mc/mark-next-like-this)
+  (define-key region-bindings-mode-map (kbd "M-u") 'mc/remove-current-cursor)
+  (define-key region-bindings-mode-map (kbd "C-M-n") 'mc/cycle-forward)
+  (define-key region-bindings-mode-map (kbd "C-M-p") 'mc/cycle-backward))
 
 ;; projectile
 ;;
