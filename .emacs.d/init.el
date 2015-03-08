@@ -4,12 +4,6 @@
 
 ;;; Commentary:
 
-;; ABCEDFGHIJKLMNOPQRSTUVWXYZ
-;; abcdefghijklmnopqrstuvwxyz
-;; 0123456789
-;;
-;; (frame-parameter nil 'font) ;; 使用中のフォントを調べる
-
 ;;; Code:
 
 ;; os-type
@@ -33,20 +27,21 @@
 (add-to-list 'load-path my:lisp-dir)
 
 (require 'my-pkg-install nil 'noerror)
+(require 'my-proxy nil 'noerror) ;; for http proxy
 
+;; frame and font settings
+;;
+(defvar my:default-font
+  (if (eq my:os-type 'mac) "Ricty Diminished-16" "Migu 2M-11"))
+;; (frame-parameter nil 'font) ;; 使用中のフォントを調べる
 (setq default-frame-alist
       (append (list
+               (cons 'font my:default-font)
                '(cursor-color . "red3")
                '(alpha . 90)
                '(width .  80)
                '(height . 40))
               default-frame-alist))
-
-;; font setting
-;;
-(add-to-list
- 'default-frame-alist
- (cons 'font (if (eq my:os-type 'mac) "Ricty Diminished-16" "Migu 2M-11")))
 
 ;; keyboard-translate settings
 ;;
@@ -92,10 +87,6 @@
             (lambda ()
               (set-face-foreground 'default "#cfcfcf")
               (set-face-background 'default "#101010"))))
-
-;; proxy settings
-;;
-(require 'my-proxy nil 'noerror)
 
 ;; c/c++ mode settings
 ;;
