@@ -374,6 +374,7 @@
      (setq helm-c-gtags-path-style 'relative)
      (setq helm-c-gtags-ignore-case t)
      (setq helm-gtags-auto-update t)
+     (setq helm-gtags-update-interval-second 0)
      (setq helm-gtags-pulse-at-cursor nil)
      (add-hook 'helm-gtags-mode-hook
                '(lambda ()
