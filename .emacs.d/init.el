@@ -294,19 +294,17 @@
 
 ;; diff-hl
 ;;
-(require 'diff-hl nil 'noerror)
-(eval-after-load "diff-hl"
-  '(progn
-     (global-diff-hl-mode)
-     (define-key diff-hl-mode-map (kbd "M-n") 'diff-hl-next-hunk)
-     (define-key diff-hl-mode-map (kbd "M-p") 'diff-hl-previous-hunk)
-     (define-key diff-hl-mode-map (kbd "M-l") 'diff-hl-diff-goto-hunk)
-     (define-key diff-hl-mode-map (kbd "M-r") 'diff-hl-revert-hunk)
-     ;; git-gutter+が使えるときはdiff-hlはオフにする
-     (add-hook 'find-file-hook
-               (lambda ()
-                 (when (and (locate-library "git-gutter+") (git-gutter+-mode))
-                   (diff-hl-mode 0))))))
+(when (locate-library "diff-hl")
+  (eval-after-load "diff-hl"
+    '(progn
+       (define-key diff-hl-mode-map (kbd "M-n") 'diff-hl-next-hunk)
+       (define-key diff-hl-mode-map (kbd "M-p") 'diff-hl-previous-hunk)
+       (define-key diff-hl-mode-map (kbd "M-l") 'diff-hl-diff-goto-hunk)
+       (define-key diff-hl-mode-map (kbd "M-r") 'diff-hl-revert-hunk)))
+  ;; c-modeでgit-gutter+が使えないときだけdiff-hlを使用する
+  (add-hook 'c-mode-hook
+            (lambda ()
+              (unless (git-gutter+-mode) (diff-hl-mode)))))
 
 ;; my-vc-status
 ;; VCバックエンドに応じたstatus関数を呼び出す
