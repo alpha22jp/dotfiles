@@ -13,11 +13,13 @@
 
 ;; package settings
 ;;
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/elpa"))
-(when (require 'package nil 'noerror)
-  (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
-  ;; (add-to-list 'package-archives '("ELPA" . "http://tromey.com/elpa/"))
-  (package-initialize))
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/elpa")) ;; for Emacs23
+(require 'package nil 'noerror)
+(eval-after-load "package"
+  '(progn
+     (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
+     ;; (add-to-list 'package-archives '("ELPA" . "http://tromey.com/elpa/"))
+     (package-initialize)))
 
 ;; local elisp settings
 ;;
@@ -28,6 +30,7 @@
 
 (require 'my-pkg-install nil 'noerror)
 (require 'my-proxy nil 'noerror) ;; for http proxy
+(require 'diff-color nil 'noerror) ;; for diff
 
 ;; frame and font settings
 ;;
@@ -90,23 +93,26 @@
 
 ;; c/c++ mode settings
 ;;
-(setq c-default-style "stroustrup")
-(which-function-mode t)
-(add-hook 'c-mode-common-hook
-          (lambda ()
-	    (flymake-mode t)
-            (c-toggle-hungry-state 1)
-	    (local-unset-key (kbd "C-M-h"))
-	    (setq comment-column 4)
-	    (setq indent-tabs-mode nil)
-	    (setq tab-width 4)))
-(add-hook 'c++-mode-hook
-          (lambda ()
-	    (setq c-basic-offset 4)))
+(eval-after-load "cc-vars"
+  '(progn
+     (setq c-default-style "stroustrup")
+     (which-function-mode t)
+     (add-hook 'c-mode-common-hook
+               (lambda ()
+                 (flymake-mode t)
+                 (c-toggle-hungry-state 1)
+                 (local-unset-key (kbd "C-M-h"))
+                 (setq comment-column 4)
+                 (setq indent-tabs-mode nil)
+                 (setq tab-width 4)))
+     (add-hook 'c++-mode-hook
+               (lambda ()
+                 (setq c-basic-offset 4)))))
 
 ;; hexl mode settings
 ;;
-(setq hexl-options "-hex -group-by-8-bits")
+(eval-after-load "hexl"
+  '(progn (setq hexl-options "-hex -group-by-8-bits")))
 
 ;; java mode settings
 ;;
@@ -121,46 +127,48 @@
 
 ;; ruby mode settings
 ;;
-(when (require 'rcodetools nil 'noerror)
-  (add-hook 'ruby-mode-hook
-            (lambda ()
-              (local-set-key (kbd "C-c C-c") 'xmp))))
+(eval-after-load "ruby-mode"
+'(progn
+   (require 'rcodetools nil 'noerror)
+   (add-hook 'ruby-mode-hook
+             (lambda ()
+               (local-set-key (kbd "C-c C-c") 'xmp)))))
 
 ;; compilation settings
 ;;
-(setq compile-command "LANG=C make")
-(setq compilation-scroll-output t)
-
-;; diff settings
-;;
-(require 'diff-color nil 'noerror)
+(eval-after-load "compile"
+'(progn
+   (setq compile-command "LANG=C make")
+   (setq compilation-scroll-output t)))
 
 ;; autoinsert
 ;;
-(when (require 'autoinsert nil 'noerror)
-  (auto-insert-mode)
-  (setq auto-insert-alist
-        '((("\\.\\(c\\|cpp\\)$" . "C/C++ source") . ["template.c" my:template-insert-template])
-          (("\\.\\(h\\|hpp\\)$" . "C/C++ header") . ["template.h" my:template-insert-template])))
-  (setq auto-insert-directory "~/.emacs.d/template/")
-  (setq auto-insert-query t)
-  (defun my:template-get-filename-base ()
-    (file-name-sans-extension (file-name-nondirectory (buffer-file-name))))
-  (defun my:template-get-filename-ext ()
-    (file-name-extension (file-name-nondirectory (buffer-file-name))))
-  (defvar my:template-replacement-alist
-    '(("%file%"          . (lambda () (file-name-nondirectory (buffer-file-name))))
-      ("%file-base%"     . (lambda () (my:template-get-filename-base)))
-      ("%date%"          . (lambda () (format-time-string "%Y-%m-%d")))
-      ("%include-guard%" . (lambda () (format "__%s_%s__"
-                                              (upcase (my:template-get-filename-base))
-                                              (upcase (my:template-get-filename-ext)))))))
-  (defun my:template-insert-template ()
-    (mapc (lambda (c)
-	    (progn
-	      (replace-string (car c) (funcall (cdr c)) nil)
-	      (goto-char (point-min))))
-          my:template-replacement-alist)))
+(require 'autoinsert nil 'noerror)
+(eval-after-load "autoinsert"
+  '(progn
+     (auto-insert-mode)
+     (setq auto-insert-alist
+           '((("\\.\\(c\\|cpp\\)$" . "C/C++ source") . ["template.c" my:template-insert])
+             (("\\.\\(h\\|hpp\\)$" . "C/C++ header") . ["template.h" my:template-insert])))
+     (setq auto-insert-directory "~/.emacs.d/template/")
+     (setq auto-insert-query t)
+     (defun my:template-get-filename-base ()
+       (file-name-sans-extension (file-name-nondirectory (buffer-file-name))))
+     (defun my:template-get-filename-ext ()
+       (file-name-extension (file-name-nondirectory (buffer-file-name))))
+     (defvar my:template-replacement-alist
+       '(("%file%"          . (lambda () (file-name-nondirectory (buffer-file-name))))
+         ("%file-base%"     . (lambda () (my:template-get-filename-base)))
+         ("%date%"          . (lambda () (format-time-string "%Y-%m-%d")))
+         ("%include-guard%" . (lambda () (format "__%s_%s__"
+                                                 (upcase (my:template-get-filename-base))
+                                                 (upcase (my:template-get-filename-ext)))))))
+     (defun my:template-insert ()
+       (mapc (lambda (c)
+               (progn
+                 (replace-string (car c) (funcall (cdr c)) nil)
+                 (goto-char (point-min))))
+             my:template-replacement-alist))))
 
 ;; autopair
 ;;
@@ -169,82 +177,98 @@
 
 ;; flymake
 ;;
-(when (require 'flymake nil 'noerror)
-  (require 'flymake-fringe nil 'noerror)
-  (when (locate-library "popup") (require 'flymake-popup nil 'noerror))
-  (defun flymake-get-make-cmdline (source base-dir)
-    (list "make" (list "-s" "-C" base-dir "LANG=C"
-                       (concat "CHK_SOURCES=" source)
-                       "SYNTAX_CHECK_MODE=1" "check-syntax")))
-  (setq flymake-gui-warnings-enabled nil))
+(require 'flymake nil 'noerror)
+(eval-after-load "flymake"
+  '(progn
+     (require 'flymake-fringe nil 'noerror)
+     (when (locate-library "popup") (require 'flymake-popup nil 'noerror))
+     (defun flymake-get-make-cmdline (source base-dir)
+       (list "make" (list "-s" "-C" base-dir "LANG=C"
+                          (concat "CHK_SOURCES=" source)
+                          "SYNTAX_CHECK_MODE=1" "check-syntax")))
+     (setq flymake-gui-warnings-enabled nil)))
 
 ;; flycheck
 ;;
-(when (locate-library "flycheck")
-  ;; エラーをポップアップで表示
-  (setq flycheck-display-errors-function
-        (lambda (errors)
-          (let ((messages (mapcar #'flycheck-error-message errors)))
-            (popup-tip (mapconcat 'identity messages "\n")))))
-  (setq flycheck-display-errors-delay 0.5))
+(eval-after-load "flycheck"
+  '(progn
+     ;; エラーをポップアップで表示
+     (setq flycheck-display-errors-function
+           (lambda (errors)
+             (let ((messages (mapcar #'flycheck-error-message errors)))
+               (popup-tip (mapconcat 'identity messages "\n")))))
+     (setq flycheck-display-errors-delay 0.5)))
 
 ;; auto-complete
 ;;
-(when (require 'auto-complete-config nil 'noerror)
-  (ac-config-default)
-  (setq ac-auto-start nil)
-  (ac-set-trigger-key "TAB")
-  (setq ac-use-menu-map t))
+(require 'auto-complete-config nil 'noerror)
+(eval-after-load "auto-complete"
+  '(progn
+     (ac-config-default)
+     (setq ac-auto-start nil)
+     (ac-set-trigger-key "TAB")
+     (setq ac-use-menu-map t)))
 
 ;; fuzzy-format
 ;;
-(when (require 'fuzzy-format nil 'noerror)
-  (setq fuzzy-format-default-indent-tabs-mode nil)
-  (global-fuzzy-format-mode t))
+(require 'fuzzy-format nil 'noerror)
+(eval-after-load "fuzzy-format"
+  '(progn
+     (setq fuzzy-format-default-indent-tabs-mode nil)
+     (global-fuzzy-format-mode t)))
 
 ;; elscreen
 ;;
-(when (require 'elscreen nil 'noerror)
-  (setq elscreen-prefix-key "\C-o")
-  (elscreen-start)
-  (add-hook 'dired-mode-hook
-            (lambda () (local-unset-key "\C-o")))
-  (add-hook 'svn-status-mode-hook
-            (lambda () (local-unset-key "\C-o"))))
+(require 'elscreen nil 'noerror)
+(eval-after-load "elscreen"
+  '(progn
+     (setq elscreen-prefix-key "\C-o")
+     (elscreen-start)
+     (add-hook 'dired-mode-hook
+               (lambda () (local-unset-key "\C-o")))
+     (add-hook 'svn-status-mode-hook
+               (lambda () (local-unset-key "\C-o")))))
 
 ;; uniquify
 ;;
-(when (require 'uniquify nil 'noerror)
-  (setq uniquify-buffer-name-style 'post-forward-angle-brackets))
+(require 'uniquify nil 'noerror)
+(eval-after-load "uniquify"
+  '(progn
+     (setq uniquify-buffer-name-style 'post-forward-angle-brackets)))
 
 ;; igrep
 ;;
-(when (require 'igrep nil 'noerror)
-  (setq igrep-program "lgrep")
-  (setq igrep-options "-Au8")
-  (setq igrep-regex-option nil)
-  (setq igrep-find t)
-  (setq igrep-read-multiple-files t))
+(require 'igrep nil 'noerror)
+(eval-after-load "igrep"
+  '(progn
+     (setq igrep-program "lgrep")
+     (setq igrep-options "-Au8")
+     (setq igrep-regex-option nil)
+     (setq igrep-find t)
+     (setq igrep-read-multiple-files t)))
 
 ;; gtags
 ;;
-(when (require 'gtags nil 'noerror)
-  (setq gtags-path-style 'relative)
-  (setq gtags-select-buffer-single nil)
-  (setq gtags-ignore-case nil) ;; 検索時に大文字・小文字を区別する
-  (setq gtags-prefix-key nil)
-  (setq gtags-auto-update t)
-  (setq gtags-suggested-key-mapping t)
-  (setq gtags-auto-update t))
+(require 'gtags nil 'noerror)
+(eval-after-load "gtags"
+  '(progn
+     (setq gtags-path-style 'relative)
+     (setq gtags-select-buffer-single nil)
+     (setq gtags-ignore-case nil) ;; 検索時に大文字・小文字を区別する
+     (setq gtags-prefix-key nil)
+     (setq gtags-auto-update t)
+     (setq gtags-suggested-key-mapping t)
+     (setq gtags-auto-update t)))
 
 ;; psvn
 ;;
-(when (require 'psvn nil 'noerror)
-;  (setq svn-status-prefix-key '[(hyper s)])
-  (require 'vc-svn) ;; Emacs23におけるSVN管理ファイル判定問題の対応のため
-  (setq svn-status-hide-unmodified t)
-  (setq svn-status-hide-unknown t)
-  (setq svn-status-svn-file-coding-system 'utf-8))
+(require 'psvn nil 'noerror)
+(eval-after-load "psvn"
+  '(progn
+     (require 'vc-svn) ;; Emacs23におけるSVN管理ファイル判定問題の対応のため
+     (setq svn-status-hide-unmodified t)
+     (setq svn-status-hide-unknown t)
+     (setq svn-status-svn-file-coding-system 'utf-8)))
 
 ;; magit
 ;;
@@ -258,27 +282,31 @@
 
 ;; git-gutter+
 ;;
-(when (require 'git-gutter+)
-  (global-git-gutter+-mode t)
-  (require 'git-gutter-fringe+ nil 'noerror)
-  (define-key git-gutter+-mode-map (kbd "M-n") 'git-gutter+-next-hunk)
-  (define-key git-gutter+-mode-map (kbd "M-p") 'git-gutter+-previous-hunk)
-  (define-key git-gutter+-mode-map (kbd "M-l") 'git-gutter+-show-hunk)
-  (define-key git-gutter+-mode-map (kbd "M-r") 'git-gutter+-revert-hunk))
+(require 'git-gutter+ nil 'noerror)
+(eval-after-load "git-gutter+"
+  '(progn
+     (global-git-gutter+-mode t)
+     (require 'git-gutter-fringe+ nil 'noerror)
+     (define-key git-gutter+-mode-map (kbd "M-n") 'git-gutter+-next-hunk)
+     (define-key git-gutter+-mode-map (kbd "M-p") 'git-gutter+-previous-hunk)
+     (define-key git-gutter+-mode-map (kbd "M-l") 'git-gutter+-show-hunk)
+     (define-key git-gutter+-mode-map (kbd "M-r") 'git-gutter+-revert-hunk)))
 
 ;; diff-hl
 ;;
-(when (require 'diff-hl nil 'noerror)
-  (global-diff-hl-mode)
-  (define-key diff-hl-mode-map (kbd "M-n") 'diff-hl-next-hunk)
-  (define-key diff-hl-mode-map (kbd "M-p") 'diff-hl-previous-hunk)
-  (define-key diff-hl-mode-map (kbd "M-l") 'diff-hl-diff-goto-hunk)
-  (define-key diff-hl-mode-map (kbd "M-r") 'diff-hl-revert-hunk)
-  ;; git-gutter+が使えるときはdiff-hlはオフにする
-  (add-hook 'find-file-hook
-            (lambda ()
-              (when (and (locate-library "git-gutter+") (git-gutter+-mode))
-                (diff-hl-mode 0)))))
+(require 'diff-hl nil 'noerror)
+(eval-after-load "diff-hl"
+  '(progn
+     (global-diff-hl-mode)
+     (define-key diff-hl-mode-map (kbd "M-n") 'diff-hl-next-hunk)
+     (define-key diff-hl-mode-map (kbd "M-p") 'diff-hl-previous-hunk)
+     (define-key diff-hl-mode-map (kbd "M-l") 'diff-hl-diff-goto-hunk)
+     (define-key diff-hl-mode-map (kbd "M-r") 'diff-hl-revert-hunk)
+     ;; git-gutter+が使えるときはdiff-hlはオフにする
+     (add-hook 'find-file-hook
+               (lambda ()
+                 (when (and (locate-library "git-gutter+") (git-gutter+-mode))
+                   (diff-hl-mode 0))))))
 
 ;; my-vc-status
 ;; VCバックエンドに応じたstatus関数を呼び出す
@@ -296,9 +324,11 @@
 
 ;; eshell mode settings
 ;;
-(add-hook 'eshell-mode-hook
-          (lambda ()
-	    (define-key eshell-mode-map (kbd "\C-a") 'eshell-bol)))
+(eval-after-load "esh-mode"
+  '(progn
+     (add-hook 'eshell-mode-hook
+               (lambda ()
+                 (define-key eshell-mode-map (kbd "\C-a") 'eshell-bol)))))
 
 ;; markdown mode
 ;;
@@ -307,102 +337,115 @@
 
 ;; simplenote2
 ;;
-(when (require 'simplenote2 nil 'noerror)
-  (require 'my-simplenote2 nil 'noerror)
-  (simplenote2-setup))
+(require 'simplenote2 nil 'noerror)
+(eval-after-load "simplenote2"
+  '(progn
+     (require 'my-simplenote2 nil 'noerror)
+     (simplenote2-setup)))
 
 ;; anything
 ;;
-(when (require 'anything-startup nil 'noerror)
-  (when (>= emacs-major-version 24)
-    ;; 補完バッファのヘッダのフェイスを変更 (選択行と重複して見にくいので)
-    (set-face-attribute 'anything-header nil
-                        :inherit nil :underline t :weight 'bold))
-  ;; バッファ補完候補の除外設定に "flymake:" を追加
-  (setq anything-c-boring-buffer-regexp
-        "\\(\\` \\)\\|\\*anything\\|\\*ac-mode\\| \\*Echo Area\\| \\*Minibuf\\|flymake:"))
+(require 'anything-startup nil 'noerror)
+(eval-after-load "anything"
+  '(progn
+     ;; バッファ補完候補の除外設定に "flymake:" を追加
+     (setq anything-c-boring-buffer-regexp
+           "\\(\\` \\)\\|\\*anything\\|\\*ac-mode\\| \\*Echo Area\\| \\*Minibuf\\|flymake:")))
 
 ;; helm
 ;;
-(when (require 'helm-config nil 'noerror)
-  (setq helm-delete-minibuffer-contents-from-point t)
-  (setq helm-buffer-max-length 35)
-  ;; バッファの並び順を変更しない
-  (defadvice helm-buffers-sort-transformer (around ignore activate)
-    (setq ad-return-value (ad-get-arg 0)))
-  (eval-after-load "helm-files"
-    '(progn
-       (define-key helm-find-files-map (kbd "C-i") 'helm-execute-persistent-action))))
+(require 'helm-config nil 'noerror)
+(eval-after-load "helm"
+  '(progn
+     (setq helm-delete-minibuffer-contents-from-point t)
+     (setq helm-buffer-max-length 35)
+     ;; バッファの並び順を変更しない
+     (defadvice helm-buffers-sort-transformer (around ignore activate)
+       (setq ad-return-value (ad-get-arg 0)))))
+(eval-after-load "helm-files"
+  '(progn
+     (define-key helm-find-files-map (kbd "C-i") 'helm-execute-persistent-action)))
 
 ;; helm-gtags
 ;;
-(when (require 'helm-gtags nil 'noerror)
-  (add-hook 'c-mode-hook (lambda () (helm-gtags-mode)))
-  ;; customize
-  (setq helm-c-gtags-path-style 'relative)
-  (setq helm-c-gtags-ignore-case t)
-  (setq helm-gtags-auto-update t)
-  (setq helm-gtags-pulse-at-cursor nil)
-  ;; key bindings
-  (add-hook 'helm-gtags-mode-hook
-            '(lambda ()
-               (local-set-key (kbd "M-.") 'helm-gtags-find-tag)
-               (local-set-key (kbd "M-@") 'helm-gtags-find-rtag)
-               (local-set-key (kbd "M-s") 'helm-gtags-find-symbol)
-               (local-set-key (kbd "M-,") 'helm-gtags-pop-stack))))
+(when (locate-library "helm-gtags")
+  (add-hook 'c-mode-hook (lambda () (helm-gtags-mode))))
+(eval-after-load "helm-gtags"
+  '(progn
+     (setq helm-c-gtags-path-style 'relative)
+     (setq helm-c-gtags-ignore-case t)
+     (setq helm-gtags-auto-update t)
+     (setq helm-gtags-pulse-at-cursor nil)
+     (add-hook 'helm-gtags-mode-hook
+               '(lambda ()
+                  (local-set-key (kbd "M-.") 'helm-gtags-find-tag)
+                  (local-set-key (kbd "M-@") 'helm-gtags-find-rtag)
+                  (local-set-key (kbd "M-s") 'helm-gtags-find-symbol)
+                  (local-set-key (kbd "M-,") 'helm-gtags-pop-stack)))))
 
 ;; helm-ag
 ;;
-(setq helm-ag-insert-at-point 'symbol)
+(eval-after-load "helm-ag"
+  '(progn (setq helm-ag-insert-at-point 'symbol)))
 
 ;; wgrep-ag
 ;;
-(when (require 'ag nil 'noerror)
-  (when (>= emacs-major-version 24)
-    (setq ag-highlight-search t))
-  (setq ag-reuse-buffers t))
-(when (require 'wgrep-ag nil 'noerror)
-  (add-hook 'ag-mode-hook
-            (lambda ()
-              (setq wgrep-auto-save-buffer t)  ; 編集完了と同時に保存
-              (setq wgrep-enable-key "r")      ; "r" キーで編集モードに
-              (wgrep-ag-setup))))
+(eval-after-load "ag"
+  '(progn
+     (when (>= emacs-major-version 24) (setq ag-highlight-search t))
+     (setq ag-reuse-buffers t)
+     (require 'wgrep-ag nil 'noerror)))
+(eval-after-load "wgrep-ag"
+  '(progn
+     (add-hook 'ag-mode-hook
+               (lambda ()
+                 (setq wgrep-auto-save-buffer t)  ; 編集完了と同時に保存
+                 (setq wgrep-enable-key "r")      ; "r" キーで編集モードに
+                 (wgrep-ag-setup)))))
 
 ;; recentf
 ;;
-(setq recentf-save-file "~/.emacs.d/.recentf")
-(setq recentf-max-saved-items 100)
-(setq recentf-exclude '("/.simplenote2/*" "/TAGS$" "/COMMIT_EDITMSG$"))
-(require 'recentf-ext nil 'noerror)
+(eval-after-load "recentf"
+  '(progn
+     (setq recentf-save-file "~/.emacs.d/.recentf")
+     (setq recentf-max-saved-items 100)
+     (setq recentf-exclude '("/.simplenote2/*" "/TAGS$" "/COMMIT_EDITMSG$"))
+     (require 'recentf-ext nil 'noerror)))
 
 ;; multiple-cursors
 ;;
-(when (require 'multiple-cursors nil 'noerror)
-  (when (locate-library "autopair")
-    (add-to-list 'mc/unsupported-minor-modes 'autopair-mode))
-  (require 'mc-extras nil 'noerror))
+(require 'multiple-cursors nil 'noerror)
+(eval-after-load "multiple-cursors"
+  '(progn
+     (when (locate-library "autopair")
+       (add-to-list 'mc/unsupported-minor-modes 'autopair-mode))
+     (require 'mc-extras nil 'noerror)))
 
 ;; region bindings mode
 ;;
-(when (require 'region-bindings-mode nil 'noerror)
-  (region-bindings-mode-enable)
-  (define-key region-bindings-mode-map (kbd "<tab>") 'indent-region)
-  (define-key region-bindings-mode-map (kbd "C-t") 'mc/mark-all-like-this-dwim)
-  (define-key region-bindings-mode-map (kbd "C-l") 'mc/edit-lines)
-  (define-key region-bindings-mode-map (kbd "M-p") 'mc/mark-previous-like-this)
-  (define-key region-bindings-mode-map (kbd "M-n") 'mc/mark-next-like-this)
-  (define-key region-bindings-mode-map (kbd "M-u") 'mc/remove-current-cursor)
-  (define-key region-bindings-mode-map (kbd "C-M-n") 'mc/cycle-forward)
-  (define-key region-bindings-mode-map (kbd "C-M-p") 'mc/cycle-backward))
+(require 'region-bindings-mode nil 'noerror)
+(eval-after-load "region-bindings-mode"
+  '(progn
+     (region-bindings-mode-enable)
+     (define-key region-bindings-mode-map (kbd "<tab>") 'indent-region)
+     (define-key region-bindings-mode-map (kbd "C-t") 'mc/mark-all-like-this-dwim)
+     (define-key region-bindings-mode-map (kbd "C-l") 'mc/edit-lines)
+     (define-key region-bindings-mode-map (kbd "M-p") 'mc/mark-previous-like-this)
+     (define-key region-bindings-mode-map (kbd "M-n") 'mc/mark-next-like-this)
+     (define-key region-bindings-mode-map (kbd "M-u") 'mc/remove-current-cursor)
+     (define-key region-bindings-mode-map (kbd "C-M-n") 'mc/cycle-forward)
+     (define-key region-bindings-mode-map (kbd "C-M-p") 'mc/cycle-backward)))
 
 ;; projectile
 ;;
-(when (locate-library "projectile")
-  (projectile-global-mode)
-  (setq projectile-completion-system 'helm)
-  (define-key projectile-mode-map (kbd "C-c C-f") 'projectile-find-file)
-  (define-key projectile-mode-map (kbd "C-c C-r") 'projectile-recentf)
-  (define-key projectile-mode-map (kbd "C-c C-s") 'helm-projectile-ag))
+(require 'projectile nil 'noerror)
+(eval-after-load "projectile"
+  '(progn
+     (projectile-global-mode)
+     (setq projectile-completion-system 'helm)
+     (define-key projectile-mode-map (kbd "C-c C-f") 'projectile-find-file)
+     (define-key projectile-mode-map (kbd "C-c C-r") 'projectile-recentf)
+     (define-key projectile-mode-map (kbd "C-c C-s") 'helm-projectile-ag)))
 
 ;; coding system settings
 ;;
@@ -412,11 +455,13 @@
 
 ;; input method
 ;;
-(when (require 'mozc nil 'noerror)
-  (setq default-input-method "japanese-mozc")
-  (define-key mozc-mode-map [henkan] 'toggle-input-method)
-  (when (require 'ac-mozc nil 'noerror)
-    (define-key ac-mode-map [muhenkan] 'ac-complete-mozc)))
+(require 'mozc nil 'noerror)
+(eval-after-load "mozc"
+  '(progn
+     (setq default-input-method "japanese-mozc")
+     (define-key mozc-mode-map [henkan] 'toggle-input-method)
+     (when (require 'ac-mozc nil 'noerror)
+       (define-key ac-mode-map [muhenkan] 'ac-complete-mozc))))
 
 ;; global key bindings
 ;;
