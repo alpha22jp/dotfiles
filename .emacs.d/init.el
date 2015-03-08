@@ -215,7 +215,8 @@
 (eval-after-load "fuzzy-format"
   '(progn
      (setq fuzzy-format-default-indent-tabs-mode nil)
-     (global-fuzzy-format-mode t)))
+     (add-hook 'c-mode-hook
+	       (lambda () (fuzzy-format-mode)))))
 
 ;; elscreen
 ;;
