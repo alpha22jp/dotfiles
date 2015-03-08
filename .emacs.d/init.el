@@ -28,7 +28,7 @@
 ;; local elisp settings
 ;;
 (defvar my:lisp-dir (expand-file-name "~/.emacs.d/lisp"))
-(mapc (lambda (e) (if (and e (file-directory-p e)) (add-to-list 'load-path e)))
+(mapc (lambda (e) (if (file-directory-p e) (add-to-list 'load-path e)))
       (directory-files my:lisp-dir t "^[^.]"))
 (add-to-list 'load-path my:lisp-dir)
 
