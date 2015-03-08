@@ -317,10 +317,6 @@
         ((eq (vc-deduce-backend) 'Git) (call-interactively 'magit-status))
         (t (message "Buffer is not version controlled"))))
 
-;; cscope
-;;
-(require 'xcscope nil 'noerror)
-
 ;; eshell mode settings
 ;;
 (eval-after-load "esh-mode"
@@ -382,6 +378,16 @@
                   (local-set-key (kbd "M-@") 'helm-gtags-find-rtag)
                   (local-set-key (kbd "M-s") 'helm-gtags-find-symbol)
                   (local-set-key (kbd "M-,") 'helm-gtags-pop-stack)))))
+
+;; helm-cscope
+;;
+(require 'helm-cscope nil 'noerror)
+(eval-after-load "helm-cscope"
+  '(progn
+     (define-key helm-cscope-mode-map (kbd "M-.") 'helm-cscope-find-global-definition)
+     (define-key helm-cscope-mode-map (kbd "M-@") 'helm-cscope-find-calling-this-funtcion)
+     (define-key helm-cscope-mode-map (kbd "M-s") 'helm-cscope-find-symbol)
+     (define-key helm-cscope-mode-map (kbd "M-,") 'helm-cscope-pop-mark)))
 
 ;; helm-ag
 ;;
