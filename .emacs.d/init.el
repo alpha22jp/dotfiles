@@ -17,16 +17,20 @@
 (defvar my:os-type
   (if (string-match "apple-darwin" system-configuration) 'mac 'linux))
 
-(add-to-list 'load-path
-             (expand-file-name "~/.emacs.d/elpa"))
-
+;; package settings
+;;
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/elpa"))
 (when (require 'package nil 'noerror)
   (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
   ;; (add-to-list 'package-archives '("ELPA" . "http://tromey.com/elpa/"))
   (package-initialize))
 
-(add-to-list 'load-path
-             (expand-file-name "~/.emacs.d/lisp"))
+;; local elisp settings
+;;
+(defvar my:lisp-dir (expand-file-name "~/.emacs.d/lisp"))
+(mapc (lambda (e) (if (and e (file-directory-p e)) (add-to-list 'load-path e)))
+      (directory-files my:lisp-dir t "^[^.]"))
+(add-to-list 'load-path my:lisp-dir)
 
 (require 'my-pkg-install nil 'noerror)
 
