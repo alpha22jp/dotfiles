@@ -449,7 +449,7 @@
      (setq projectile-completion-system 'helm)
      (define-key projectile-mode-map (kbd "C-c C-f") 'projectile-find-file)
      (define-key projectile-mode-map (kbd "C-c C-r") 'projectile-recentf)
-     (define-key projectile-mode-map (kbd "C-c C-s") 'helm-projectile-ag)))
+     (define-key projectile-mode-map (kbd "C-c C-g") 'helm-projectile-ag)))
 
 ;; coding system settings
 ;;
@@ -472,6 +472,7 @@
 (global-set-key (kbd "M-h") 'help-for-help)
 (define-key ctl-x-map (kbd "C-b") 'bs-show)
 (define-key ctl-x-map (kbd "C-d") 'helm-descbinds)
+(define-key ctl-x-map (kbd "C-g") 'helm-ag)
 (define-key ctl-x-map (kbd "t") 'toggle-truncate-lines)
 (define-key ctl-x-map (kbd "C-z") 'kill-emacs)
 (define-key ctl-x-map (kbd "x") (if my:helmp 'helm-M-x 'anything-M-x))
@@ -507,7 +508,7 @@
 (define-key global-map [(control f5)] 'gtags-find-tag)
 (define-key global-map [(control f6)] 'gtags-find-rtag)
 (global-set-key [f7] 'compile)
-(global-set-key [f8] 'helm-ag)
+(global-set-key [f8] 'ag)
 (global-set-key [f9] 'svn-status-show-svn-log)
 (global-set-key [f10] 'my-vc-status)
 (global-set-key [f11] 'vc-diff)
