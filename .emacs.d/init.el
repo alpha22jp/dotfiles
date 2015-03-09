@@ -215,7 +215,7 @@
 (eval-after-load "fuzzy-format"
   '(progn
      (setq fuzzy-format-default-indent-tabs-mode nil)
-     (add-hook 'c-mode-hook
+     (add-hook 'c-mode-common-hook
 	       (lambda () (fuzzy-format-mode)))))
 
 ;; elscreen
@@ -303,7 +303,7 @@
        (define-key diff-hl-mode-map (kbd "M-l") 'diff-hl-diff-goto-hunk)
        (define-key diff-hl-mode-map (kbd "M-r") 'diff-hl-revert-hunk)))
   ;; c-modeでgit-gutter+が使えないときだけdiff-hlを使用する
-  (add-hook 'c-mode-hook
+  (add-hook 'c-mode-common-hook
             (lambda ()
               (unless (git-gutter+-mode) (diff-hl-mode)))))
 
@@ -364,7 +364,7 @@
 ;; helm-gtags
 ;;
 (when (locate-library "helm-gtags")
-  (add-hook 'c-mode-hook (lambda () (helm-gtags-mode))))
+  (add-hook 'c-mode-common-hook (lambda () (helm-gtags-mode))))
 (eval-after-load "helm-gtags"
   '(progn
      (setq helm-c-gtags-path-style 'relative)
