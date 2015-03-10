@@ -379,6 +379,7 @@
                   (local-set-key (kbd "M-.") 'helm-gtags-find-tag)
                   (local-set-key (kbd "M-@") 'helm-gtags-find-rtag)
                   (local-set-key (kbd "M-s") 'helm-gtags-find-symbol)
+                  (local-set-key (kbd "M-;") 'helm-gtags-find-pattern)
                   (local-set-key (kbd "M-,") 'helm-gtags-pop-stack)))))
 
 ;; helm-cscope
@@ -475,6 +476,7 @@
 (define-key ctl-x-map (kbd "C-b") 'bs-show)
 (define-key ctl-x-map (kbd "C-d") 'helm-descbinds)
 (define-key ctl-x-map (kbd "C-g") 'helm-ag)
+(define-key ctl-x-map (kbd "C-r") 'helm-recentf)
 (define-key ctl-x-map (kbd "t") 'toggle-truncate-lines)
 (define-key ctl-x-map (kbd "C-z") 'kill-emacs)
 (define-key ctl-x-map (kbd "x") (if my:helmp 'helm-M-x 'anything-M-x))
