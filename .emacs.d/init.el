@@ -488,6 +488,8 @@
 (global-set-key (kbd "C-,") 'beginning-of-buffer)
 (global-set-key (kbd "C-.") 'end-of-buffer)
 (global-set-key (kbd "M-i") 'indent-region)
+(global-set-key (kbd "M-(") 'backward-list)
+(global-set-key (kbd "M-)") 'forward-list)
 (global-set-key (kbd "C-M-n") 'end-of-defun)
 (global-set-key (kbd "C-M-p") 'beginning-of-defun)
 (global-set-key [M-left] 'elscreen-previous)
