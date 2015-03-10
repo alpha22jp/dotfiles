@@ -473,12 +473,13 @@
 ;; global key bindings
 ;;
 (global-set-key (kbd "M-h") 'help-for-help)
-(define-key ctl-x-map (kbd "C-b") 'bs-show)
+(define-key ctl-x-map (kbd "C-b") (if my:helmp 'helm-buffers-list 'bs-show))
 (define-key ctl-x-map (kbd "C-d") 'helm-descbinds)
 (define-key ctl-x-map (kbd "C-g") 'helm-ag)
 (define-key ctl-x-map (kbd "C-r") 'helm-recentf)
-(define-key ctl-x-map (kbd "t") 'toggle-truncate-lines)
 (define-key ctl-x-map (kbd "C-z") 'kill-emacs)
+(define-key ctl-x-map (kbd "f") 'helm-for-files)
+(define-key ctl-x-map (kbd "t") 'toggle-truncate-lines)
 (define-key ctl-x-map (kbd "x") (if my:helmp 'helm-M-x 'anything-M-x))
 (global-set-key (kbd "M-o") 'other-frame)
 (global-set-key (kbd "C-t") 'mc/mark-all-dwim)
