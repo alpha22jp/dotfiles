@@ -206,6 +206,7 @@
   '(progn
      (ac-config-default)
      (setq ac-auto-start nil)
+     (setq ac-ignore-case nil)
      (ac-set-trigger-key "TAB")
      (setq ac-use-menu-map t)))
 
