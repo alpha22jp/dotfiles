@@ -25,6 +25,7 @@
     multiple-cursors
     mc-extras
     projectile
+    quickrun
     rcodetools
     region-bindings-mode
     recentf-ext
