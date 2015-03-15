@@ -30,6 +30,8 @@
     region-bindings-mode
     recentf-ext
     simplenote2
+    smart-mode-line
+    solarized-theme
     wgrep-ag
     xcscope))
 
