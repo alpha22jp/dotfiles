@@ -365,8 +365,6 @@
 
 ;; helm-gtags
 ;;
-(when (locate-library "helm-gtags")
-  (add-hook 'c-mode-common-hook (lambda () (helm-gtags-mode))))
 (eval-after-load "helm-gtags"
   '(progn
      (setq helm-c-gtags-path-style 'relative)
@@ -384,12 +382,14 @@
 
 ;; helm-cscope
 ;;
+(when (locate-library "helm-gtags")
+  (add-hook 'c-mode-common-hook (lambda () (helm-cscope-mode))))
 (require 'helm-cscope nil 'noerror)
 (eval-after-load "helm-cscope"
   '(progn
      (define-key helm-cscope-mode-map (kbd "M-.") 'helm-cscope-find-global-definition)
      (define-key helm-cscope-mode-map (kbd "M-@") 'helm-cscope-find-calling-this-funtcion)
-     (define-key helm-cscope-mode-map (kbd "M-s") 'helm-cscope-find-symbol)
+     (define-key helm-cscope-mode-map (kbd "M-s") 'helm-cscope-find-this-symbol)
      (define-key helm-cscope-mode-map (kbd "M-,") 'helm-cscope-pop-mark)))
 
 ;; helm-ag
