@@ -79,17 +79,20 @@
 
 ;; color-theme
 ;;
-(if (locate-library "color-theme-sanityinc-solarized")
-    (if (>= emacs-major-version 24)
-        (load-theme 'sanityinc-solarized-dark t)
-      (when (require 'color-theme nil 'noerror)
-        (require 'color-theme-sanityinc-solarized nil 'noerror)
-        (color-theme-sanityinc-solarized-dark)))
-  ;; No theme found, use manual settings
-  (add-hook 'window-setup-hook
-            (lambda ()
-              (set-face-foreground 'default "#cfcfcf")
-              (set-face-background 'default "#101010"))))
+(cond ((locate-library "solarized-theme")
+       (load-theme 'solarized-dark t))
+      ;; Alternative solarized theme mainly for Emacs23
+      ((locate-library "color-theme-sanityinc-solarized")
+       (if (>= emacs-major-version 24)
+           (load-theme 'sanityinc-solarized-dark t)
+         (when (require 'color-theme nil 'noerror)
+           (require 'color-theme-sanityinc-solarized nil 'noerror)
+           (color-theme-sanityinc-solarized-dark))))
+      ;; No theme found, use simple manual settings
+      (t (add-hook 'window-setup-hook
+		   (lambda ()
+		     (set-face-foreground 'default "#cfcfcf")
+		     (set-face-background 'default "#101010")))))
 
 ;; c/c++ mode settings
 ;;
@@ -288,7 +291,8 @@
 (eval-after-load "git-gutter+"
   '(progn
      (global-git-gutter+-mode t)
-     (require 'git-gutter-fringe+ nil 'noerror)
+     (unless (locate-library "solarized-theme")
+       (require 'git-gutter-fringe+ nil 'noerror))
      (define-key git-gutter+-mode-map (kbd "M-n") 'git-gutter+-next-hunk)
      (define-key git-gutter+-mode-map (kbd "M-p") 'git-gutter+-previous-hunk)
      (define-key git-gutter+-mode-map (kbd "M-l") 'git-gutter+-show-hunk)
