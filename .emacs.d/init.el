@@ -477,7 +477,7 @@
 (define-key ctl-x-map (kbd "C-d") 'helm-descbinds)
 (define-key ctl-x-map (kbd "C-g") 'helm-ag)
 (define-key ctl-x-map (kbd "C-r") 'helm-recentf)
-(define-key ctl-x-map (kbd "C-z") 'kill-emacs)
+(define-key ctl-x-map (kbd "C-z") 'save-buffers-kill-emacs)
 (define-key ctl-x-map (kbd "f") 'helm-for-files)
 (define-key ctl-x-map (kbd "t") 'toggle-truncate-lines)
 (define-key ctl-x-map (kbd "x") (if my:helmp 'helm-M-x 'anything-M-x))
