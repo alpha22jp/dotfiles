@@ -458,6 +458,14 @@
      (define-key projectile-mode-map (kbd "C-c C-r") 'projectile-recentf)
      (define-key projectile-mode-map (kbd "C-c C-g") 'helm-projectile-ag)))
 
+;; smart-mode-line
+;;
+(require 'smart-mode-line nil 'noerror)
+(eval-after-load "smart-mode-line"
+  '(progn
+     (setq sml/name-width 32)
+     (sml/setup)))
+
 ;; coding system settings
 ;;
 (set-language-environment "Japanese")
