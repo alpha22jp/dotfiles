@@ -393,10 +393,12 @@
 (eval-after-load "helm-cscope"
   '(progn
      (require 'my-cscope nil 'noerror)
-     (define-key helm-cscope-mode-map (kbd "M-.") 'helm-cscope-find-global-definition)
-     (define-key helm-cscope-mode-map (kbd "M-@") 'helm-cscope-find-calling-this-funtcion)
-     (define-key helm-cscope-mode-map (kbd "M-s") 'helm-cscope-find-this-symbol)
-     (define-key helm-cscope-mode-map (kbd "M-,") 'helm-cscope-pop-mark)))
+     (add-hook 'helm-cscope-mode-hook
+	       (lambda ()
+		 (local-set-key (kbd "M-.") 'helm-cscope-find-global-definition)
+		 (local-set-key (kbd "M-@") 'helm-cscope-find-calling-this-funtcion)
+		 (local-set-key (kbd "M-s") 'helm-cscope-find-this-symbol)
+		 (local-set-key (kbd "M-,") 'helm-cscope-pop-mark)))))
 
 ;; helm-ag
 ;;
