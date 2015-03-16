@@ -71,6 +71,7 @@
 (setq inhibit-startup-screen t) ;; スタートアップ画面を表示しない
 (setq read-file-name-completion-ignore-case t) ;; ファイル名補完でignore case
 (setq find-file-visit-truename t) ;; シンボリックリンクを実体のパスで開く
+(setq-default indent-tabs-mode nil) ;; インデントに空白を使用
 
 ;; exec-path-from-shell
 ;;
@@ -90,9 +91,9 @@
            (color-theme-sanityinc-solarized-dark))))
       ;; No theme found, use simple manual settings
       (t (add-hook 'window-setup-hook
-		   (lambda ()
-		     (set-face-foreground 'default "#cfcfcf")
-		     (set-face-background 'default "#101010")))))
+                   (lambda ()
+                     (set-face-foreground 'default "#cfcfcf")
+                     (set-face-background 'default "#101010")))))
 
 ;; c/c++ mode settings
 ;;
@@ -220,7 +221,7 @@
   '(progn
      (setq fuzzy-format-default-indent-tabs-mode nil)
      (add-hook 'c-mode-common-hook
-	       (lambda () (fuzzy-format-mode)))))
+               (lambda () (fuzzy-format-mode)))))
 
 ;; elscreen
 ;;
@@ -283,7 +284,7 @@
   (defun process-live-p (process)
     "Returns non-nil if PROCESS is alive"
     (memq (process-status process)
-	  '(run open listen connect stop))))
+          '(run open listen connect stop))))
 
 ;; git-gutter
 ;;
@@ -380,11 +381,11 @@
      (setq helm-gtags-pulse-at-cursor nil)
      (add-hook 'helm-gtags-mode-hook
                (lambda ()
-		 (local-set-key (kbd "M-.") 'helm-gtags-find-tag)
-		 (local-set-key (kbd "M-@") 'helm-gtags-find-rtag)
-		 (local-set-key (kbd "M-s") 'helm-gtags-find-symbol)
-		 (local-set-key (kbd "M-;") 'helm-gtags-find-pattern)
-		 (local-set-key (kbd "M-,") 'helm-gtags-pop-stack)))))
+                 (local-set-key (kbd "M-.") 'helm-gtags-find-tag)
+                 (local-set-key (kbd "M-@") 'helm-gtags-find-rtag)
+                 (local-set-key (kbd "M-s") 'helm-gtags-find-symbol)
+                 (local-set-key (kbd "M-;") 'helm-gtags-find-pattern)
+                 (local-set-key (kbd "M-,") 'helm-gtags-pop-stack)))))
 
 ;; helm-cscope
 ;;
@@ -395,11 +396,11 @@
   '(progn
      (require 'my-cscope nil 'noerror)
      (add-hook 'helm-cscope-mode-hook
-	       (lambda ()
-		 (local-set-key (kbd "M-.") 'helm-cscope-find-global-definition)
-		 (local-set-key (kbd "M-@") 'helm-cscope-find-calling-this-funtcion)
-		 (local-set-key (kbd "M-s") 'helm-cscope-find-this-symbol)
-		 (local-set-key (kbd "M-,") 'helm-cscope-pop-mark)))))
+               (lambda ()
+                 (local-set-key (kbd "M-.") 'helm-cscope-find-global-definition)
+                 (local-set-key (kbd "M-@") 'helm-cscope-find-calling-this-funtcion)
+                 (local-set-key (kbd "M-s") 'helm-cscope-find-this-symbol)
+                 (local-set-key (kbd "M-,") 'helm-cscope-pop-mark)))))
 
 ;; helm-ag
 ;;
