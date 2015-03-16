@@ -386,7 +386,7 @@
 
 ;; helm-cscope
 ;;
-(when (locate-library "helm-gtags")
+(when (locate-library "helm-cscope")
   (add-hook 'c-mode-common-hook (lambda () (helm-cscope-mode))))
 (require 'helm-cscope nil 'noerror)
 (eval-after-load "helm-cscope"
