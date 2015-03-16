@@ -302,16 +302,16 @@
 ;; diff-hl
 ;;
 (when (locate-library "diff-hl")
-  (eval-after-load "diff-hl"
-    '(progn
-       (define-key diff-hl-mode-map (kbd "M-n") 'diff-hl-next-hunk)
-       (define-key diff-hl-mode-map (kbd "M-p") 'diff-hl-previous-hunk)
-       (define-key diff-hl-mode-map (kbd "M-l") 'diff-hl-diff-goto-hunk)
-       (define-key diff-hl-mode-map (kbd "M-r") 'diff-hl-revert-hunk)))
   ;; c-modeでgit-gutterが使えないときだけdiff-hlを使用する
   (add-hook 'c-mode-common-hook
             (lambda ()
               (unless (git-gutter-mode) (diff-hl-mode)))))
+(eval-after-load "diff-hl"
+  '(progn
+     (define-key diff-hl-mode-map (kbd "M-n") 'diff-hl-next-hunk)
+     (define-key diff-hl-mode-map (kbd "M-p") 'diff-hl-previous-hunk)
+     (define-key diff-hl-mode-map (kbd "M-l") 'diff-hl-diff-goto-hunk)
+     (define-key diff-hl-mode-map (kbd "M-r") 'diff-hl-revert-hunk)))
 
 ;; my-vc-status
 ;; VCバックエンドに応じたstatus関数を呼び出す
@@ -379,12 +379,12 @@
      (setq helm-gtags-update-interval-second 0)
      (setq helm-gtags-pulse-at-cursor nil)
      (add-hook 'helm-gtags-mode-hook
-               '(lambda ()
-                  (local-set-key (kbd "M-.") 'helm-gtags-find-tag)
-                  (local-set-key (kbd "M-@") 'helm-gtags-find-rtag)
-                  (local-set-key (kbd "M-s") 'helm-gtags-find-symbol)
-                  (local-set-key (kbd "M-;") 'helm-gtags-find-pattern)
-                  (local-set-key (kbd "M-,") 'helm-gtags-pop-stack)))))
+               (lambda ()
+		 (local-set-key (kbd "M-.") 'helm-gtags-find-tag)
+		 (local-set-key (kbd "M-@") 'helm-gtags-find-rtag)
+		 (local-set-key (kbd "M-s") 'helm-gtags-find-symbol)
+		 (local-set-key (kbd "M-;") 'helm-gtags-find-pattern)
+		 (local-set-key (kbd "M-,") 'helm-gtags-pop-stack)))))
 
 ;; helm-cscope
 ;;
