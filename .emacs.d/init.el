@@ -392,6 +392,7 @@
 (require 'helm-cscope nil 'noerror)
 (eval-after-load "helm-cscope"
   '(progn
+     (require 'my-cscope nil 'noerror)
      (define-key helm-cscope-mode-map (kbd "M-.") 'helm-cscope-find-global-definition)
      (define-key helm-cscope-mode-map (kbd "M-@") 'helm-cscope-find-calling-this-funtcion)
      (define-key helm-cscope-mode-map (kbd "M-s") 'helm-cscope-find-this-symbol)
@@ -528,7 +529,7 @@
 (define-key global-map [(control f5)] 'gtags-find-tag)
 (define-key global-map [(control f6)] 'gtags-find-rtag)
 (global-set-key [f7] 'compile)
-(global-set-key [f8] 'ag)
+(global-set-key [f8] (if my:helmp 'helm-ag 'ag))
 (global-set-key [f9] 'svn-status-show-svn-log)
 (global-set-key [f10] 'my-vc-status)
 (global-set-key [f11] 'vc-diff)
