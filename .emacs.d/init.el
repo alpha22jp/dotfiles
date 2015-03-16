@@ -357,9 +357,10 @@
 (defvar my:helmp (require 'helm-config nil 'noerror))
 (eval-after-load "helm"
   '(progn
-     (helm-autoresize-mode 1)
      (setq helm-delete-minibuffer-contents-from-point t)
      (setq helm-buffer-max-length 35)
+     (setq helm-autoresize-min-height 20)
+     (helm-autoresize-mode 1)
      ;; バッファの並び順を変更しない
      (defadvice helm-buffers-sort-transformer (around ignore activate)
        (setq ad-return-value (ad-get-arg 0)))))
