@@ -14,8 +14,8 @@
     flymake
     flycheck
     fuzzy-format
-    git-gutter+
-    git-gutter-fringe+
+    git-gutter
+    git-gutter-fringe
     helm
     helm-ag
     helm-descbinds

@@ -285,18 +285,19 @@
     (memq (process-status process)
 	  '(run open listen connect stop))))
 
-;; git-gutter+
+;; git-gutter
 ;;
-(require 'git-gutter+ nil 'noerror)
-(eval-after-load "git-gutter+"
+(require 'git-gutter nil 'noerror)
+(eval-after-load "git-gutter"
   '(progn
-     (global-git-gutter+-mode t)
-     (unless (locate-library "solarized-theme")
-       (require 'git-gutter-fringe+ nil 'noerror))
-     (define-key git-gutter+-mode-map (kbd "M-n") 'git-gutter+-next-hunk)
-     (define-key git-gutter+-mode-map (kbd "M-p") 'git-gutter+-previous-hunk)
-     (define-key git-gutter+-mode-map (kbd "M-l") 'git-gutter+-show-hunk)
-     (define-key git-gutter+-mode-map (kbd "M-r") 'git-gutter+-revert-hunk)))
+     (global-git-gutter-mode t)
+     (require 'git-gutter-fringe nil 'noerror)
+     (add-hook 'git-gutter-mode-hook
+               (lambda ()
+                 (local-set-key (kbd "M-n") 'git-gutter:next-hunk)
+                 (local-set-key (kbd "M-p") 'git-gutter:previous-hunk)
+                 (local-set-key (kbd "M-l") 'git-gutter:popup-hunk)
+                 (local-set-key (kbd "M-r") 'git-gutter:revert-hunk)))))
 
 ;; diff-hl
 ;;
@@ -307,10 +308,10 @@
        (define-key diff-hl-mode-map (kbd "M-p") 'diff-hl-previous-hunk)
        (define-key diff-hl-mode-map (kbd "M-l") 'diff-hl-diff-goto-hunk)
        (define-key diff-hl-mode-map (kbd "M-r") 'diff-hl-revert-hunk)))
-  ;; c-modeでgit-gutter+が使えないときだけdiff-hlを使用する
+  ;; c-modeでgit-gutterが使えないときだけdiff-hlを使用する
   (add-hook 'c-mode-common-hook
             (lambda ()
-              (unless (git-gutter+-mode) (diff-hl-mode)))))
+              (unless (git-gutter-mode) (diff-hl-mode)))))
 
 ;; my-vc-status
 ;; VCバックエンドに応じたstatus関数を呼び出す
