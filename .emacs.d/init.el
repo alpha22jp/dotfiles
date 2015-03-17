@@ -466,6 +466,10 @@
 (require 'smart-mode-line nil 'noerror)
 (eval-after-load "smart-mode-line"
   '(progn
+     (setq rm-blacklist
+           "\\` Projectile\\|\\` AC\\'\\|\\` GitGutter\\'\\|\\` pair\\'")
+     (add-to-list 'rm-text-properties
+                  '("\\` mc" 'face 'font-lock-warning-face))
      (setq sml/name-width 32)
      (sml/setup)))
 
