@@ -304,10 +304,12 @@
               (unless (git-gutter-mode) (diff-hl-mode)))))
 (eval-after-load "diff-hl"
   '(progn
-     (define-key diff-hl-mode-map (kbd "M-n") 'diff-hl-next-hunk)
-     (define-key diff-hl-mode-map (kbd "M-p") 'diff-hl-previous-hunk)
-     (define-key diff-hl-mode-map (kbd "M-l") 'diff-hl-diff-goto-hunk)
-     (define-key diff-hl-mode-map (kbd "M-r") 'diff-hl-revert-hunk)))
+     (add-hook 'diff-hl-mode-hook
+               (lambda ()
+                 (local-set-key (kbd "M-n") 'diff-hl-next-hunk)
+                 (local-set-key (kbd "M-p") 'diff-hl-previous-hunk)
+                 (local-set-key (kbd "M-l") 'diff-hl-diff-goto-hunk)
+                 (local-set-key (kbd "M-r") 'diff-hl-revert-hunk)))))
 
 ;; my-vc-status
 ;; VCバックエンドに応じたstatus関数を呼び出す
