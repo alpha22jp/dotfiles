@@ -48,14 +48,9 @@
 
 ;; keyboard-translate settings
 ;;
-(defun my:keyboard-translate ()
-  (when (eq my:os-type 'mac) (keyboard-translate ?¥ ?\\))
-  (keyboard-translate ?\C-h ?\C-?))
-
-(add-hook 'after-make-frame-functions
-          (lambda (f)
-            (with-selected-frame f (my:keyboard-translate))))
-(my:keyboard-translate)
+(define-key key-translation-map (kbd "C-h") (kbd "<DEL>"))
+(when (eq my:os-type 'mac)
+  (define-key key-translation-map (kbd "\¥") (kbd "\\")))
 
 ;; general settings
 ;;
