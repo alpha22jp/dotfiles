@@ -91,12 +91,18 @@
                      (set-face-foreground 'default "#cfcfcf")
                      (set-face-background 'default "#101010")))))
 
+;; which-function-mode
+;;
+(which-function-mode)
+(eval-after-load "which-func"
+  '(setq which-func-modes
+         '(c-mode c++-mode java-mode ruby-mode python-mode)))
+
 ;; c/c++ mode settings
 ;;
 (eval-after-load "cc-vars"
   '(progn
      (setq c-default-style "stroustrup")
-     (which-function-mode t)
      (add-hook 'c-mode-common-hook
                (lambda ()
                  (flymake-mode t)
