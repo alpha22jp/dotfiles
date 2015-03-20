@@ -218,30 +218,6 @@
      (add-hook 'svn-status-mode-hook
                (lambda () (local-unset-key "\C-o")))))
 
-;; igrep
-;;
-(require 'igrep nil 'noerror)
-(eval-after-load "igrep"
-  '(progn
-     (setq igrep-program "lgrep")
-     (setq igrep-options "-Au8")
-     (setq igrep-regex-option nil)
-     (setq igrep-find t)
-     (setq igrep-read-multiple-files t)))
-
-;; gtags
-;;
-(require 'gtags nil 'noerror)
-(eval-after-load "gtags"
-  '(progn
-     (setq gtags-path-style 'relative)
-     (setq gtags-select-buffer-single nil)
-     (setq gtags-ignore-case nil) ;; 検索時に大文字・小文字を区別する
-     (setq gtags-prefix-key nil)
-     (setq gtags-auto-update t)
-     (setq gtags-suggested-key-mapping t)
-     (setq gtags-auto-update t)))
-
 ;; psvn
 ;;
 (require 'psvn nil 'noerror)
