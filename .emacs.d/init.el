@@ -196,7 +196,11 @@
            (lambda (errors)
              (let ((messages (mapcar #'flycheck-error-message errors)))
                (popup-tip (mapconcat 'identity messages "\n")))))
-     (setq flycheck-display-errors-delay 0.5)))
+     (setq flycheck-display-errors-delay 0.5)
+     (add-hook 'flycheck-mode-hook
+               (lambda ()
+                 (local-set-key (kbd "C-M-n") 'flycheck-next-error)
+                 (local-set-key (kbd "C-M-p") 'flycheck-previous-error)))))
 
 ;; auto-complete
 ;;
@@ -507,10 +511,10 @@
 (global-set-key (kbd "C-,") 'beginning-of-buffer)
 (global-set-key (kbd "C-.") 'end-of-buffer)
 (global-set-key (kbd "M-i") 'indent-region)
-(global-set-key (kbd "M-(") 'backward-list)
-(global-set-key (kbd "M-)") 'forward-list)
-(global-set-key (kbd "C-M-n") 'end-of-defun)
-(global-set-key (kbd "C-M-p") 'beginning-of-defun)
+(global-set-key (kbd "C-(") 'backward-list)
+(global-set-key (kbd "C-)") 'forward-list)
+(global-set-key (kbd "M-(") 'beginning-of-defun)
+(global-set-key (kbd "M-)") 'end-of-defun)
 (global-set-key [M-left] 'elscreen-previous)
 (global-set-key [M-right] 'elscreen-next)
 (global-set-key (kbd "M-,") 'cscope-pop-mark)
