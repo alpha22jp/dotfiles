@@ -290,6 +290,7 @@
 (require 'git-gutter nil 'noerror)
 (eval-after-load "git-gutter"
   '(progn
+     (setq git-gutter:handled-backends '(git svn))
      (global-git-gutter-mode t)
      (require 'git-gutter-fringe nil 'noerror)
      (add-hook 'git-gutter-mode-hook
@@ -298,22 +299,6 @@
                  (local-set-key (kbd "M-p") 'git-gutter:previous-hunk)
                  (local-set-key (kbd "M-l") 'git-gutter:popup-hunk)
                  (local-set-key (kbd "M-r") 'git-gutter:revert-hunk)))))
-
-;; diff-hl
-;;
-(when (locate-library "diff-hl")
-  ;; c-modeでgit-gutterが使えないときだけdiff-hlを使用する
-  (add-hook 'c-mode-common-hook
-            (lambda ()
-              (unless (git-gutter-mode) (diff-hl-mode)))))
-(eval-after-load "diff-hl"
-  '(progn
-     (add-hook 'diff-hl-mode-hook
-               (lambda ()
-                 (local-set-key (kbd "M-n") 'diff-hl-next-hunk)
-                 (local-set-key (kbd "M-p") 'diff-hl-previous-hunk)
-                 (local-set-key (kbd "M-l") 'diff-hl-diff-goto-hunk)
-                 (local-set-key (kbd "M-r") 'diff-hl-revert-hunk)))))
 
 ;; my-vc-status
 ;; VCバックエンドに応じたstatus関数を呼び出す
