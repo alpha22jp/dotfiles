@@ -355,6 +355,7 @@
      (setq helm-buffer-max-length 35)
      (setq helm-autoresize-min-height 20)
      (helm-autoresize-mode 1)
+     (define-key isearch-mode-map (kbd "C-o") 'helm-occur-from-isearch)
      ;; バッファの並び順を変更しない
      (defadvice helm-buffers-sort-transformer (around ignore activate)
        (setq ad-return-value (ad-get-arg 0)))))
