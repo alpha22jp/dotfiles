@@ -277,8 +277,6 @@
 
 ;; magit
 ;;
-(when (locate-library "auto-complete")
-  (add-to-list 'ac-modes 'git-commit-mode))
 (when (not (functionp 'process-live-p))
   (defun process-live-p (process)
     "Returns non-nil if PROCESS is alive"
