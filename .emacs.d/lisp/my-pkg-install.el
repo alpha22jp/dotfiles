@@ -7,44 +7,40 @@
       '(ag
         autopair
         auto-complete
-        diff-hl
         elscreen
         exec-path-from-shell
         expand-region
         flymake
-        fuzzy-format
-        git-gutter
-        git-gutter-fringe
         magit
         markdown-mode
         multiple-cursors
         mc-extras
         projectile
-        quickrun
-        rcodetools
         region-bindings-mode
         recentf-ext
         simplenote2
-        smart-mode-line
         wgrep-ag
         ))
 
 (setq my:pkg-install-list-23
-      '(color-theme-sanityinc-solarized
+      '(anything
+        color-theme-sanityinc-solarized
         git-gutter+
         git-gutter-fringe+
         ))
 
 (setq my:pkg-install-list-24
       '(flycheck
-        git-gutter+
-        git-gutter-fringe+
+        git-gutter
+        git-gutter-fringe
         helm
         helm-ag
         helm-cscope
         helm-descbinds
         helm-gtags
+        quickrun
         solarized-theme
+        smart-mode-line
         ))
 
 (defun my:pkg-install ()
