@@ -39,6 +39,7 @@ emacs_files=(
     "my-pkg-install.el"
     "autopair.el"
     "diff-color.el"
+    "elscreen.el"
     "flymake-popup.el"
     "psvn.el"
 )
