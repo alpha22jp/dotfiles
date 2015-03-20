@@ -10,6 +10,7 @@
         diff-hl
         elscreen
         exec-path-from-shell
+        expand-region
         flymake
         fuzzy-format
         git-gutter
