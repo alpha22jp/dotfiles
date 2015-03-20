@@ -480,9 +480,11 @@
 ;; global key bindings
 ;;
 (global-set-key (kbd "M-h") 'help-for-help)
+(define-key ctl-x-map (kbd "C-a") 'helm-apropos)
 (define-key ctl-x-map (kbd "C-b") (if my:helmp 'helm-buffers-list 'bs-show))
 (define-key ctl-x-map (kbd "C-d") 'helm-descbinds)
 (define-key ctl-x-map (kbd "C-g") 'helm-ag)
+(define-key ctl-x-map (kbd "m") 'helm-man-woman)
 (define-key ctl-x-map (kbd "C-r") 'helm-recentf)
 (define-key ctl-x-map (kbd "C-z") 'save-buffers-kill-emacs)
 (define-key ctl-x-map (kbd "f") 'helm-for-files)
