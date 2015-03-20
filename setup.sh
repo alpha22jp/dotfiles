@@ -40,6 +40,7 @@ emacs_files=(
     "autopair.el"
     "diff-color.el"
     "elscreen.el"
+    "isearch-region.el"
     "flymake-popup.el"
     "psvn.el"
 )

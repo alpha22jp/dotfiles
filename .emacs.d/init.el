@@ -31,6 +31,7 @@
 (require 'my-pkg-install nil 'noerror)
 (require 'my-proxy nil 'noerror) ;; for http proxy
 (require 'diff-color nil 'noerror) ;; for diff
+(require 'isearch-region nil 'noerror) ;; リージョンをisearchできるようにする
 
 ;; frame and font settings
 ;;
