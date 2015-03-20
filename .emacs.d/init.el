@@ -326,7 +326,14 @@
 (require 'simplenote2 nil 'noerror)
 (eval-after-load "simplenote2"
   '(progn
-     (require 'my-simplenote2 nil 'noerror)
+     (setq simplenote2-email "alpha22jp@gmail.com")
+     (setq simplenote2-markdown-notes-mode 'markdown-mode)
+     (add-hook 'simplenote2-create-note-hook 'simplenote2-set-markdown)
+     (add-hook 'simplenote2-note-mode-hook
+               (lambda ()
+                 (local-set-key (kbd "C-c C-t") 'simplenote2-add-tag)
+                 (local-set-key (kbd "C-c C-c") 'simplenote2-push-buffer)
+                 (local-set-key (kbd "C-c C-d") 'simplenote2-pull-buffer)))
      (simplenote2-setup)))
 
 ;; anything
@@ -509,8 +516,6 @@
 (global-set-key (kbd "C-M-.") 'gtags-find-tag)
 (global-set-key (kbd "M-g") 'goto-line)
 (global-set-key (kbd "C-z") 'undo)
-(global-set-key (kbd "C-c C-d") 'simplenote2-push-buffer)
-(global-set-key (kbd "C-c C-e") 'simplenote2-pull-buffer)
 (global-set-key (kbd "M-y")
                 (if my:helmp 'helm-show-kill-ring 'anything-show-kill-ring))
 (global-set-key [hiragana-katakana] 'dabbrev-expand)
