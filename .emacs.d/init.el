@@ -21,17 +21,12 @@
      ;; (add-to-list 'package-archives '("ELPA" . "http://tromey.com/elpa/"))
      (package-initialize)))
 
-;; local elisp settings
+;; local lisp path settings
 ;;
 (defvar my:lisp-dir (expand-file-name "~/.emacs.d/lisp"))
 (mapc (lambda (e) (if (file-directory-p e) (add-to-list 'load-path e)))
       (directory-files my:lisp-dir t "^[^.]"))
 (add-to-list 'load-path my:lisp-dir)
-
-(require 'my-pkg-install nil 'noerror)
-(require 'my-proxy nil 'noerror) ;; for http proxy
-(require 'diff-color nil 'noerror) ;; for diff
-(require 'isearch-region nil 'noerror) ;; リージョンをisearchできるようにする
 
 ;; frame and font settings
 ;;
@@ -69,6 +64,23 @@
 (setq find-file-visit-truename t) ;; シンボリックリンクを実体のパスで開く
 (setq-default indent-tabs-mode nil) ;; インデントに空白を使用
 
+;; extra local settings
+;;
+(require 'my-pkg-install nil 'noerror) ;; パッケージの一括インストール
+(require 'my-proxy nil 'noerror) ;; HTTPプロキシをトグルする
+(require 'diff-color nil 'noerror) ;; diffのカラー表示設定
+(require 'isearch-region nil 'noerror) ;; リージョンをisearchできるようにする
+
+;; my-vc-status
+;; VCバックエンドに応じたstatus関数を呼び出す
+(defun my-vc-status ()
+  "Call VC status function depending on backend."
+  (interactive)
+  (require 'vc)
+  (cond ((eq (vc-deduce-backend) 'SVN) (call-interactively 'svn-status))
+        ((eq (vc-deduce-backend) 'Git) (call-interactively 'magit-status))
+        (t (message "Buffer is not version controlled"))))
+
 ;; exec-path-from-shell
 ;;
 (when (require 'exec-path-from-shell nil 'noerror)
@@ -91,54 +103,19 @@
                      (set-face-foreground 'default "#cfcfcf")
                      (set-face-background 'default "#101010")))))
 
+;; uniquify
+;;
+(require 'uniquify nil 'noerror)
+(eval-after-load "uniquify"
+  '(progn
+     (setq uniquify-buffer-name-style 'post-forward-angle-brackets)))
+
 ;; which-function-mode
 ;;
 (which-function-mode)
 (eval-after-load "which-func"
   '(setq which-func-modes
          '(c-mode c++-mode java-mode ruby-mode python-mode)))
-
-;; c/c++ mode settings
-;;
-(eval-after-load "cc-vars"
-  '(progn
-     (setq c-default-style "stroustrup")
-     (add-hook 'c-mode-common-hook
-               (lambda ()
-                 (flymake-mode t)
-                 (c-toggle-hungry-state 1)
-                 (local-unset-key (kbd "C-M-h"))
-                 (setq comment-column 4)
-                 (setq indent-tabs-mode nil)
-                 (setq tab-width 4)))
-     (add-hook 'c++-mode-hook
-               (lambda ()
-                 (setq c-basic-offset 4)))))
-
-;; hexl mode settings
-;;
-(eval-after-load "hexl"
-  '(progn (setq hexl-options "-hex -group-by-8-bits")))
-
-;; java mode settings
-;;
-(add-to-list 'auto-mode-alist '("\\.as$" . java-mode))
-
-;; swift mode settings
-;;
-(add-hook 'swift-mode-hook
-          (lambda ()
-            (auto-complete-mode t)
-            (setq indent-tabs-mode nil)))
-
-;; ruby mode settings
-;;
-(eval-after-load "ruby-mode"
-'(progn
-   (require 'rcodetools nil 'noerror)
-   (add-hook 'ruby-mode-hook
-             (lambda ()
-               (local-set-key (kbd "C-c C-c") 'xmp)))))
 
 ;; compilation settings
 ;;
@@ -241,13 +218,6 @@
      (add-hook 'svn-status-mode-hook
                (lambda () (local-unset-key "\C-o")))))
 
-;; uniquify
-;;
-(require 'uniquify nil 'noerror)
-(eval-after-load "uniquify"
-  '(progn
-     (setq uniquify-buffer-name-style 'post-forward-angle-brackets)))
-
 ;; igrep
 ;;
 (require 'igrep nil 'noerror)
@@ -304,29 +274,6 @@
                  (local-set-key (kbd "M-p") 'git-gutter:previous-hunk)
                  (local-set-key (kbd "M-l") 'git-gutter:popup-hunk)
                  (local-set-key (kbd "M-r") 'git-gutter:revert-hunk)))))
-
-;; my-vc-status
-;; VCバックエンドに応じたstatus関数を呼び出す
-(defun my-vc-status ()
-  "Call VC status function depending on backend."
-  (interactive)
-  (require 'vc)
-  (cond ((eq (vc-deduce-backend) 'SVN) (call-interactively 'svn-status))
-        ((eq (vc-deduce-backend) 'Git) (call-interactively 'magit-status))
-        (t (message "Buffer is not version controlled"))))
-
-;; eshell mode settings
-;;
-(eval-after-load "esh-mode"
-  '(progn
-     (add-hook 'eshell-mode-hook
-               (lambda ()
-                 (define-key eshell-mode-map (kbd "\C-a") 'eshell-bol)))))
-
-;; markdown mode
-;;
-(add-to-list 'auto-mode-alist
-             '("\\.md\\'\\|app\\.simplenote\\.com_" . markdown-mode))
 
 ;; simplenote2
 ;;
@@ -475,6 +422,61 @@
                   '("\\` mc" 'face 'font-lock-warning-face))
      (setq sml/name-width 32)
      (sml/setup)))
+
+;; c/c++ mode
+;;
+(eval-after-load "cc-vars"
+  '(progn
+     (setq c-default-style "stroustrup")
+     (add-hook 'c-mode-common-hook
+               (lambda ()
+                 (flymake-mode t)
+                 (c-toggle-hungry-state 1)
+                 (local-unset-key (kbd "C-M-h"))
+                 (setq comment-column 4)
+                 (setq indent-tabs-mode nil)
+                 (setq tab-width 4)))
+     (add-hook 'c++-mode-hook
+               (lambda ()
+                 (setq c-basic-offset 4)))))
+
+;; hexl mode
+;;
+(eval-after-load "hexl"
+  '(progn (setq hexl-options "-hex -group-by-8-bits")))
+
+;; java mode
+;;
+(add-to-list 'auto-mode-alist '("\\.as$" . java-mode))
+
+;; swift mode settings
+;;
+(add-hook 'swift-mode-hook
+          (lambda ()
+            (auto-complete-mode t)
+            (setq indent-tabs-mode nil)))
+
+;; ruby mode
+;;
+(eval-after-load "ruby-mode"
+'(progn
+   (require 'rcodetools nil 'noerror)
+   (add-hook 'ruby-mode-hook
+             (lambda ()
+               (local-set-key (kbd "C-c C-c") 'xmp)))))
+
+;; eshell mode
+;;
+(eval-after-load "esh-mode"
+  '(progn
+     (add-hook 'eshell-mode-hook
+               (lambda ()
+                 (define-key eshell-mode-map (kbd "\C-a") 'eshell-bol)))))
+
+;; markdown mode
+;;
+(add-to-list 'auto-mode-alist
+             '("\\.md\\'\\|app\\.simplenote\\.com_" . markdown-mode))
 
 ;; coding system settings
 ;;
