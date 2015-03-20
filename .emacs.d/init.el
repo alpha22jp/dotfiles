@@ -63,6 +63,7 @@
 (setq read-file-name-completion-ignore-case t) ;; ファイル名補完でignore case
 (setq find-file-visit-truename t) ;; シンボリックリンクを実体のパスで開く
 (setq-default indent-tabs-mode nil) ;; インデントに空白を使用
+(setq-default tab-width 4)
 
 ;; extra local settings
 ;;
@@ -202,9 +203,8 @@
 (require 'fuzzy-format nil 'noerror)
 (eval-after-load "fuzzy-format"
   '(progn
-     (setq fuzzy-format-default-indent-tabs-mode nil)
-     (add-hook 'c-mode-common-hook
-               (lambda () (fuzzy-format-mode)))))
+     (delq 'makefile-mode fuzzy-format-check-modes)
+     (global-fuzzy-format-mode t)))
 
 ;; elscreen
 ;;
@@ -410,7 +410,6 @@
                  (c-toggle-hungry-state 1)
                  (local-unset-key (kbd "C-M-h"))
                  (setq comment-column 4)
-                 (setq indent-tabs-mode nil)
                  (setq tab-width 4)))
      (add-hook 'c++-mode-hook
                (lambda ()
@@ -429,8 +428,7 @@
 ;;
 (add-hook 'swift-mode-hook
           (lambda ()
-            (auto-complete-mode t)
-            (setq indent-tabs-mode nil)))
+            (auto-complete-mode t)))
 
 ;; ruby mode
 ;;
