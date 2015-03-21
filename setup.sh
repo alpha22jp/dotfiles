@@ -37,7 +37,6 @@ done
 #-----------------------------------------------------------------------
 emacs_files=(
     "my-pkg-install.el"
-    "autopair.el"
     "diff-color.el"
     "elscreen.el"
     "fuzzy-format.el"

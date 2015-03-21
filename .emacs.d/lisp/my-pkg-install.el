@@ -5,7 +5,6 @@
 
 (setq my:pkg-install-list
       '(ag
-        autopair
         auto-complete
         elscreen
         exec-path-from-shell
@@ -18,6 +17,7 @@
         projectile
         region-bindings-mode
         recentf-ext
+        smartparens
         simplenote2
         wgrep-ag
         ))

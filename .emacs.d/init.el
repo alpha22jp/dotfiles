@@ -154,10 +154,11 @@
                  (goto-char (point-min))))
              my:template-replacement-alist))))
 
-;; autopair
+;; smartparens
 ;;
-(when (require 'autopair nil 'noerror)
-  (autopair-global-mode))
+(when (require 'smartparens-config nil 'noerror)
+  (smartparens-global-mode)
+  (show-smartparens-global-mode))
 
 ;; flymake
 ;;
@@ -358,8 +359,6 @@
 (require 'multiple-cursors nil 'noerror)
 (eval-after-load "multiple-cursors"
   '(progn
-     (when (locate-library "autopair")
-       (add-to-list 'mc/unsupported-minor-modes 'autopair-mode))
      (require 'mc-extras nil 'noerror)))
 
 ;; region bindings mode
@@ -393,7 +392,7 @@
   '(progn
      (setq rm-blacklist
            "\\` Projectile\\|\\` Helm\\|\\` GitGutter\\'\\|\\` pair\\'\\|\
-\\` Abbrev\\'\\|\\` AC\\'\\|\\` MRev\\'")
+\\` Abbrev\\'\\|\\` MRev\\'")
      (add-to-list 'rm-text-properties
                   '("\\` mc" 'face 'font-lock-warning-face))
      (setq sml/name-width 32)
