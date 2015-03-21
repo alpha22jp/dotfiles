@@ -286,6 +286,7 @@
      (setq helm-autoresize-min-height 20)
      (helm-autoresize-mode 1)
      (define-key isearch-mode-map (kbd "C-o") 'helm-occur-from-isearch)
+     (define-key isearch-mode-map (kbd "C-]") 'helm-swoop-from-isearch)
      ;; バッファの並び順を変更しない
      (defadvice helm-buffers-sort-transformer (around ignore activate)
        (setq ad-return-value (ad-get-arg 0)))))
@@ -484,6 +485,7 @@
 (global-set-key (kbd "C-t") 'mc/mark-all-dwim)
 (global-set-key (kbd "C-;") 'comment-dwim)
 (global-set-key (kbd "C-:") (if my:helmp 'helm-mini 'anything-for-files))
+(global-set-key (kbd "C-]") 'helm-swoop)
 (global-set-key (kbd "C-@") 'er/expand-region)
 (global-set-key (kbd "M-@") 'er/contract-region)
 (global-set-key (kbd "C-,") 'beginning-of-buffer)

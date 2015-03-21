@@ -38,6 +38,7 @@
         helm-cscope
         helm-descbinds
         helm-gtags
+        helm-swoop
         quickrun
         solarized-theme
         smart-mode-line
