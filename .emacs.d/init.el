@@ -6,11 +6,6 @@
 
 ;;; Code:
 
-;; os-type
-;;
-(defvar my:os-type
-  (if (string-match "apple-darwin" system-configuration) 'mac 'linux))
-
 ;; package settings
 ;;
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/elpa")) ;; for Emacs23
@@ -31,7 +26,7 @@
 ;; frame and font settings
 ;;
 (defvar my:default-font
-  (if (eq my:os-type 'mac) "Ricty Diminished-16" "Migu 2M-11"))
+  (if (eq system-type 'darwin) "Ricty Diminished-16" "Migu 2M-11"))
 ;; (frame-parameter nil 'font) ;; 使用中のフォントを調べる
 (setq default-frame-alist
       (append (list
@@ -45,7 +40,7 @@
 ;; keyboard-translate settings
 ;;
 (define-key key-translation-map (kbd "C-h") (kbd "<DEL>"))
-(when (eq my:os-type 'mac)
+(when (eq system-type 'darwin)
   (define-key key-translation-map (kbd "\¥") (kbd "\\")))
 
 ;; general settings
