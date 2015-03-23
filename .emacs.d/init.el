@@ -356,6 +356,10 @@
   '(progn
      (require 'mc-extras nil 'noerror)))
 
+;; expand-region
+;;
+(require 'expand-region nil 'noerror)
+
 ;; region bindings mode
 ;;
 (when (require 'region-bindings-mode nil 'noerror)
