@@ -3,8 +3,9 @@
 
 [alias]
 	s = status -s
-        b = branch
-        co = checkout
+	b = branch
+	co = checkout
+	df = diff --no-prefix
 	l = log --graph --abbrev-commit --name-status --date=local
 	graph = log --graph --date-order --all --pretty=format:'%h %Cred%d %Cgreen%ad %Cblue%cn %Creset%s' --date=short
 
