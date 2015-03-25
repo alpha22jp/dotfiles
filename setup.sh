@@ -37,6 +37,7 @@ done
 #-----------------------------------------------------------------------
 emacs_files=(
     "my-package-list.el"
+    "my-auto-insert.el"
     "diff-color.el"
     "elscreen.el"
     "fuzzy-format.el"

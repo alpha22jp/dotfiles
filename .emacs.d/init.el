@@ -125,28 +125,9 @@
 (eval-after-load "autoinsert"
   '(progn
      (auto-insert-mode)
-     (setq auto-insert-alist
-           '((("\\.\\(c\\|cpp\\)$" . "C/C++ source") . ["template.c" my:template-insert])
-             (("\\.\\(h\\|hpp\\)$" . "C/C++ header") . ["template.h" my:template-insert])))
      (setq auto-insert-directory "~/.emacs.d/template/")
      (setq auto-insert-query t)
-     (defun my:template-get-filename-base ()
-       (file-name-sans-extension (file-name-nondirectory (buffer-file-name))))
-     (defun my:template-get-filename-ext ()
-       (file-name-extension (file-name-nondirectory (buffer-file-name))))
-     (defvar my:template-replacement-alist
-       '(("%file%"          . (lambda () (file-name-nondirectory (buffer-file-name))))
-         ("%file-base%"     . (lambda () (my:template-get-filename-base)))
-         ("%date%"          . (lambda () (format-time-string "%Y-%m-%d")))
-         ("%include-guard%" . (lambda () (format "__%s_%s__"
-                                                 (upcase (my:template-get-filename-base))
-                                                 (upcase (my:template-get-filename-ext)))))))
-     (defun my:template-insert ()
-       (mapc (lambda (c)
-               (progn
-                 (replace-string (car c) (funcall (cdr c)) nil)
-                 (goto-char (point-min))))
-             my:template-replacement-alist))))
+     (require 'my-auto-insert nil 'noerror)))
 
 ;; smartparens
 ;;
