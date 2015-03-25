@@ -61,7 +61,7 @@
 
 ;; extra local settings
 ;;
-(require 'my-pkg-install nil 'noerror) ;; パッケージの一括インストール
+(require 'my-package-list nil 'noerror) ;; パッケージの一括インストール
 (require 'my-proxy nil 'noerror) ;; HTTPプロキシをトグルする
 (require 'diff-color nil 'noerror) ;; diffのカラー表示設定
 (require 'isearch-region nil 'noerror) ;; リージョンをisearchできるようにする

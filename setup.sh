@@ -36,7 +36,7 @@ done
 # Emacsの設定ファイル
 #-----------------------------------------------------------------------
 emacs_files=(
-    "my-pkg-install.el"
+    "my-package-list.el"
     "diff-color.el"
     "elscreen.el"
     "fuzzy-format.el"

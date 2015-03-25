@@ -1,9 +1,9 @@
-;;; my-pkg-install.el --- install my favorite packages in a lump
+;;; my-package-list.el --- install my favorite packages
 ;;;
 
 ;;; Code:
 
-(setq my:pkg-install-list
+(defvar my-package-list
       '(ag
         auto-complete
         elscreen
@@ -22,14 +22,14 @@
         wgrep-ag
         ))
 
-(setq my:pkg-install-list-23
+(defvar my-package-list-23
       '(anything
         color-theme-sanityinc-solarized
         git-gutter+
         git-gutter-fringe+
         ))
 
-(setq my:pkg-install-list-24
+(defvar my-package-list-24
       '(flycheck
         git-gutter
         git-gutter-fringe
@@ -44,15 +44,14 @@
         smart-mode-line
         ))
 
-(defun my:pkg-install ()
-  (interactive)
-  (package-refresh-contents)
-  (dolist (pkg my:pkg-install-list)
-    (if (not (locate-library (symbol-name pkg))) (package-install pkg)))
-  (dolist (pkg (if (>= emacs-major-version 24)
-                   my:pkg-install-list-24 my:pkg-install-list-23))
-    (if (not (locate-library (symbol-name pkg))) (package-install pkg))))
+(let (packages)
+  (mapc (lambda (e) (unless (package-installed-p e) (push e packages)))
+          (append my-package-list (if (>= emacs-major-version 24)
+                                      my-package-list-24 my-package-list-23)))
+  (when packages
+    (package-refresh-contents)
+    (mapc (lambda (e) (package-install e)) packages)))
 
-(provide 'my-pkg-install)
+(provide 'my-package-list)
 
-;;; my-pkg-install.el ends here
+;;; my-package-list.el ends here
