@@ -509,7 +509,7 @@
 (global-set-key [f6] 'quickrun)
 (global-set-key [f7] 'compile)
 (global-set-key [f8] (if my:helmp 'helm-ag 'ag))
-(global-set-key [f9] 'svn-status-show-svn-log)
+(global-set-key [f9] 'vc-print-log)
 (global-set-key [f10] 'my-vc-status)
 (global-set-key [f11] 'vc-diff)
 (global-set-key [f12] 'vc-revert)
