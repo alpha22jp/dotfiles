@@ -133,7 +133,10 @@
 ;;
 (when (require 'smartparens-config nil 'noerror)
   (smartparens-global-mode)
-  (show-smartparens-global-mode))
+  (show-smartparens-global-mode)
+  (add-hook 'emacs-lisp-mode-hook
+            (lambda ()
+              (smartparens-strict-mode))))
 
 ;; flymake
 ;;
