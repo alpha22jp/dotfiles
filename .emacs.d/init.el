@@ -79,16 +79,7 @@
 (require 'my-proxy-toggle nil 'noerror) ;; HTTPプロキシをトグルする
 (require 'diff-color nil 'noerror) ;; diffのカラー表示設定
 (require 'isearch-region nil 'noerror) ;; リージョンをisearchできるようにする
-
-;; my-vc-status
-;; VCバックエンドに応じたstatus関数を呼び出す
-(defun my-vc-status ()
-  "Call VC status function depending on backend."
-  (interactive)
-  (require 'vc)
-  (cond ((eq (vc-deduce-backend) 'SVN) (call-interactively 'svn-status))
-        ((eq (vc-deduce-backend) 'Git) (call-interactively 'magit-status))
-        (t (message "Buffer is not version controlled"))))
+(require 'my-vc-status nil 'noerror) ;; VCバックエンドに応じたstatus関数を呼び出す
 
 ;; color-theme
 ;;
