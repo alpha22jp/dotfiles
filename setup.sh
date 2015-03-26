@@ -38,6 +38,7 @@ done
 emacs_files=(
     "my-package-list.el"
     "my-auto-insert.el"
+    "my-proxy-toggle.el"
     "diff-color.el"
     "elscreen.el"
     "fuzzy-format.el"

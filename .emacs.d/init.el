@@ -59,10 +59,15 @@
 (setq find-file-visit-truename t) ;; シンボリックリンクを実体のパスで開く
 (setq-default tab-width 4 indent-tabs-mode nil) ;; インデント幅は4で空白を使用
 
+;; exec-path-from-shell
+;;
+(when (require 'exec-path-from-shell nil 'noerror)
+  (exec-path-from-shell-initialize))
+
 ;; extra local settings
 ;;
 (require 'my-package-list nil 'noerror) ;; パッケージの一括インストール
-(require 'my-proxy nil 'noerror) ;; HTTPプロキシをトグルする
+(require 'my-proxy-toggle nil 'noerror) ;; HTTPプロキシをトグルする
 (require 'diff-color nil 'noerror) ;; diffのカラー表示設定
 (require 'isearch-region nil 'noerror) ;; リージョンをisearchできるようにする
 
@@ -75,11 +80,6 @@
   (cond ((eq (vc-deduce-backend) 'SVN) (call-interactively 'svn-status))
         ((eq (vc-deduce-backend) 'Git) (call-interactively 'magit-status))
         (t (message "Buffer is not version controlled"))))
-
-;; exec-path-from-shell
-;;
-(when (require 'exec-path-from-shell nil 'noerror)
-  (exec-path-from-shell-initialize))
 
 ;; color-theme
 ;;
