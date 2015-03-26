@@ -460,7 +460,7 @@
 (define-key ctl-x-map (kbd "m") 'helm-man-woman)
 (define-key ctl-x-map (kbd "C-r") 'helm-recentf)
 (define-key ctl-x-map (kbd "C-z") 'save-buffers-kill-emacs)
-(define-key ctl-x-map (kbd "f") 'helm-find-files)
+(define-key ctl-x-map (kbd "C-f") (if my:helmp 'helm-find-files 'find-file))
 (define-key ctl-x-map (kbd "t") 'toggle-truncate-lines)
 (define-key ctl-x-map (kbd "x") (if my:helmp 'helm-M-x 'anything-M-x))
 (global-set-key (kbd "C-t") 'mc/mark-all-dwim)
