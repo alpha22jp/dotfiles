@@ -19,6 +19,7 @@
         smartparens
         simplenote2
         wgrep-ag
+        yasnippet
         ))
 
 (defvar my-package-list-23
