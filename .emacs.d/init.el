@@ -43,6 +43,11 @@
 (when (eq system-type 'darwin)
   (define-key key-translation-map (kbd "\¥") (kbd "\\")))
 
+;; personal information settings
+;;
+(setq user-full-name "alpha22jp")
+(setq user-mail-address "alpha22jp@gmail.com")
+
 ;; general settings
 ;;
 (tool-bar-mode 0) ;; ツールバーを表示しない
