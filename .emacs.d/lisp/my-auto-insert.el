@@ -28,7 +28,7 @@
       (append
        '((("\\.\\(c\\|cpp\\)$" . "C/C++ source") . ["template.c" my:template-insert])
          (("\\.\\(h\\|hpp\\)$" . "C/C++ header") . ["template.h" my:template-insert])
-         (("\\.el$" . "Emacs lisp") . ["template.el" my:template-insert]))
+         )
        auto-insert-alist))
 
 (provide 'my-auto-insert)
