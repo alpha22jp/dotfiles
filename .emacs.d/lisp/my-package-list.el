@@ -30,7 +30,6 @@
 
 (defvar my-package-list-24
       '(flycheck
-        git-gutter
         git-gutter-fringe
         helm
         helm-ag
