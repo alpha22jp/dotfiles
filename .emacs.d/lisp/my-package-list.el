@@ -6,7 +6,6 @@
 (defvar my-package-list
       '(ag
         auto-complete
-        elscreen
         exec-path-from-shell
         expand-region
         flymake
