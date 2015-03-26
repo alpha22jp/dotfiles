@@ -6,9 +6,12 @@
 (defvar my-proxy-use-proxy t)
 
 (defvar my-proxy-setting
-  (list (cons "no_proxy" (getenv "no_proxy"))
-        (cons "http" (getenv "http_proxy"))
-        (cons "https" (getenv "https_proxy"))))
+  (let ((http_proxy (getenv "http_proxy"))
+        (https_proxy (getenv "https_proxy"))
+        (no_proxy (getenv "no_proxy")))
+    (list (if http_proxy (cons "http_proxy" http_proxy) nil)
+          (if https_proxy (cons "https_proxy" https_proxy) nil)
+          (if no_proxy (cons "no_proxy" no_proxy) nil))))
 
 (defun my-proxy-toggle-proxy ()
   (interactive)
