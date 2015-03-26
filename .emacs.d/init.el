@@ -39,9 +39,13 @@
 
 ;; keyboard-translate settings
 ;;
-(define-key key-translation-map (kbd "C-h") (kbd "<DEL>"))
-(when (eq system-type 'darwin)
-  (define-key key-translation-map (kbd "\¥") (kbd "\\")))
+(defun my-keyboard-translate ()
+  (when (eq system-type 'darwin) (keyboard-translate ?¥ ?\\))
+  (keyboard-translate ?\C-h ?\C-?))
+(add-hook 'after-make-frame-functions
+          (lambda (f)
+            (with-selected-frame f (my-keyboard-translate))))
+(my-keyboard-translate)
 
 ;; personal information settings
 ;;
