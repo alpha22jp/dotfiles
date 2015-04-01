@@ -18,10 +18,13 @@
 
 ;; local lisp path settings
 ;;
-(defvar my:lisp-dir (expand-file-name "~/.emacs.d/lisp"))
-(mapc (lambda (e) (if (file-directory-p e) (add-to-list 'load-path e)))
-      (directory-files my:lisp-dir t "^[^.]"))
-(add-to-list 'load-path my:lisp-dir)
+(defvar my-lisp-dir-list '("~/.emacs.d/lisp" "~/.emacs.d/lisp-local"))
+(mapc (lambda (dir)
+        (mapc (lambda (e) (if (file-directory-p e)
+                              (add-to-list 'load-path (expand-file-name e))))
+              (directory-files dir t "^[^.]"))
+        (add-to-list 'load-path dir))
+      my-lisp-dir-list)
 
 ;; frame and font settings
 ;;
