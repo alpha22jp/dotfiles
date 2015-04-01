@@ -22,8 +22,8 @@
 (mapc (lambda (dir)
         (mapc (lambda (e) (if (file-directory-p e)
                               (add-to-list 'load-path (expand-file-name e))))
-              (directory-files dir t "^[^.]"))
-        (add-to-list 'load-path dir))
+              (if (file-directory-p dir) (directory-files dir t "^[^.]") nil))
+        (add-to-list 'load-path (expand-file-name dir)))
       my-lisp-dir-list)
 
 ;; frame and font settings
