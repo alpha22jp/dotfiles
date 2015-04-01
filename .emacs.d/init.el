@@ -291,11 +291,14 @@
                  (local-set-key (kbd "M-s") 'helm-gtags-find-symbol)
                  (local-set-key (kbd "M-;") 'helm-gtags-find-pattern)
                  (local-set-key (kbd "M-,") 'helm-gtags-pop-stack)))))
+(when (locate-library "helm-gtags")
+  (add-hook 'c-mode-common-hook
+            (lambda ()
+              (when (locate-dominating-file default-directory "GTAGS")
+                (helm-gtags-mode)))))
 
 ;; helm-cscope
 ;;
-(when (locate-library "helm-cscope")
-  (add-hook 'c-mode-common-hook 'helm-cscope-mode))
 (require 'helm-cscope nil 'noerror)
 (eval-after-load "helm-cscope"
   '(progn
@@ -306,6 +309,11 @@
                  (local-set-key (kbd "M-@") 'helm-cscope-find-calling-this-funtcion)
                  (local-set-key (kbd "M-s") 'helm-cscope-find-this-symbol)
                  (local-set-key (kbd "M-,") 'helm-cscope-pop-mark)))))
+(when (locate-library "helm-cscope")
+  (add-hook 'c-mode-common-hook
+            (lambda ()
+              (when (locate-dominating-file default-directory "cscope.out")
+                (helm-cscope-mode)))))
 
 ;; helm-ag
 ;;
