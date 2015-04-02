@@ -288,8 +288,7 @@
                (lambda ()
                  (local-set-key (kbd "M-.") 'helm-gtags-find-tag)
                  (local-set-key (kbd "M-@") 'helm-gtags-find-rtag)
-                 (local-set-key (kbd "M-s") 'helm-gtags-find-symbol)
-                 (local-set-key (kbd "M-;") 'helm-gtags-find-pattern)
+                 (local-set-key (kbd "M-;") 'helm-gtags-find-symbol)
                  (local-set-key (kbd "M-,") 'helm-gtags-pop-stack)))))
 (when (locate-library "helm-gtags")
   (add-hook 'c-mode-common-hook
@@ -307,7 +306,7 @@
                (lambda ()
                  (local-set-key (kbd "M-.") 'helm-cscope-find-global-definition)
                  (local-set-key (kbd "M-@") 'helm-cscope-find-calling-this-funtcion)
-                 (local-set-key (kbd "M-s") 'helm-cscope-find-this-symbol)
+                 (local-set-key (kbd "M-;") 'helm-cscope-find-this-symbol)
                  (local-set-key (kbd "M-,") 'helm-cscope-pop-mark)))))
 (when (locate-library "helm-cscope")
   (add-hook 'c-mode-common-hook
