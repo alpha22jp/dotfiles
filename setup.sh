@@ -21,6 +21,7 @@ files=(
     ".bashrc"
     ".gemrc"
     ".gitconfig"
+    ".npmrc"
     ".tmux.conf"
     ".screenrc"
     )
