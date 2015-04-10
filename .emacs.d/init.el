@@ -391,6 +391,17 @@
      (setq sml/name-width 32)
      (sml/setup)))
 
+;; quickrun
+;;
+(eval-after-load "quickrun"
+  '(progn
+     (quickrun-add-command
+      "javascript/node-harmony"
+      '((:command . "node")
+        (:description . "Run Javascript file with node.js(harmony)")
+        (:cmdopt . "--harmony")))
+     (quickrun-set-default "javascript" "javascript/node-harmony")))
+
 ;; c/c++ mode
 ;;
 (eval-after-load "cc-vars"
