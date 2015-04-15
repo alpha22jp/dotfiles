@@ -429,6 +429,15 @@
 ;;
 (add-to-list 'auto-mode-alist '("\\.as$" . java-mode))
 
+;; javascript mode
+;;
+(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+(add-hook 'js2-mode-hook (lambda () (setq js2-basic-offset 2)))
+
+;; json mode
+;;
+(add-to-list 'auto-mode-alist '("\\.json$" . json-mode))
+
 ;; swift mode settings
 ;;
 (add-hook 'swift-mode-hook
