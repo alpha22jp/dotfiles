@@ -217,6 +217,7 @@
     "Returns non-nil if PROCESS is alive"
     (memq (process-status process)
           '(run open listen connect stop))))
+(setq magit-last-seen-setup-instructions "1.4.0")
 
 ;; git-gutter
 ;;
