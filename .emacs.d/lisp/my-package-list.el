@@ -9,6 +9,7 @@
         exec-path-from-shell
         expand-region
         flymake
+        haskell-mode
         js2-mode
         json-mode
         magit

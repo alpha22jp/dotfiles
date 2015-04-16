@@ -453,6 +453,12 @@
              (lambda ()
                (local-set-key (kbd "C-c C-c") 'xmp)))))
 
+;; haskell mode
+;;
+(add-hook 'haskell-mode
+          (lambda ()
+            (turn-on-haskell-indentation)))
+
 ;; eshell mode
 ;;
 (eval-after-load "esh-mode"
