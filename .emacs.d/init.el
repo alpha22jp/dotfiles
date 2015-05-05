@@ -457,6 +457,7 @@
 ;;
 (add-hook 'haskell-mode-hook
           (lambda ()
+            (interactive-haskell-mode 1)
             (turn-on-haskell-indentation)))
 
 ;; eshell mode
