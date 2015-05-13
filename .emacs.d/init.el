@@ -457,6 +457,7 @@
 ;;
 (add-hook 'haskell-mode-hook
           (lambda ()
+            (setq haskell-process-show-debug-tips nil)
             (interactive-haskell-mode 1)
             (turn-on-haskell-indentation)))
 
