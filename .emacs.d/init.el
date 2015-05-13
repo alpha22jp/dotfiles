@@ -404,6 +404,10 @@
         (:cmdopt . "--harmony")))
      (quickrun-set-default "javascript" "javascript/node-harmony")))
 
+;; yasnippet
+;;
+(yas-global-mode 1)
+
 ;; c/c++ mode
 ;;
 (eval-after-load "cc-vars"
