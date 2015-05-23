@@ -164,6 +164,7 @@
              (let ((messages (mapcar #'flycheck-error-message errors)))
                (popup-tip (mapconcat 'identity messages "\n")))))
      (setq flycheck-display-errors-delay 0.5)
+     (setq flycheck-gcc-language-standard "c++11")
      (add-hook 'flycheck-mode-hook
                (lambda ()
                  (local-set-key (kbd "C-M-n") 'flycheck-next-error)
