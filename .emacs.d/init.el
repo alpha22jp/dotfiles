@@ -411,7 +411,7 @@
 
 ;; yasnippet
 ;;
-(yas-global-mode 1)
+;(yas-global-mode 1)
 
 ;; c/c++ mode
 ;;
