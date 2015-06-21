@@ -40,3 +40,13 @@ if [ -s "$NVM_DIR/nvm.sh" ]; then
     source $NVM_DIR/nvm.sh
     nvm use 0.12 >/dev/null
 fi
+
+# For Haskell
+if [ -d $HOME/.cabal/bin ]; then
+    export PATH=$HOME/.cabal/bin:$PATH
+fi
+
+# For Ruby
+if [ -d $HOME/.gem/ruby/2.2.0/bin ]; then
+    export PATH=$HOME/.gem/ruby/2.2.0/bin:$PATH
+fi
