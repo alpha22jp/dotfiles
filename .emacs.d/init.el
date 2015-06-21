@@ -213,11 +213,14 @@
 
 ;; magit
 ;;
-(when (not (functionp 'process-live-p))
-  (defun process-live-p (process)
-    "Returns non-nil if PROCESS is alive"
-    (memq (process-status process)
-          '(run open listen connect stop))))
+(eval-after-load "magit"
+  '(progn
+     ;; (when (not (functionp 'process-live-p))
+     ;;   (defun process-live-p (process)
+     ;;     "Returns non-nil if PROCESS is alive"
+     ;;     (memq (process-status process)
+     ;;           '(run open listen connect stop))))
+     (setq magit-diff-refine-hunk 't)))
 (setq magit-last-seen-setup-instructions "1.4.0")
 
 ;; git-gutter
