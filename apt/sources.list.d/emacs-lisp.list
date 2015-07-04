@@ -1,0 +1,3 @@
+# Ubuntu Emacs Lisp
+# key: ppa:ubuntu-elisp/ppa
+deb http://ppa.launchpad.net/ubuntu-elisp/ppa/ubuntu trusty main

@@ -1,0 +1,3 @@
+# Git stable releases
+# key: ppa:git-core/ppa
+deb http://ppa.launchpad.net/git-core/ppa/ubuntu trusty main
