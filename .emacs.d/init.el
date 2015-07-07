@@ -220,6 +220,7 @@
      ;;     "Returns non-nil if PROCESS is alive"
      ;;     (memq (process-status process)
      ;;           '(run open listen connect stop))))
+     (add-hook 'magit-mode-hook (lambda () (diff-mode-setup-faces)))
      (setq magit-diff-refine-hunk 't)))
 (setq magit-last-seen-setup-instructions "1.4.0")
 
