@@ -436,7 +436,9 @@
 ;; hexl mode
 ;;
 (eval-after-load "hexl"
-  '(progn (setq hexl-options "-hex -group-by-8-bits")))
+  '(progn
+     ;; (setq hexl-options "-hex -group-by-8-bits")
+     (setq hexl-bits 8)))
 
 ;; java mode
 ;;
