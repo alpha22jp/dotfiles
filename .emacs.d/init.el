@@ -438,7 +438,10 @@
 (eval-after-load "hexl"
   '(progn
      ;; (setq hexl-options "-hex -group-by-8-bits")
-     (setq hexl-bits 8)))
+     (setq hexl-bits 8)
+     (add-hook 'hexl-mode-hook
+               (lambda ()
+                 (local-set-key (kbd "C-c C-s") 'hexl-insert-hex-string)))))
 
 ;; java mode
 ;;
