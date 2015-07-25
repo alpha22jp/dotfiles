@@ -16,7 +16,6 @@
         markdown-mode
         multiple-cursors
         mc-extras
-        projectile
         region-bindings-mode
         recentf-ext
         smartparens

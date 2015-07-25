@@ -374,17 +374,6 @@
   (define-key region-bindings-mode-map (kbd "C-M-n") 'mc/cycle-forward)
   (define-key region-bindings-mode-map (kbd "C-M-p") 'mc/cycle-backward))
 
-;; projectile
-;;
-(require 'projectile nil 'noerror)
-(eval-after-load "projectile"
-  '(progn
-     (projectile-global-mode)
-     (setq projectile-completion-system 'helm)
-     (define-key projectile-mode-map (kbd "C-c C-f") 'projectile-find-file)
-     (define-key projectile-mode-map (kbd "C-c C-r") 'projectile-recentf)
-     (define-key projectile-mode-map (kbd "C-c C-g") 'helm-projectile-ag)))
-
 ;; smart-mode-line
 ;;
 (require 'smart-mode-line nil 'noerror)
