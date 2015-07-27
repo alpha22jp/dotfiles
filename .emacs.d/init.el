@@ -462,6 +462,9 @@
 ;;
 (add-to-list 'auto-mode-alist
              '("\\.md\\'\\|app\\.simplenote\\.com_" . markdown-mode))
+(add-hook 'markdown-mode-hook
+          (lambda ()
+            (markdown-reload-extensions)))
 
 ;; coding system settings
 ;;
