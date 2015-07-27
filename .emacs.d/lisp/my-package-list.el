@@ -4,51 +4,44 @@
 ;;; Code:
 
 (defvar my-package-list
-      '(ag
-        auto-complete
-        exec-path-from-shell
-        expand-region
-        flymake
-        haskell-mode
-        js2-mode
-        json-mode
-        magit
-        markdown-mode
-        multiple-cursors
-        mc-extras
-        region-bindings-mode
-        recentf-ext
-        smartparens
-        simplenote2
-        wgrep-ag
-        yasnippet
-        ))
+  '(ag
+    auto-complete
+    exec-path-from-shell
+    expand-region
+    flycheck
+    flymake
+    git-gutter-fringe
+    haskell-mode
+    helm
+    helm-ag
+    helm-cscope
+    helm-descbinds
+    helm-gtags
+    helm-swoop
+    js2-mode
+    json-mode
+    markdown-mode
+    multiple-cursors
+    mc-extras
+    quickrun
+    region-bindings-mode
+    recentf-ext
+    smartparens
+    simplenote2
+    smart-mode-line
+    solarized-theme
+    wgrep-ag
+    yasnippet
+    ))
 
-(defvar my-package-list-23
-      '(anything
-        color-theme-sanityinc-solarized
-        git-gutter+
-        git-gutter-fringe+
-        ))
-
-(defvar my-package-list-24
-      '(flycheck
-        git-gutter-fringe
-        helm
-        helm-ag
-        helm-cscope
-        helm-descbinds
-        helm-gtags
-        helm-swoop
-        quickrun
-        solarized-theme
-        smart-mode-line
-        ))
+(defvar my-package-list-24.4
+  '(magit
+    ))
 
 (let (packages)
   (mapc (lambda (e) (unless (package-installed-p e) (push e packages)))
-          (append my-package-list (if (>= emacs-major-version 24)
-                                      my-package-list-24 my-package-list-23)))
+          (append my-package-list (if (>= emacs-minor-version 4)
+                                      my-package-list-24.4 nil)))
   (when packages
     (package-refresh-contents)
     (mapc (lambda (e) (package-install e)) packages)))

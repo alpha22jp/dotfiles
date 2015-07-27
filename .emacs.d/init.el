@@ -1,4 +1,4 @@
-;;; .emacs.d/init.el --- init.el for Emacs 23,24
+;;; .emacs.d/init.el --- init.el for Emacs24
 ;;   Author: alpha22jp <alpha22jp@gmail.com>
 ;;   Created: 2008/06/05
 
@@ -8,7 +8,6 @@
 
 ;; package settings
 ;;
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/elpa")) ;; for Emacs23
 (require 'package nil 'noerror)
 (eval-after-load "package"
   '(progn
@@ -86,20 +85,12 @@
 
 ;; color-theme
 ;;
-(cond ((locate-library "solarized-theme")
-       (load-theme 'solarized-dark t))
-      ;; Alternative solarized theme mainly for Emacs23
-      ((locate-library "color-theme-sanityinc-solarized")
-       (if (>= emacs-major-version 24)
-           (load-theme 'sanityinc-solarized-dark t)
-         (when (require 'color-theme nil 'noerror)
-           (require 'color-theme-sanityinc-solarized nil 'noerror)
-           (color-theme-sanityinc-solarized-dark))))
-      ;; No theme found, use simple manual settings
-      (t (add-hook 'window-setup-hook
-                   (lambda ()
-                     (set-face-foreground 'default "#cfcfcf")
-                     (set-face-background 'default "#101010")))))
+(if (locate-library "solarized-theme")
+    (load-theme 'solarized-dark t)
+  (add-hook 'window-setup-hook
+            (lambda ()
+              (set-face-foreground 'default "#cfcfcf")
+              (set-face-background 'default "#101010"))))
 
 ;; uniquify
 ;;
@@ -206,7 +197,6 @@
 (require 'psvn nil 'noerror)
 (eval-after-load "psvn"
   '(progn
-     (require 'vc-svn) ;; Emacs23におけるSVN管理ファイル判定問題の対応のため
      (setq svn-status-hide-unmodified t)
      (setq svn-status-hide-unknown t)
      (setq svn-status-svn-file-coding-system 'utf-8)))
@@ -254,15 +244,6 @@
                  (local-set-key (kbd "C-c C-d") 'simplenote2-pull-buffer)))
      (require 'my-simplenote2 nil 'noerror)
      (simplenote2-setup)))
-
-;; anything
-;;
-(require 'anything-startup nil 'noerror)
-(eval-after-load "anything"
-  '(progn
-     ;; バッファ補完候補の除外設定に "flymake:" を追加
-     (setq anything-c-boring-buffer-regexp
-           "\\(\\` \\)\\|\\*anything\\|\\*ac-mode\\| \\*Echo Area\\| \\*Minibuf\\|flymake:")))
 
 ;; helm
 ;;
@@ -502,18 +483,18 @@
 ;;
 (global-set-key (kbd "M-h") 'help-for-help)
 (define-key ctl-x-map (kbd "C-a") 'helm-apropos)
-(define-key ctl-x-map (kbd "C-b") (if my:helmp 'helm-buffers-list 'bs-show))
+(define-key ctl-x-map (kbd "C-b") 'helm-buffers-list)
 (define-key ctl-x-map (kbd "C-d") 'helm-descbinds)
 (define-key ctl-x-map (kbd "C-g") 'helm-ag)
 (define-key ctl-x-map (kbd "m") 'helm-man-woman)
 (define-key ctl-x-map (kbd "C-r") 'helm-recentf)
 (define-key ctl-x-map (kbd "C-z") 'save-buffers-kill-emacs)
-(define-key ctl-x-map (kbd "C-f") (if my:helmp 'helm-find-files 'find-file))
+(define-key ctl-x-map (kbd "C-f") 'helm-find-files)
 (define-key ctl-x-map (kbd "t") 'toggle-truncate-lines)
-(define-key ctl-x-map (kbd "x") (if my:helmp 'helm-M-x 'anything-M-x))
+(define-key ctl-x-map (kbd "x") 'helm-M-x)
 (global-set-key (kbd "C-]") 'mc/mark-all-dwim)
 (global-set-key (kbd "C-;") 'comment-dwim)
-(global-set-key (kbd "C-:") (if my:helmp 'helm-mini 'anything-for-files))
+(global-set-key (kbd "C-:") 'helm-mini)
 (global-set-key (kbd "C-^") 'delete-indentation)
 (global-set-key (kbd "C-t") 'helm-swoop)
 (global-set-key (kbd "C-@") 'er/expand-region)
@@ -530,8 +511,7 @@
 (global-set-key [M-right] 'elscreen-next)
 (global-set-key (kbd "M-g") 'goto-line)
 (global-set-key (kbd "C-z") 'helm-resume)
-(global-set-key (kbd "M-y")
-                (if my:helmp 'helm-show-kill-ring 'anything-show-kill-ring))
+(global-set-key (kbd "M-y") 'helm-show-kill-ring)
 (global-set-key [hiragana-katakana] 'dabbrev-expand)
 (global-set-key [henkan] 'toggle-input-method)
 (global-set-key [f1] 'delete-other-windows)
@@ -541,7 +521,7 @@
 (global-set-key [f5] 'quickrun)
 (global-set-key [f6] 'simplenote2-browse)
 (global-set-key [f7] 'compile)
-(global-set-key [f8] (if my:helmp 'helm-ag 'ag))
+(global-set-key [f8] 'helm-ag)
 (global-set-key [f9] 'vc-print-log)
 (global-set-key [f10] 'my-vc-status)
 (global-set-key [f11] 'vc-diff)
