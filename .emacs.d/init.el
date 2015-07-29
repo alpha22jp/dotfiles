@@ -522,7 +522,7 @@
 (global-set-key [f5] 'quickrun)
 (global-set-key [f6] 'simplenote2-browse)
 (global-set-key [f7] 'compile)
-(global-set-key [f8] 'helm-ag)
+(global-set-key [f8] 'ag)
 (global-set-key [f9] 'vc-print-log)
 (global-set-key [f10] 'my-vc-status)
 (global-set-key [f11] 'vc-diff)
