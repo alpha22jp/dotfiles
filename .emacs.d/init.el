@@ -109,9 +109,9 @@
 ;; compilation settings
 ;;
 (eval-after-load "compile"
-'(progn
-   (setq compile-command "LANG=C make")
-   (setq compilation-scroll-output t)))
+  '(progn
+     (setq compile-command "LANG=C make")
+     (setq compilation-scroll-output t)))
 
 ;; autoinsert
 ;;
@@ -205,14 +205,8 @@
 ;;
 (eval-after-load "magit"
   '(progn
-     ;; (when (not (functionp 'process-live-p))
-     ;;   (defun process-live-p (process)
-     ;;     "Returns non-nil if PROCESS is alive"
-     ;;     (memq (process-status process)
-     ;;           '(run open listen connect stop))))
      (add-hook 'magit-mode-hook (lambda () (diff-mode-setup-faces)))
      (setq magit-diff-refine-hunk 't)))
-(setq magit-last-seen-setup-instructions "1.4.0")
 
 ;; git-gutter
 ;;
@@ -247,7 +241,7 @@
 
 ;; helm
 ;;
-(defvar my:helmp (require 'helm-config nil 'noerror))
+(require 'helm-config nil 'noerror)
 (eval-after-load "helm"
   '(progn
      (setq helm-delete-minibuffer-contents-from-point t)
@@ -283,17 +277,14 @@
 (eval-after-load "helm-cscope"
   '(progn
      (require 'my-cscope nil 'noerror)
-     (add-hook 'helm-cscope-mode-hook
+     (define-key helm-cscope-mode-map (kbd "M-.") 'helm-cscope-find-global-definition)
+     (define-key helm-cscope-mode-map (kbd "M-@") 'helm-cscope-find-calling-this-funtcion)
+     (define-key helm-cscope-mode-map (kbd "M-;") 'helm-cscope-find-this-symbol)
+     (define-key helm-cscope-mode-map (kbd "M-,") 'helm-cscope-pop-mark)
+     (add-hook 'c-mode-common-hook
                (lambda ()
-                 (local-set-key (kbd "M-.") 'helm-cscope-find-global-definition)
-                 (local-set-key (kbd "M-@") 'helm-cscope-find-calling-this-funtcion)
-                 (local-set-key (kbd "M-;") 'helm-cscope-find-this-symbol)
-                 (local-set-key (kbd "M-,") 'helm-cscope-pop-mark)))))
-(when (locate-library "helm-cscope")
-  (add-hook 'c-mode-common-hook
-            (lambda ()
-              (when (locate-dominating-file default-directory "cscope.out")
-                (helm-cscope-mode)))))
+                 (when (locate-dominating-file default-directory "cscope.out")
+                   (helm-cscope-mode))))))
 
 ;; helm-ag
 ;;
@@ -304,16 +295,15 @@
 ;;
 (eval-after-load "ag"
   '(progn
-     (when (>= emacs-major-version 24) (setq ag-highlight-search t))
+     (setq ag-highlight-search t)
      (setq ag-reuse-buffers t)
      (require 'wgrep-ag nil 'noerror)))
 (eval-after-load "wgrep-ag"
   '(progn
+     (setq wgrep-auto-save-buffer t) ; 編集完了と同時に保存
+     (setq wgrep-enable-key "r")     ; "r" キーで編集モードに
      (add-hook 'ag-mode-hook
-               (lambda ()
-                 (setq wgrep-auto-save-buffer t)  ; 編集完了と同時に保存
-                 (setq wgrep-enable-key "r")      ; "r" キーで編集モードに
-                 (wgrep-ag-setup)))))
+               (lambda () (wgrep-ag-setup)))))
 
 ;; recentf
 ;;
