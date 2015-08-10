@@ -69,6 +69,7 @@
 (setq read-file-name-completion-ignore-case t) ;; ファイル名補完でignore case
 (setq find-file-visit-truename t) ;; シンボリックリンクを実体のパスで開く
 (setq-default tab-width 4 indent-tabs-mode nil) ;; インデント幅は4で空白を使用
+(setq ad-redefinition-action 'accept) ;; defadviceによる二重定義の警告を無視
 
 ;; exec-path-from-shell
 ;;
