@@ -172,6 +172,21 @@
      (ac-set-trigger-key "TAB")
      (setq ac-use-menu-map t)))
 
+;; auto-complete-clang-async
+;;
+(require 'auto-complete-clang-async nil 'noerror)
+(eval-after-load "auto-complete-clang-async"
+  '(progn
+     (setq ac-clang-complete-executable "~/.emacs.d/clang-complete")
+     (add-hook 'c-mode-common-hook
+               (lambda ()
+                 (let* ((file ".dir-local.el")
+                        (dir (locate-dominating-file default-directory file)))
+                   (when dir
+                     (load-file (concat dir file))
+                     (setq ac-sources '(ac-source-clang-async))
+                     (ac-clang-launch-completion-process)))) t)))
+
 ;; fuzzy-format
 ;;
 (require 'fuzzy-format nil 'noerror)

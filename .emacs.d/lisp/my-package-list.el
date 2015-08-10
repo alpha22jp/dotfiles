@@ -6,6 +6,7 @@
 (defvar my-package-list
   '(ag
     auto-complete
+    auto-complete-clang-async
     exec-path-from-shell
     expand-region
     flycheck
