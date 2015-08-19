@@ -277,6 +277,7 @@
 (require 'ggtags nil 'noerror)
 (eval-after-load "ggtags"
   '(progn
+     (setq ggtags-sort-by-nearness t)
      (define-key ggtags-mode-map (kbd "M-@") 'ggtags-find-reference)
      (define-key ggtags-mode-map (kbd "M-;") 'ggtags-find-other-symbol)
      (define-key ggtags-mode-map (kbd "M-,") 'pop-tag-mark)
