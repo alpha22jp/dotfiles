@@ -32,7 +32,6 @@
     smart-mode-line
     solarized-theme
     wgrep-ag
-    yasnippet
     ))
 
 (defvar my-package-list-24.4
