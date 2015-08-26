@@ -64,6 +64,7 @@
 (fset 'yes-or-no-p 'y-or-n-p) ;; "yes/no" が必要なときも "y/n" だけにする
 (setq kill-whole-line t) ;; 行頭で "C-k" すると改行を含む行全体を削除
 (setq auto-save-default nil) ;; 自動セーブしない
+(setq create-lockfiles nil) ;; ロックファイルを作成しない
 (setq make-backup-files nil) ;; バックアップファイルを作成しない
 (setq inhibit-startup-screen t) ;; スタートアップ画面を表示しない
 (setq read-file-name-completion-ignore-case t) ;; ファイル名補完でignore case
