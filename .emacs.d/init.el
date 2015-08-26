@@ -58,6 +58,8 @@
 ;;
 (tool-bar-mode 0) ;; ツールバーを表示しない
 (tooltip-mode 0) ;; ツールチップを表示しない
+;; GTKでなければメニューバーを表示しない
+(unless (string-match "GTK+" (emacs-version)) (menu-bar-mode 0))
 (set-scroll-bar-mode 'right) ;; スクロールバーを右側に表示
 (column-number-mode) ;; モードラインに桁数を表示する
 (show-paren-mode) ;; 対応する括弧を強調表示する
