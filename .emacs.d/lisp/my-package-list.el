@@ -11,13 +11,13 @@
     expand-region
     flycheck
     flymake
-    ggtags
     git-gutter-fringe
     haskell-mode
     helm
     helm-ag
     helm-cscope
     helm-descbinds
+    helm-gtags
     helm-swoop
     js2-mode
     json-mode

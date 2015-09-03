@@ -277,18 +277,39 @@
 
 ;; ggtags
 ;;
-(require 'ggtags nil 'noerror)
-(eval-after-load "ggtags"
+;; (require 'ggtags nil 'noerror)
+;; (eval-after-load "ggtags"
+;;   '(progn
+;;      (setq ggtags-sort-by-nearness t)
+;;      (define-key ggtags-mode-map (kbd "M-@") 'ggtags-find-reference)
+;;      (define-key ggtags-mode-map (kbd "M-;") 'ggtags-find-other-symbol)
+;;      (define-key ggtags-mode-map (kbd "M-,") 'pop-tag-mark)
+;;      (add-hook 'c-mode-common-hook
+;;                (lambda ()
+;;                  (when (locate-dominating-file default-directory "GTAGS")
+;;                    (ggtags-mode 1)
+;;                    (eldoc-mode 1))))))
+
+;; helm-gtags
+;;
+(eval-after-load "helm-gtags"
   '(progn
-     (setq ggtags-sort-by-nearness t)
-     (define-key ggtags-mode-map (kbd "M-@") 'ggtags-find-reference)
-     (define-key ggtags-mode-map (kbd "M-;") 'ggtags-find-other-symbol)
-     (define-key ggtags-mode-map (kbd "M-,") 'pop-tag-mark)
-     (add-hook 'c-mode-common-hook
+;     (setq helm-c-gtags-path-style 'relative)
+;     (setq helm-c-gtags-ignore-case t)
+     (setq helm-gtags-auto-update t)
+     (setq helm-gtags-update-interval-second 0)
+     (setq helm-gtags-pulse-at-cursor nil)
+     (add-hook 'helm-gtags-mode-hook
                (lambda ()
-                 (when (locate-dominating-file default-directory "GTAGS")
-                   (ggtags-mode 1)
-                   (eldoc-mode 1))))))
+                 (local-set-key (kbd "M-.") 'helm-gtags-dwim)
+                 (local-set-key (kbd "M-@") 'helm-gtags-find-rtag)
+                 (local-set-key (kbd "M-;") 'helm-gtags-find-symbol)
+                 (local-set-key (kbd "M-,") 'helm-gtags-pop-stack)))))
+(when (locate-library "helm-gtags")
+  (add-hook 'c-mode-common-hook
+            (lambda ()
+              (when (locate-dominating-file default-directory "GTAGS")
+                (helm-gtags-mode)))))
 
 ;; helm-cscope
 ;;
