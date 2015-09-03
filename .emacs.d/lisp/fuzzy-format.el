@@ -230,7 +230,7 @@
                                         (push (list point x nil (line-number-at-pos)) l)
                                         (setq point (incf point)))
                                       (setq point nil)))
-        (setq l (sort l '(lambda (a b) (< (car a) (car b)))))
+        (setq l (sort l (lambda (a b) (< (car a) (car b)))))
         (loop
          with pair = nil
          for x in l do (if (nth 2 x)
