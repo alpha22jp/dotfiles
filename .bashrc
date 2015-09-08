@@ -13,6 +13,7 @@ else
     eval `dircolors -b`
     alias ls='ls -aF --color=auto'
 fi
+alias ..='cd ..'
 alias ll='ls -al'
 alias screen='screen -U -D -RR'
 alias emacsc='emacsclient -n -c -a ""'
