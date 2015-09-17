@@ -8,6 +8,7 @@
 	df = diff --no-prefix
 	l = log --graph --abbrev-commit --name-status --date=local
 	graph = log --graph --date-order --all --pretty=format:'%h %Cred%d %Cgreen%ad %Cblue%cn %Creset%s' --date=short
+    svn-url = config --get svn-remote.svn.url
 
 [user]
 	email = alpha22jp@gmail.com
