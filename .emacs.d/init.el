@@ -418,6 +418,7 @@
                  (flymake-mode t)
                  (c-toggle-hungry-state 1)
                  (local-unset-key (kbd "C-M-h"))
+                 (setq truncate-lines t)
                  (setq comment-column 4)
                  (setq tab-width 4)))
      (add-hook 'c++-mode-hook
