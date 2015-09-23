@@ -95,8 +95,8 @@
   :group 'fuzzy-format)
 
 (defcustom fuzzy-format-mode-line
-  `(" Fuzzy:" (:eval (format ,(propertize "%s" 'face 'font-lock-warning-face)
-                             (if indent-tabs-mode "[T]" "[S]"))))
+  `(" " (:eval (format ,(propertize "%s" 'face 'font-lock-warning-face)
+                       (if indent-tabs-mode "[T]" "[S]"))))
   "What to display in mode line for fuzzy format mode."
   :group 'fuzzy-format)
 (put 'fuzzy-format-mode-line 'risky-local-variable t)
