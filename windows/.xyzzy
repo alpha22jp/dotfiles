@@ -1,0 +1,105 @@
+;; .xyzzy
+;; last-modified: 2014/09/25
+
+;; default settings
+(set-default-directory (get-special-folder-location :personal))
+;(setq *default-fileio-encoding* *encoding-utf8*) ; 文字コード
+;(setq *default-eol-code* *eol-crlf*) ; 改行コード
+
+;; auto-mode-alist
+(pushnew '("\\.xyzzy$" . lisp-mode) *auto-mode-alist* :test 'equal)
+
+;; バッファ移動をタブ順にする
+(setq *next-buffer-in-tab-order* t)
+
+;; 閉じ括弧入力時に対応する括弧に飛ばない
+(setq *show-matched-parenthesis* nil)
+
+;; ミニバッファの補完候補リストをチップヘルプにする
+(setq *print-completion-list-hook*
+	  '(lambda (list prefix &optional string)
+		(popup-string
+		 (format nil "Possible completions are ~D items:\n~{\n~A~}"
+				 (length list) list) (point))))
+
+;; isearch
+(require "isearch")
+
+;; kill-line
+(defun my-kill-line (&optional arg)
+  (interactive "*p")
+  (cond ((bolp)
+		 (let ((point (point))
+			   (lines (cond ((or (null arg) (<= arg 1)) 0) (t (- arg 1)))))
+		   (kill-region point
+			(progn
+			  (forward-line lines)
+			  (goto-eol)
+			  (forward-char)
+			  (point)))))
+		(t (kill-line arg))))
+(define-key *global-keymap* #\C-k 'my-kill-line)
+
+;; paren
+(require 'paren)
+(turn-on-global-paren)
+
+;; 対応する括弧へジャンプ
+(defun goto-matched-parenthesis-prevention ()
+  (interactive)
+  (unless (goto-matched-parenthesis)
+	(progn
+	  (backward-char)
+	  (unless (goto-matched-parenthesis)
+		(progn
+		  (forward-char 2)
+		  (unless (goto-matched-parenthesis)
+			(progn
+			  (backward-char)
+			  (message "括弧の側までちかづいてちょ"))))))))
+
+;; comment region
+(require 'comment)
+
+;; for C/C++
+(setq c-common-indent 4)
+(setq c-indent-level 4)
+(setq c-continued-statement-offset 4)
+(setq c-label-offset -4)
+(setq c++-indent-level 4)
+(setq c++-continued-statement-offset 4)
+(setq c++-label-offset -4)
+
+;; explorer
+(defun explorer ()
+  (interactive)
+  (shell-execute (directory-namestring (get-buffer-file-name)) t))
+
+;; calc
+(setq ed::*calc-ratio* 'float)
+
+;; global key settings
+(define-key ctl-x-map #\C-b 'select-buffer)
+(global-set-key #\C-\, 'beginning-of-buffer)
+(global-set-key #\C-\. 'end-of-buffer)
+(global-set-key #\F1 'delete-other-windows)
+(global-set-key #\M-. 'jump-tag)
+(global-set-key #\F4 'direct-tag-jump)
+(global-set-key #\M-* 'back-tag-jump)
+(global-set-key #\M-\, 'back-tag-jump)
+(global-set-key #\F8 'grep-dialog)
+(global-set-key #\F9 'list-function)
+(set-extended-key-translate-table exkey-C-tab #\F20)
+(global-set-key #\F20 'other-window)
+(global-set-key #\C-/ 'undo)
+(global-set-key #\M-/ 'dabbrev-expand)
+(global-set-key #\M-g 'goto-line)
+(global-set-key #\M-h 'previous-buffer)
+(global-set-key #\M-l 'next-buffer)
+(global-set-key #\F2 'previous-buffer)
+(global-set-key #\F3 'next-buffer)
+(global-set-key #\M-i 'indent-region)
+(global-set-key #\M-% 'query-replace)
+(global-set-key #\M-e 'explorer)
+(global-set-key #\M-] 'goto-matched-parenthesis-prevention)
+(global-set-key #\C-\; 'comment-out-region)
