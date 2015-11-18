@@ -127,6 +127,10 @@
      (setq auto-insert-query t)
      (require 'my-auto-insert nil 'noerror)))
 
+;; yasnippet
+;;
+(yas-global-mode 1)
+
 ;; smartparens
 ;;
 (when (require 'smartparens-config nil 'noerror)
