@@ -330,6 +330,14 @@
                  (when (locate-dominating-file default-directory "cscope.out")
                    (helm-cscope-mode))))))
 
+;; helm-c-yasnippet
+;;
+(require 'helm-c-yasnippet nil 'noerror)
+(eval-after-load "helm-c-yasnippet"
+  '(progn
+     (setq helm-yas-space-match-any-greedy t)
+     (global-set-key (kbd "C-c y") 'helm-yas-complete)))
+
 ;; helm-ag
 ;;
 (eval-after-load "helm-ag"

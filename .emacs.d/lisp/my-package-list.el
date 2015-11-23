@@ -15,6 +15,7 @@
     haskell-mode
     helm
     helm-ag
+    helm-c-yasnippet
     helm-cscope
     helm-descbinds
     helm-gtags
