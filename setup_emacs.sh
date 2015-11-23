@@ -11,6 +11,7 @@ if [ `which emacs` ]; then
         mkdir -p ~/.emacs.d
         ln -sf {$base_dir,~}/.emacs.d/init.el
         ln -sf {$base_dir,~}/.emacs.d/lisp
+        ln -sf {$base_dir,~}/.emacs.d/snippets
     else
         echo "Emacs version should be greater than 24"
     fi
