@@ -35,6 +35,9 @@ if [ -f $HOME/.bashrc.local ]; then
     . $HOME/.bashrc.local
 fi
 
+# For subversion
+export SVN_EDITOR=emacsclient
+
 # For node.js (nvm)
 export NVM_DIR=$HOME/.nvm
 if [ -s "$NVM_DIR/nvm.sh" ]; then
