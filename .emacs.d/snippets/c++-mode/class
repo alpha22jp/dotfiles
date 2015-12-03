@@ -4,5 +4,7 @@
 # binding: direct-keybinding
 # --
 class $1 {
+ public:
     $0
+ private:
 };
