@@ -11,6 +11,7 @@
     expand-region
     flycheck
     flymake
+    google-c-style
     git-gutter-fringe
     haskell-mode
     helm

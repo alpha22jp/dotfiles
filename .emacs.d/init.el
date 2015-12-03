@@ -426,6 +426,9 @@
      (setq c-default-style "stroustrup")
      (add-hook 'c-mode-common-hook
                (lambda ()
+                 (google-set-c-style)
+                 (google-make-newline-indent)
+                 (c-set-offset 'access-label -3)
                  (flymake-mode t)
                  (c-toggle-hungry-state 1)
                  (local-unset-key (kbd "C-M-h"))
