@@ -428,7 +428,8 @@
                (lambda ()
                  (google-set-c-style)
                  (google-make-newline-indent)
-                 (c-set-offset 'access-label -3)
+                 (setq c-basic-offset 4)
+                 (c-set-offset 'case-label 0)
                  (flymake-mode t)
                  (c-toggle-hungry-state 1)
                  (local-unset-key (kbd "C-M-h"))
@@ -437,7 +438,7 @@
                  (setq tab-width 4)))
      (add-hook 'c++-mode-hook
                (lambda ()
-                 (setq c-basic-offset 4)))))
+                 (c-set-offset 'access-label -3)))))
 
 ;; hexl mode
 ;;
