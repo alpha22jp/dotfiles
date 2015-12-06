@@ -5,6 +5,7 @@
 # --
 class $1 {
  public:
-    $0
+    $1() {}
+    ~$1() = default;
  private:
 };
