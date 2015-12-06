@@ -420,6 +420,18 @@
         (:cmdopt . "--harmony")))
      (quickrun-set-default "javascript" "javascript/node-harmony")))
 
+;; flycheck-cpplint
+;;
+(eval-after-load "flycheck"
+  '(progn
+     (require 'flycheck-google-cpplint nil 'noerror)
+     (eval-after-load "flycheck-google-cpplint"
+       '(progn
+          (custom-set-variables
+           '(flycheck-googlelint-extensions "cpp,hpp,c,h")
+           '(flycheck-googlelint-verbose "3")
+           '(flycheck-googlelint-linelength "120"))))))
+
 ;; c/c++ mode
 ;;
 (eval-after-load "cc-vars"
@@ -432,6 +444,9 @@
                  (setq c-basic-offset 4)
                  (c-set-offset 'case-label 0)
                  (flymake-mode t)
+;                 (flycheck-add-next-checker 'c/c++-clang 'c/c++-googlelint 'append)
+                 (flycheck-select-checker 'c/c++-googlelint)
+                 (flycheck-mode t)
                  (c-toggle-hungry-state 1)
                  (local-unset-key (kbd "C-M-h"))
                  (setq truncate-lines t)
