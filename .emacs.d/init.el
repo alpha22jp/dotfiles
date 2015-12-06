@@ -443,6 +443,8 @@
                  (google-make-newline-indent)
                  (setq c-basic-offset 4)
                  (c-set-offset 'case-label 0)
+                 (c-set-offset 'access-label -3)
+                 (c-set-offset 'member-init-intro '+)
                  (flymake-mode t)
 ;                 (flycheck-add-next-checker 'c/c++-clang 'c/c++-googlelint 'append)
                  (flycheck-select-checker 'c/c++-googlelint)
