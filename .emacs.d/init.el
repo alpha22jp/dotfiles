@@ -309,11 +309,6 @@
                  (local-set-key (kbd "M-@") 'helm-gtags-find-rtag)
                  (local-set-key (kbd "M-;") 'helm-gtags-find-symbol)
                  (local-set-key (kbd "M-,") 'helm-gtags-pop-stack)))))
-(when (locate-library "helm-gtags")
-  (add-hook 'c-mode-common-hook
-            (lambda ()
-              (when (locate-dominating-file default-directory "GTAGS")
-                (helm-gtags-mode)))))
 
 ;; helm-cscope
 ;;
@@ -445,6 +440,9 @@
                  (c-set-offset 'case-label 0)
                  (c-set-offset 'access-label -3)
                  (c-set-offset 'member-init-intro '+)
+                 (when (locate-library "helm-gtags")
+                   (when (locate-dominating-file default-directory "GTAGS")
+                     (helm-gtags-mode)))
                  (flymake-mode t)
 ;                 (flycheck-add-next-checker 'c/c++-clang 'c/c++-googlelint 'append)
                  (flycheck-select-checker 'c/c++-googlelint)
