@@ -440,6 +440,8 @@
                  (c-set-offset 'case-label 0)
                  (c-set-offset 'access-label -3)
                  (c-set-offset 'member-init-intro '+)
+                 (c-set-offset 'topmost-intro-cont 0)
+                 (c-set-offset 'template-args-cont 0)
                  (when (locate-library "helm-gtags")
                    (when (locate-dominating-file default-directory "GTAGS")
                      (helm-gtags-mode)))
