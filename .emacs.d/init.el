@@ -188,12 +188,8 @@
      (setq ac-clang-complete-executable "~/.emacs.d/clang-complete")
      (add-hook 'c-mode-common-hook
                (lambda ()
-                 (let* ((file ".dir-local.el")
-                        (dir (locate-dominating-file default-directory file)))
-                   (when dir
-                     (load-file (concat dir file))
-                     (setq ac-sources '(ac-source-clang-async))
-                     (ac-clang-launch-completion-process)))) t)))
+                 (add-to-list 'ac-sources 'ac-source-clang-async)
+                 (ac-clang-launch-completion-process)))))
 
 ;; fuzzy-format
 ;;
