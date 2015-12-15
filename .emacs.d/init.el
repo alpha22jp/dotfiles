@@ -442,6 +442,7 @@
                    (when (locate-dominating-file default-directory "GTAGS")
                      (helm-gtags-mode)))
                  (flymake-mode t)
+                 (flycheck-mode t)
                  (c-toggle-hungry-state 1)
                  (local-unset-key (kbd "C-M-h"))
                  (setq truncate-lines t)
