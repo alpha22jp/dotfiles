@@ -5,11 +5,12 @@
 
 (defvar my-package-list
   '(ag
-    auto-complete
-    auto-complete-clang-async
+    company
+    company-irony
     exec-path-from-shell
     expand-region
     flycheck
+    flycheck-irony
     flymake
     google-c-style
     git-gutter-fringe
@@ -21,6 +22,7 @@
     helm-descbinds
     helm-gtags
     helm-swoop
+    irony
     js2-mode
     json-mode
     markdown-mode

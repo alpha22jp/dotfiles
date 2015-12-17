@@ -166,30 +166,40 @@
      (setq flycheck-clang-language-standard "c++11")
      (add-hook 'flycheck-mode-hook
                (lambda ()
+                 (when (locate-library "flycheck-irony") (flycheck-irony-setup))
                  (local-set-key (kbd "C-M-n") 'flycheck-next-error)
                  (local-set-key (kbd "C-M-p") 'flycheck-previous-error)))))
 
-;; auto-complete
+;; company-mode
 ;;
-(require 'auto-complete-config nil 'noerror)
-(eval-after-load "auto-complete"
+(when (locate-library "company") (global-company-mode 1))
+(eval-after-load "company"
   '(progn
-     (ac-config-default)
-     (setq ac-auto-start nil)
-     (setq ac-ignore-case nil)
-     (ac-set-trigger-key "TAB")
-     (setq ac-use-menu-map t)))
+     (global-set-key (kbd "C-M-i") 'company-complete)
+     ;; (setq company-idle-delay nil)
+     ;; (define-key emacs-lisp-mode-map (kbd "C-M-i") 'company-complete)
+     (define-key company-active-map (kbd "C-n") 'company-select-next)
+     (define-key company-active-map (kbd "C-p") 'company-select-previous)
+     (define-key company-search-map (kbd "C-n") 'company-select-next)
+     (define-key company-search-map (kbd "C-p") 'company-select-previous)
+     (define-key company-active-map (kbd "<tab>") 'company-complete-selection)))
 
-;; auto-complete-clang-async
+
+;; irony-mode
 ;;
-(require 'auto-complete-clang-async nil 'noerror)
-(eval-after-load "auto-complete-clang-async"
+(eval-after-load "irony"
   '(progn
-     (setq ac-clang-complete-executable "~/.emacs.d/clang-complete")
-     (add-hook 'c-mode-common-hook
+     (add-hook 'irony-mode-hook
                (lambda ()
-                 (add-to-list 'ac-sources 'ac-source-clang-async)
-                 (ac-clang-launch-completion-process)))))
+                 ;; (setq irony-additional-clang-options '("-std=c++11"))
+                 (irony-cdb-autosetup-compile-options)))
+     (add-hook 'c++-mode-hook 'irony-mode)
+     (add-hook 'c-mode-hook 'irony-mode)))
+
+;; company-irony
+;;
+(eval-after-load "company"
+  '(add-to-list 'company-backends 'company-irony))
 
 ;; fuzzy-format
 ;;
