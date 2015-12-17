@@ -485,12 +485,6 @@
 ;;
 (add-to-list 'auto-mode-alist '("\\.json$" . json-mode))
 
-;; swift mode settings
-;;
-(add-hook 'swift-mode-hook
-          (lambda ()
-            (auto-complete-mode t)))
-
 ;; ruby mode
 ;;
 (eval-after-load "ruby-mode"
