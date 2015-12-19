@@ -128,7 +128,9 @@
 
 ;; yasnippet
 ;;
-(yas-global-mode 1)
+(eval-after-load "yasnippet"
+  '(progn
+     (yas-global-mode 1)))
 
 ;; smartparens
 ;;
