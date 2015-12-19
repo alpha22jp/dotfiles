@@ -186,14 +186,13 @@
      (define-key company-search-map (kbd "C-p") 'company-select-previous)
      (define-key company-active-map (kbd "<tab>") 'company-complete-selection)))
 
-
 ;; irony-mode
 ;;
 (eval-after-load "irony"
   '(progn
      (add-hook 'irony-mode-hook
                (lambda ()
-                 ;; (setq irony-additional-clang-options '("-std=c++11"))
+                 (setq irony-additional-clang-options '("-std=c++11"))
                  (irony-cdb-autosetup-compile-options)))
      (add-hook 'c++-mode-hook 'irony-mode)
      (add-hook 'c-mode-hook 'irony-mode)))
@@ -202,6 +201,17 @@
 ;;
 (eval-after-load "company"
   '(add-to-list 'company-backends 'company-irony))
+
+;; rtags
+;;
+(when (require 'rtags nil 'noerror)
+  (add-hook 'c-mode-common-hook
+            (lambda ()
+              (when (rtags-is-indexed)
+                (local-set-key (kbd "M-.") 'rtags-find-symbol-at-point)
+                (local-set-key (kbd "M-;") 'rtags-find-symbol)
+                (local-set-key (kbd "M-@") 'rtags-find-references)
+                (local-set-key (kbd "M-,") 'rtags-location-stack-back)))))
 
 ;; fuzzy-format
 ;;
@@ -286,21 +296,6 @@
 (eval-after-load "helm-files"
   '(progn
      (define-key helm-find-files-map (kbd "C-i") 'helm-execute-persistent-action)))
-
-;; ggtags
-;;
-;; (require 'ggtags nil 'noerror)
-;; (eval-after-load "ggtags"
-;;   '(progn
-;;      (setq ggtags-sort-by-nearness t)
-;;      (define-key ggtags-mode-map (kbd "M-@") 'ggtags-find-reference)
-;;      (define-key ggtags-mode-map (kbd "M-;") 'ggtags-find-other-symbol)
-;;      (define-key ggtags-mode-map (kbd "M-,") 'pop-tag-mark)
-;;      (add-hook 'c-mode-common-hook
-;;                (lambda ()
-;;                  (when (locate-dominating-file default-directory "GTAGS")
-;;                    (ggtags-mode 1)
-;;                    (eldoc-mode 1))))))
 
 ;; helm-gtags
 ;;
@@ -455,6 +450,7 @@
                      (helm-gtags-mode)))
                  (flymake-mode t)
                  (flycheck-mode t)
+                 (yas-minor-mode 1)
                  (c-toggle-hungry-state 1)
                  (local-unset-key (kbd "C-M-h"))
                  (setq truncate-lines t)
