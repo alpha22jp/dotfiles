@@ -5,6 +5,7 @@
 
 (defvar my-package-list
   '(ag
+    cmake-mode
     company
     company-irony
     exec-path-from-shell
