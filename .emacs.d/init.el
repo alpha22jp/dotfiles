@@ -553,6 +553,7 @@
 (global-set-key (kbd "C-@") 'er/expand-region)
 (global-set-key (kbd "C-M-@") 'er/contract-region)
 (global-set-key (kbd "M-^") 'next-error)
+(global-set-key (kbd "C-M-^") 'previous-error)
 (global-set-key (kbd "C-,") 'beginning-of-buffer)
 (global-set-key (kbd "C-.") 'end-of-buffer)
 (global-set-key (kbd "M-i") 'indent-region)
