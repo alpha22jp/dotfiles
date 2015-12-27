@@ -9,6 +9,7 @@ fi
 if [ `uname` = Darwin ]; then
     export LSCOLORS="gxfxcxdxbxegedabagacad"
     alias ls="ls -aFG"
+    alias echo="gecho"
 else
     eval `dircolors -b`
     alias ls='ls -aF --color=auto'
