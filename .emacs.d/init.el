@@ -470,6 +470,10 @@
                (lambda ()
                  (c-set-offset 'access-label -3)))))
 
+;; emacs-lisp mode
+;;
+(add-hook 'emacs-lisp-mode-hook (lambda () (flycheck-mode t)))
+
 ;; hexl mode
 ;;
 (eval-after-load "hexl"
@@ -536,7 +540,7 @@
 (require 'mozc nil 'noerror)
 (eval-after-load "mozc"
   '(progn
-     (setq default-input-method "japanese-mozc")
+     (custom-set-variables '(default-input-method "japanese-mozc"))
      (define-key mozc-mode-map [henkan] 'toggle-input-method)
      (when (require 'ac-mozc nil 'noerror)
        (define-key ac-mode-map [muhenkan] 'ac-complete-mozc))))
