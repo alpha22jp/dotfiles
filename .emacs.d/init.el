@@ -42,6 +42,7 @@
 ;; keyboard-translate settings
 ;;
 (defun my-keyboard-translate ()
+  "My customized keyboard translation function."
   (when (eq system-type 'darwin) (keyboard-translate ?¥ ?\\))
   (keyboard-translate ?\C-h ?\C-?))
 (add-hook 'after-make-frame-functions
@@ -99,22 +100,22 @@
 ;;
 (require 'uniquify nil 'noerror)
 (eval-after-load "uniquify"
-  '(progn
-     (setq uniquify-buffer-name-style 'post-forward-angle-brackets)))
+  '(custom-set-variables
+    '(uniquify-buffer-name-style 'post-forward-angle-brackets)))
 
 ;; which-function-mode
 ;;
 (which-function-mode)
-(eval-after-load "which-func"
-  '(setq which-func-modes
-         '(c-mode c++-mode java-mode ruby-mode python-mode)))
+(custom-set-variables
+ '(which-func-modes
+   '(c-mode c++-mode java-mode ruby-mode python-mode)))
 
 ;; compilation settings
 ;;
 (eval-after-load "compile"
-  '(progn
-     (setq compile-command "LANG=C make")
-     (setq compilation-scroll-output t)))
+  '(custom-set-variables
+    '(compile-command "LANG=C make")
+    '(compilation-scroll-output t)))
 
 ;; autoinsert
 ;;
@@ -257,16 +258,17 @@
 (require 'psvn nil 'noerror)
 (eval-after-load "psvn"
   '(progn
-     (setq svn-status-hide-unmodified t)
-     (setq svn-status-hide-unknown t)
-     (setq svn-status-svn-file-coding-system 'utf-8)))
+     (custom-set-variables
+      '(svn-status-hide-unmodified t)
+      '(svn-status-hide-unknown t)
+      '(svn-status-svn-file-coding-system 'utf-8))))
 
 ;; magit
 ;;
 (eval-after-load "magit"
   '(progn
      (add-hook 'magit-mode-hook (lambda () (diff-mode-setup-faces)))
-     (setq magit-diff-refine-hunk 't)))
+     (custom-set-variables '(magit-diff-refine-hunk 't))))
 
 ;; git-gutter
 ;;
@@ -287,8 +289,9 @@
 ;;
 (eval-after-load "simplenote2"
   '(progn
-     (setq simplenote2-email "alpha22jp@gmail.com")
-     (setq simplenote2-markdown-notes-mode 'markdown-mode)
+     (custom-set-variables
+      '(simplenote2-email "alpha22jp@gmail.com")
+      '(simplenote2-markdown-notes-mode 'markdown-mode))
      (add-hook 'simplenote2-create-note-hook 'simplenote2-set-markdown)
      (add-hook 'simplenote2-note-mode-hook
                (lambda ()
@@ -303,9 +306,10 @@
 (require 'helm-config nil 'noerror)
 (eval-after-load "helm"
   '(progn
-     (setq helm-delete-minibuffer-contents-from-point t)
-     (setq helm-buffer-max-length 35)
-     (setq helm-autoresize-min-height 20)
+     (custom-set-variables
+      '(helm-delete-minibuffer-contents-from-point t)
+      '(helm-buffer-max-length 35)
+      '(helm-autoresize-min-height 20))
      (helm-autoresize-mode 1)
      (define-key isearch-mode-map (kbd "C-o") 'helm-occur-from-isearch)
      (define-key isearch-mode-map (kbd "C-t") 'helm-swoop-from-isearch)
@@ -320,11 +324,12 @@
 ;;
 (eval-after-load "helm-gtags"
   '(progn
-;     (setq helm-c-gtags-path-style 'relative)
-;     (setq helm-c-gtags-ignore-case t)
-     (setq helm-gtags-auto-update t)
-     (setq helm-gtags-update-interval-second 0)
-     (setq helm-gtags-pulse-at-cursor nil)
+     (custom-set-variables
+      ;; '(helm-c-gtags-path-style 'relative)
+      ;; '(helm-c-gtags-ignore-case t)
+      '(helm-gtags-auto-update t)
+      '(helm-gtags-update-interval-second 0)
+      '(helm-gtags-pulse-at-cursor nil))
      (add-hook 'helm-gtags-mode-hook
                (lambda ()
                  (local-set-key (kbd "M-.") 'helm-gtags-dwim)
@@ -352,43 +357,44 @@
 (require 'helm-c-yasnippet nil 'noerror)
 (eval-after-load "helm-c-yasnippet"
   '(progn
-     (setq helm-yas-space-match-any-greedy t)
+     (custom-set-variables '(helm-yas-space-match-any-greedy t))
      (global-set-key (kbd "C-c y") 'helm-yas-complete)))
 
 ;; helm-ag
 ;;
 (eval-after-load "helm-ag"
-  '(progn (setq helm-ag-insert-at-point 'symbol)))
+  '(custom-set-variables '(helm-ag-insert-at-point 'symbol)))
 
 ;; wgrep-ag
 ;;
 (eval-after-load "ag"
   '(progn
-     (setq ag-highlight-search t)
-     (setq ag-reuse-buffers t)
+     (custom-set-variables
+      '(ag-highlight-search t)
+      '(ag-reuse-buffers t))
      (require 'wgrep-ag nil 'noerror)))
 (eval-after-load "wgrep-ag"
   '(progn
-     (setq wgrep-auto-save-buffer t) ; 編集完了と同時に保存
-     (setq wgrep-enable-key "r")     ; "r" キーで編集モードに
-     (add-hook 'ag-mode-hook
-               (lambda () (wgrep-ag-setup)))))
+     (custom-set-variables
+      '(wgrep-auto-save-buffer t) ; 編集完了と同時に保存
+      '(wgrep-enable-key "r")) ; "r" キーで編集モードに
+     (add-hook 'ag-mode-hook '(wgrep-ag-setup))))
 
 ;; recentf
 ;;
 (eval-after-load "recentf"
   '(progn
-     (setq recentf-save-file "~/.emacs.d/.recentf")
-     (setq recentf-max-saved-items 100)
-     (setq recentf-exclude '("/.simplenote2/*" "/TAGS$" "/COMMIT_EDITMSG$"))
+     (custom-set-variables
+      '(recentf-save-file "~/.emacs.d/.recentf")
+      '(recentf-max-saved-items 100)
+      '(recentf-exclude '("/.simplenote2/*" "/TAGS$" "/COMMIT_EDITMSG$")))
      (require 'recentf-ext nil 'noerror)))
 
 ;; multiple-cursors
 ;;
 (require 'multiple-cursors nil 'noerror)
 (eval-after-load "multiple-cursors"
-  '(progn
-     (require 'mc-extras nil 'noerror)))
+  '(require 'mc-extras nil 'noerror))
 
 ;; expand-region
 ;;
@@ -441,12 +447,12 @@
 ;;
 (eval-after-load "cc-vars"
   '(progn
-     (setq c-default-style "stroustrup")
+     (custom-set-variables '(c-default-style "stroustrup"))
      (add-hook 'c-mode-common-hook
                (lambda ()
                  (google-set-c-style)
                  (google-make-newline-indent)
-                 (setq c-basic-offset 4)
+                 (custom-set-variables '(c-basic-offset 4))
                  (c-set-offset 'case-label 0)
                  (c-set-offset 'member-init-intro '+)
                  (when (locate-library "helm-gtags")
@@ -469,7 +475,7 @@
 (eval-after-load "hexl"
   '(progn
      ;; (setq hexl-options "-hex -group-by-8-bits")
-     (setq hexl-bits 8)
+     (custom-set-variables '(hexl-bits 8))
      (add-hook 'hexl-mode-hook
                (lambda ()
                  (local-set-key (kbd "C-c C-s") 'hexl-insert-hex-string)))))
@@ -481,7 +487,8 @@
 ;; javascript mode
 ;;
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
-(add-hook 'js2-mode-hook (lambda () (setq js2-basic-offset 2)))
+(eval-after-load "js2-mode"
+  '(custom-set-variables '(js-indent-level 2)))
 
 ;; json mode
 ;;
