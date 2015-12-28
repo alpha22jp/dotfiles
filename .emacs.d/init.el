@@ -160,19 +160,36 @@
 ;;
 (eval-after-load "flycheck"
   '(progn
-     ;; エラーをポップアップで表示
-     (setq flycheck-display-errors-function
+     (custom-set-variables
+      ;; エラーをポップアップで表示
+      '(flycheck-display-errors-function
            (lambda (errors)
              (let ((messages (mapcar #'flycheck-error-message errors)))
                (popup-tip (mapconcat 'identity messages "\n")))))
-     (setq flycheck-display-errors-delay 0.5)
-     (setq flycheck-gcc-language-standard "c++11")
-     (setq flycheck-clang-language-standard "c++11")
-     (add-hook 'flycheck-mode-hook
-               (lambda ()
-                 (when (locate-library "flycheck-irony") (flycheck-irony-setup))
-                 (local-set-key (kbd "C-M-n") 'flycheck-next-error)
-                 (local-set-key (kbd "C-M-p") 'flycheck-previous-error)))))
+      '(flycheck-display-errors-delay 0.5)
+      '(flycheck-gcc-language-standard "c++11")
+      '(flycheck-clang-language-standard "c++11"))
+     (define-key flycheck-mode-map (kbd "C-M-n") 'flycheck-next-error)
+     (define-key flycheck-mode-map (kbd "C-M-p") 'flycheck-previous-error)))
+
+;; flycheck-irony
+;;
+(eval-after-load "flycheck"
+  '(progn
+     (when (locate-library "flycheck-irony")
+       (flycheck-irony-setup))))
+
+;; flycheck-cpplint
+;;
+(eval-after-load "flycheck"
+  '(progn
+     (when (require 'flycheck-google-cpplint nil 'noerror)
+       (custom-set-variables
+           '(flycheck-googlelint-extensions "cpp,hpp,c,h")
+           '(flycheck-googlelint-verbose "3")
+           '(flycheck-googlelint-linelength "120"))
+       (when (locate-library "flycheck-irony")
+         (flycheck-add-next-checker 'irony '(warning . c/c++-googlelint))))))
 
 ;; company-mode
 ;;
@@ -419,18 +436,6 @@
         (:description . "Run Javascript file with node.js(harmony)")
         (:cmdopt . "--harmony")))
      (quickrun-set-default "javascript" "javascript/node-harmony")))
-
-;; flycheck-cpplint
-;;
-(eval-after-load "flycheck"
-  '(progn
-     (require 'flycheck-google-cpplint nil 'noerror)
-     (eval-after-load "flycheck-google-cpplint"
-       '(progn
-          (custom-set-variables
-           '(flycheck-googlelint-extensions "cpp,hpp,c,h")
-           '(flycheck-googlelint-verbose "3")
-           '(flycheck-googlelint-linelength "120"))))))
 
 ;; c/c++ mode
 ;;
