@@ -99,16 +99,14 @@
 ;; uniquify
 ;;
 (require 'uniquify nil 'noerror)
-(eval-after-load "uniquify"
-  '(custom-set-variables
-    '(uniquify-buffer-name-style 'post-forward-angle-brackets)))
+(custom-set-variables
+    '(uniquify-buffer-name-style 'post-forward-angle-brackets))
 
 ;; which-function-mode
 ;;
 (which-function-mode)
 (custom-set-variables
- '(which-func-modes
-   '(c-mode c++-mode java-mode ruby-mode python-mode)))
+ '(which-func-modes '(c-mode c++-mode java-mode ruby-mode python-mode)))
 
 ;; compilation settings
 ;;
@@ -123,8 +121,9 @@
 (eval-after-load "autoinsert"
   '(progn
      (auto-insert-mode)
-     (setq auto-insert-directory "~/.emacs.d/template/")
-     (setq auto-insert-query t)
+     (custom-set-variables
+      '(auto-insert-directory "~/.emacs.d/template/")
+      '(auto-insert-query t))
      (require 'my-auto-insert nil 'noerror)))
 
 ;; yasnippet
@@ -186,8 +185,7 @@
 ;;
 (eval-after-load "flycheck"
   '(progn
-     (when (locate-library "flycheck-irony")
-       (flycheck-irony-setup))))
+     (when (locate-library "flycheck-irony") (flycheck-irony-setup))))
 
 ;; flycheck-cpplint
 ;;
@@ -225,7 +223,7 @@
 (require 'elscreen nil 'noerror)
 (eval-after-load "elscreen"
   '(progn
-     (setq elscreen-prefix-key "\C-o")
+     (custom-set-variables '(elscreen-prefix-key "\C-o"))
      (elscreen-start)
      (add-hook 'dired-mode-hook
                (lambda () (local-unset-key "\C-o")))
@@ -254,7 +252,7 @@
 (require 'git-gutter nil 'noerror)
 (eval-after-load "git-gutter"
   '(progn
-     (setq git-gutter:handled-backends '(git svn))
+     (custom-set-variables '(git-gutter:handled-backends '(git svn)))
      (global-git-gutter-mode t)
      (require 'git-gutter-fringe nil 'noerror)
      (add-hook 'git-gutter-mode-hook
@@ -399,12 +397,13 @@
 (require 'smart-mode-line nil 'noerror)
 (eval-after-load "smart-mode-line"
   '(progn
-     (setq rm-blacklist
-           "\\` Projectile\\|\\` Helm\\|\\` GitGutter\\'\\|\\` pair\\'\\|\
+     (custom-set-variables
+      '(rm-blacklist
+        "\\` Projectile\\|\\` Helm\\|\\` GitGutter\\'\\|\\` pair\\'\\|\
 \\` Abbrev\\'\\|\\` MRev\\'\\|\\` rk\\'\\|\\` company\\'\\|\\` Irony\\'\\|\\` SP\\|\\` yas\\'")
+      '(sml/name-width 32))
      (add-to-list 'rm-text-properties
                   '("\\` mc" 'face 'font-lock-warning-face))
-     (setq sml/name-width 32)
      (sml/setup)))
 
 ;; quickrun
