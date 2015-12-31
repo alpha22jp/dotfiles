@@ -11,8 +11,8 @@
 (require 'package nil 'noerror)
 (eval-after-load "package"
   '(progn
-     (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
-     ;; (add-to-list 'package-archives '("ELPA" . "http://tromey.com/elpa/"))
+     (add-to-list 'package-archives
+                  '("melpa" . "http://melpa.milkbox.net/packages/"))
      (package-initialize)))
 
 ;; local lisp path settings
@@ -185,8 +185,7 @@
 (eval-after-load "company"
   '(progn
      (global-set-key (kbd "C-M-i") 'company-complete)
-     ;; (setq company-idle-delay nil)
-     ;; (define-key emacs-lisp-mode-map (kbd "C-M-i") 'company-complete)
+     ;; (setq company-idle-delay nil) ; 自動補完をしない
      (define-key company-active-map (kbd "C-n") 'company-select-next)
      (define-key company-active-map (kbd "C-p") 'company-select-previous)
      (define-key company-search-map (kbd "C-n") 'company-select-next)
@@ -521,9 +520,7 @@
 (eval-after-load "mozc"
   '(progn
      (custom-set-variables '(default-input-method "japanese-mozc"))
-     (define-key mozc-mode-map [henkan] 'toggle-input-method)
-     (when (require 'ac-mozc nil 'noerror)
-       (define-key ac-mode-map [muhenkan] 'ac-complete-mozc))))
+     (define-key mozc-mode-map [henkan] 'toggle-input-method)))
 
 ;; global key bindings
 ;;
