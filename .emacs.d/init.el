@@ -154,11 +154,10 @@
            (lambda (errors)
              (let ((messages (mapcar #'flycheck-error-message errors)))
                (popup-tip (mapconcat 'identity messages "\n")))))
-      '(flycheck-display-errors-delay 0.5)
-      '(flycheck-gcc-language-standard "c++11")
-      '(flycheck-clang-language-standard "c++11"))
+      '(flycheck-display-errors-delay 0.5))
      (define-key flycheck-mode-map (kbd "C-M-n") 'flycheck-next-error)
-     (define-key flycheck-mode-map (kbd "C-M-p") 'flycheck-previous-error)))
+     (define-key flycheck-mode-map (kbd "C-M-p") 'flycheck-previous-error)
+     (add-hook 'c-mode-common-hook 'flycheck-mode)))
 
 ;; flycheck-irony
 ;;
@@ -199,8 +198,7 @@
      (custom-set-variables '(irony-additional-clang-options '("-std=c++11")))
      (add-to-list 'company-backends 'company-irony)
      (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
-     (add-hook 'c++-mode-hook 'irony-mode)
-     (add-hook 'c-mode-hook 'irony-mode)))
+     (add-hook 'c-mode-common-hook 'irony-mode)))
 
 ;; rtags
 ;;
@@ -438,8 +436,6 @@
                  (when (locate-library "helm-gtags")
                    (when (locate-dominating-file default-directory "GTAGS")
                      (helm-gtags-mode)))
-                 (flycheck-mode t)
-                 (yas-minor-mode 1)
                  (c-toggle-hungry-state 1)
                  (local-unset-key (kbd "C-M-h"))
                  (setq truncate-lines t)
