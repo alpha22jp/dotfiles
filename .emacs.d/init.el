@@ -144,19 +144,6 @@
             (lambda ()
               (smartparens-strict-mode))))
 
-;; flymake
-;;
-(require 'flymake nil 'noerror)
-(eval-after-load "flymake"
-  '(progn
-     (require 'flymake-fringe nil 'noerror)
-     (when (locate-library "popup") (require 'flymake-popup nil 'noerror))
-     (defun flymake-get-make-cmdline (source base-dir)
-       (list "make" (list "-s" "-C" base-dir "LANG=C"
-                          (concat "CHK_SOURCES=" source)
-                          "SYNTAX_CHECK_MODE=1" "check-syntax")))
-     (setq flymake-gui-warnings-enabled nil)))
-
 ;; flycheck
 ;;
 (eval-after-load "flycheck"
@@ -452,7 +439,6 @@
                  (when (locate-library "helm-gtags")
                    (when (locate-dominating-file default-directory "GTAGS")
                      (helm-gtags-mode)))
-                 (flymake-mode t)
                  (flycheck-mode t)
                  (yas-minor-mode 1)
                  (c-toggle-hungry-state 1)
@@ -598,8 +584,6 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(flymake-errline ((t (:underline nil))))
- '(flymake-warnline ((t (:underline nil))))
  '(helm-selection ((t (:inherit highlight :background "firebrick4")))))
 
 (provide 'init)

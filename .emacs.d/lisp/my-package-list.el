@@ -12,7 +12,6 @@
     expand-region
     flycheck
     flycheck-irony
-    flymake
     google-c-style
     git-gutter-fringe
     haskell-mode
