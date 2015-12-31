@@ -401,7 +401,7 @@
   '(progn
      (setq rm-blacklist
            "\\` Projectile\\|\\` Helm\\|\\` GitGutter\\'\\|\\` pair\\'\\|\
-\\` Abbrev\\'\\|\\` MRev\\'")
+\\` Abbrev\\'\\|\\` MRev\\'\\|\\` rk\\'\\|\\` company\\'\\|\\` Irony\\'\\|\\` SP\\|\\` yas\\'")
      (add-to-list 'rm-text-properties
                   '("\\` mc" 'face 'font-lock-warning-face))
      (setq sml/name-width 32)
