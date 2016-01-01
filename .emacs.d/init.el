@@ -195,6 +195,7 @@
 ;; rtags
 ;;
 (when (require 'rtags nil 'noerror)
+  (custom-set-variables '(rtags-use-helm t))
   (add-hook 'c-mode-common-hook
             (lambda ()
               (when (rtags-is-indexed)
