@@ -117,21 +117,18 @@
 
 ;; compilation settings
 ;;
-(eval-after-load "compile"
-  '(custom-set-variables
-    '(compile-command "LANG=C make")
-    '(compilation-scroll-output t)))
+(custom-set-variables
+ '(compile-command "LANG=C make")
+ '(compilation-scroll-output t))
 
 ;; autoinsert
 ;;
-(require 'autoinsert nil 'noerror)
-(eval-after-load "autoinsert"
-  '(progn
-     (auto-insert-mode)
-     (custom-set-variables
-      '(auto-insert-directory "~/.emacs.d/template/")
-      '(auto-insert-query t))
-     (require 'my-auto-insert nil 'noerror)))
+(when (require 'autoinsert nil 'noerror)
+  (auto-insert-mode)
+  (custom-set-variables
+   '(auto-insert-directory "~/.emacs.d/template/")
+   '(auto-insert-query t))
+  (require 'my-auto-insert nil 'noerror))
 
 ;; yasnippet
 ;;
@@ -186,8 +183,7 @@
 ;; flycheck-irony
 ;;
 (eval-after-load "flycheck"
-  '(progn
-     (when (locate-library "flycheck-irony") (flycheck-irony-setup))))
+  '(when (locate-library "flycheck-irony") (flycheck-irony-setup)))
 
 ;; flycheck-cpplint
 ;;
@@ -233,9 +229,9 @@
 ;;
 (when (require 'psvn nil 'noerror)
   (custom-set-variables
-      '(svn-status-hide-unmodified t)
-      '(svn-status-hide-unknown t)
-      '(svn-status-svn-file-coding-system 'utf-8)))
+   '(svn-status-hide-unmodified t)
+   '(svn-status-hide-unknown t)
+   '(svn-status-svn-file-coding-system 'utf-8)))
 
 ;; magit
 ;;
@@ -405,13 +401,11 @@
 
 ;; c/c++ mode
 ;;
-(eval-after-load "cc-vars"
+(eval-after-load "cc-mode"
   '(progn
      (custom-set-variables '(c-default-style "stroustrup"))
      (add-hook 'c-mode-common-hook
                (lambda ()
-                 (google-set-c-style)
-                 (google-make-newline-indent)
                  (custom-set-variables '(c-basic-offset 4))
                  (c-set-offset 'case-label 0)
                  (c-set-offset 'member-init-intro '+)
@@ -419,10 +413,8 @@
                    (when (locate-dominating-file default-directory "GTAGS")
                      (helm-gtags-mode)))
                  (c-toggle-hungry-state 1)
-                 (local-unset-key (kbd "C-M-h"))
                  (setq truncate-lines t)
-                 (setq comment-column 4)
-                 (setq tab-width 4)))
+                 (setq comment-column 4)))
      (add-hook 'c++-mode-hook
                (lambda ()
                  (c-set-offset 'access-label -3)))))
@@ -440,10 +432,6 @@
      (add-hook 'hexl-mode-hook
                (lambda ()
                  (local-set-key (kbd "C-c C-s") 'hexl-insert-hex-string)))))
-
-;; java mode
-;;
-(add-to-list 'auto-mode-alist '("\\.as$" . java-mode))
 
 ;; javascript mode
 ;;
