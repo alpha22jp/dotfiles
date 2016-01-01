@@ -23,19 +23,16 @@
         (add-to-list 'load-path (expand-file-name dir)))
       my-lisp-dir-list)
 
-;; frame and font settings
+;; font settings
 ;;
-(defvar my:default-font
-  (if (eq system-type 'darwin) "Ricty Diminished-16" "Migu 2M-11"))
-;; (frame-parameter nil 'font) ;; 使用中のフォントを調べる
-(setq default-frame-alist
-      (append (list
-               (cons 'font my:default-font)
-               '(cursor-color . "red3")
-               '(alpha . 90)
-               '(width .  80)
-               '(height . 40))
-              default-frame-alist))
+(defvar my-default-font "Ricty Diminished")
+(defun my-font-setting ()
+  "My customized font setting function."
+  (set-face-attribute 'default nil :family my-default-font :height 120)
+  (set-fontset-font (frame-parameter nil 'font)
+                    'japanese-jisx0208
+                    (font-spec :family my-default-font :size 16)))
+(unless (string= (frame-parameter nil 'font) "tty") (my-font-setting))
 
 ;; keyboard-translate settings
 ;;
@@ -43,10 +40,22 @@
   "My customized keyboard translation function."
   (when (eq system-type 'darwin) (keyboard-translate ?¥ ?\\))
   (keyboard-translate ?\C-h ?\C-?))
+(my-keyboard-translate)
+
+;; frame settings
+;;
+(setq default-frame-alist
+      (append (list
+               '(cursor-color . "red3")
+               '(alpha . 90)
+               '(width .  80)
+               '(height . 40))
+              default-frame-alist))
 (add-hook 'after-make-frame-functions
           (lambda (f)
-            (with-selected-frame f (my-keyboard-translate))))
-(my-keyboard-translate)
+            (with-selected-frame f
+              (my-font-setting)
+              (my-keyboard-translate))))
 
 ;; personal information settings
 ;;
