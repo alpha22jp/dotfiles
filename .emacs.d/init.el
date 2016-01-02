@@ -105,21 +105,23 @@
 
 ;; uniquify
 ;;
-(require 'uniquify nil 'noerror)
-(custom-set-variables
-    '(uniquify-buffer-name-style 'post-forward-angle-brackets))
+(when (require 'uniquify nil 'noerror)
+  (custom-set-variables
+   '(uniquify-buffer-name-style 'post-forward-angle-brackets)))
 
 ;; which-function-mode
 ;;
 (which-function-mode)
-(custom-set-variables
- '(which-func-modes '(c-mode c++-mode java-mode ruby-mode python-mode)))
+(eval-after-load "which-function-mode"
+  (custom-set-variables
+   '(which-func-modes '(c-mode c++-mode java-mode ruby-mode python-mode))))
 
 ;; compilation settings
 ;;
-(custom-set-variables
- '(compile-command "LANG=C make")
- '(compilation-scroll-output t))
+(eval-after-load "compile"
+  (custom-set-variables
+   '(compile-command "LANG=C make")
+   '(compilation-scroll-output t)))
 
 ;; autoinsert
 ;;
