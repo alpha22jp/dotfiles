@@ -81,10 +81,14 @@
 (setq-default tab-width 4 indent-tabs-mode nil) ;; インデント幅は4で空白を使用
 (setq ad-redefinition-action 'accept) ;; defadviceによる二重定義の警告を無視
 
+;; use-package
+;;
+(require 'use-package nil 'noerror)
+
 ;; exec-path-from-shell
 ;;
-(when (require 'exec-path-from-shell nil 'noerror)
-  (exec-path-from-shell-initialize))
+(use-package exec-path-from-shell
+  :config (exec-path-from-shell-initialize))
 
 ;; extra local settings
 ;;
@@ -105,7 +109,8 @@
 
 ;; uniquify
 ;;
-(when (require 'uniquify nil 'noerror)
+(use-package uniquify
+  :config
   (custom-set-variables
    '(uniquify-buffer-name-style 'post-forward-angle-brackets)))
 
@@ -125,7 +130,8 @@
 
 ;; autoinsert
 ;;
-(when (require 'autoinsert nil 'noerror)
+(use-package autoinsert
+  :config
   (auto-insert-mode)
   (custom-set-variables
    '(auto-insert-directory "~/.emacs.d/template/")
@@ -134,43 +140,53 @@
 
 ;; yasnippet
 ;;
-(eval-after-load "yasnippet"
-  '(progn
-     ;; companyと競合するのでyasnippetのフィールド移動は "C-i" のみにする
-     (define-key yas-keymap (kbd "<tab>") nil)
-     (yas-global-mode 1)))
+(use-package yasnippet
+  :diminish yas-minor-mode
+  :defer t
+  :config
+  ;; companyと競合するのでyasnippetのフィールド移動は "C-i" のみにする
+  (define-key yas-keymap (kbd "<tab>") nil)
+  (yas-global-mode))
 
 ;; smartparens
 ;;
-(when (require 'smartparens-config nil 'noerror)
+(use-package smartparens-config
+  :diminish smartparens-mode
+  :config
   (smartparens-global-mode)
   (show-smartparens-global-mode)
   (add-hook 'emacs-lisp-mode-hook 'smartparens-strict-mode))
 
-;; company-mode
+;; company
 ;;
-(when (locate-library "company")
-  (global-company-mode 1)
-  (global-set-key (kbd "C-M-i") 'company-complete)
+(use-package company
+  :diminish company-mode
+  :init (global-company-mode)
+  :bind ("C-M-i" . company-complete)
+  :config
   ;; (setq company-idle-delay nil) ; 自動補完をしない
-  (define-key company-active-map (kbd "C-n") 'company-select-next)
-  (define-key company-active-map (kbd "C-p") 'company-select-previous)
-  (define-key company-search-map (kbd "C-n") 'company-select-next)
-  (define-key company-search-map (kbd "C-p") 'company-select-previous)
-  (define-key company-active-map (kbd "<tab>") 'company-complete-selection))
+  (bind-keys :map company-active-map
+             ("C-n" . company-select-next)
+             ("C-p" . company-select-previous)
+             ("<tab>" . company-complete-selection))
+  (bind-keys :map company-search-map
+             ("C-n" . company-select-next)
+             ("C-p" . company-select-previous)))
 
-;; irony-mode
+;; irony
 ;;
-(eval-after-load "irony"
-  '(progn
-     (custom-set-variables '(irony-additional-clang-options '("-std=c++11")))
-     (add-to-list 'company-backends 'company-irony)
-     (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
-     (add-hook 'c-mode-common-hook 'irony-mode)))
+(use-package irony
+  :diminish irony-mode
+  :config
+  (custom-set-variables '(irony-additional-clang-options '("-std=c++11")))
+  (add-to-list 'company-backends 'company-irony)
+  (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+  (add-hook 'c-mode-common-hook 'irony-mode))
 
 ;; flycheck
 ;;
-(when (require 'flycheck nil 'noerror)
+(use-package flycheck
+  :config
   (custom-set-variables
    ;; エラーをポップアップで表示
    '(flycheck-display-errors-function
@@ -178,58 +194,61 @@
        (let ((messages (mapcar #'flycheck-error-message errors)))
          (popup-tip (mapconcat 'identity messages "\n")))))
    '(flycheck-display-errors-delay 0.5))
-  (define-key flycheck-mode-map (kbd "C-M-n") 'flycheck-next-error)
-  (define-key flycheck-mode-map (kbd "C-M-p") 'flycheck-previous-error)
+  (bind-keys :map flycheck-mode-map
+             ("C-M-n" . flycheck-next-error)
+             ("C-M-p" . flycheck-previous-error))
   (add-hook 'c-mode-common-hook 'flycheck-mode))
 
 ;; flycheck-irony
 ;;
-(eval-after-load "flycheck"
-  '(when (locate-library "flycheck-irony") (flycheck-irony-setup)))
+(use-package flycheck-irony
+  :if (locate-library "flycheck")
+  :config (flycheck-irony-setup))
 
 ;; flycheck-cpplint
 ;;
-(eval-after-load "flycheck"
-  '(progn
-     (when (require 'flycheck-google-cpplint nil 'noerror)
-       (custom-set-variables
-           '(flycheck-googlelint-extensions "cpp,hpp,c,h")
-           '(flycheck-googlelint-verbose "3")
-           '(flycheck-googlelint-linelength "120"))
-       (when (locate-library "flycheck-irony")
-         (flycheck-add-next-checker 'irony '(warning . c/c++-googlelint))))))
+(use-package flycheck-google-cpplint
+  :if (locate-library "flycheck")
+  :config
+  (custom-set-variables
+     '(flycheck-googlelint-extensions "cpp,hpp,c,h")
+     '(flycheck-googlelint-verbose "3")
+     '(flycheck-googlelint-linelength "120"))
+  (flycheck-add-next-checker 'irony '(warning . c/c++-googlelint)))
 
 ;; rtags
 ;;
-(when (require 'rtags nil 'noerror)
-  (custom-set-variables '(rtags-use-helm t))
+(use-package rtags
+  :config
   (add-hook 'c-mode-common-hook
             (lambda ()
               (when (rtags-is-indexed)
                 (local-set-key (kbd "M-.") 'rtags-find-symbol-at-point)
                 (local-set-key (kbd "M-;") 'rtags-find-symbol)
                 (local-set-key (kbd "M-@") 'rtags-find-references)
-                (local-set-key (kbd "M-,") 'rtags-location-stack-back)))))
+                (local-set-key (kbd "M-,") 'rtags-location-stack-back))))
+  (custom-set-variables '(rtags-use-helm t)))
 
 ;; fuzzy-format
 ;;
-(when (require 'fuzzy-format nil 'noerror)
+(use-package fuzzy-format
+  :config
   (delq 'makefile-mode fuzzy-format-check-modes)
-  (global-fuzzy-format-mode t))
+  (global-fuzzy-format-mode))
 
 ;; elscreen
 ;;
-(when (require 'elscreen nil 'noerror)
+(use-package elscreen
+  :config
   (custom-set-variables '(elscreen-prefix-key "\C-o"))
   (elscreen-start)
-  (add-hook 'dired-mode-hook
-            (lambda () (local-unset-key "\C-o")))
-  (add-hook 'svn-status-mode-hook
-            (lambda () (local-unset-key "\C-o"))))
+  (add-hook 'dired-mode-hook (lambda () (local-unset-key "\C-o")))
+  (add-hook 'svn-status-mode-hook (lambda () (local-unset-key "\C-o"))))
 
 ;; psvn
 ;;
-(when (require 'psvn nil 'noerror)
+(use-package psvn
+  :config
   (custom-set-variables
    '(svn-status-hide-unmodified t)
    '(svn-status-hide-unknown t)
@@ -237,17 +256,20 @@
 
 ;; magit
 ;;
-(eval-after-load "magit"
-  '(progn
-     (add-hook 'magit-mode-hook 'diff-mode-setup-faces)
-     (custom-set-variables '(magit-diff-refine-hunk 't))))
+(use-package magit
+  :defer t
+  :config
+  (add-hook 'magit-mode-hook 'diff-mode-setup-faces)
+  (custom-set-variables '(magit-diff-refine-hunk 't)))
 
 ;; git-gutter
 ;;
-(when (locate-library "git-gutter")
+(use-package git-gutter
+  :diminish git-gutter-mode
+  :config
   (global-git-gutter-mode t)
   (custom-set-variables '(git-gutter:handled-backends '(git svn)))
-  (require 'git-gutter-fringe nil 'noerror)
+  (use-package git-gutter-fringe)
   (add-hook 'git-gutter-mode-hook
             (lambda ()
               (local-set-key (kbd "M-n") 'git-gutter:next-hunk)
@@ -257,61 +279,107 @@
 
 ;; simplenote2
 ;;
-(eval-after-load "simplenote2"
-  '(progn
-     (custom-set-variables
-      '(simplenote2-email "alpha22jp@gmail.com")
-      '(simplenote2-markdown-notes-mode 'markdown-mode))
-     (add-hook 'simplenote2-create-note-hook 'simplenote2-set-markdown)
-     (add-hook 'simplenote2-note-mode-hook
-               (lambda ()
-                 (local-set-key (kbd "C-c C-t") 'simplenote2-add-tag)
-                 (local-set-key (kbd "C-c C-c") 'simplenote2-push-buffer)
-                 (local-set-key (kbd "C-c C-d") 'simplenote2-pull-buffer)))
-     (require 'my-simplenote2 nil 'noerror)
-     (simplenote2-setup)))
+(use-package simplenote2
+  :config
+  (custom-set-variables
+   '(simplenote2-email "alpha22jp@gmail.com")
+   '(simplenote2-markdown-notes-mode 'markdown-mode))
+  (add-hook 'simplenote2-create-note-hook 'simplenote2-set-markdown)
+  (add-hook 'simplenote2-note-mode-hook
+            (lambda ()
+              (local-set-key (kbd "C-c C-t") 'simplenote2-add-tag)
+              (local-set-key (kbd "C-c C-c") 'simplenote2-push-buffer)
+              (local-set-key (kbd "C-c C-d") 'simplenote2-pull-buffer)))
+  (require 'my-simplenote2 nil 'noerror)
+  (simplenote2-setup))
+
+;; ag
+;;
+(use-package ag
+  :defer t
+  :config
+  (custom-set-variables '(ag-highlight-search t)
+                        '(ag-reuse-buffers t)))
+
+;; wgrep-ag
+;;
+(use-package wgrep-ag
+  :defer t
+  :config
+  (custom-set-variables '(wgrep-auto-save-buffer t) ; 編集完了と同時に保存
+                        '(wgrep-enable-key "r"))
+  (add-hook 'ag-mode-hook 'wgrep-ag-setup))
 
 ;; helm
 ;;
-(when (require 'helm-config nil 'noerror)
+(use-package helm-config
+  :diminish helm-mode
+  :config
   (custom-set-variables
    '(helm-delete-minibuffer-contents-from-point t)
    '(helm-buffer-max-length 35)
    '(helm-autoresize-min-height 20))
   (helm-autoresize-mode 1)
-  (define-key isearch-mode-map (kbd "C-o") 'helm-occur-from-isearch)
-  (define-key isearch-mode-map (kbd "C-t") 'helm-swoop-from-isearch)
   ;; バッファの並び順を変更しない
   (defadvice helm-buffers-sort-transformer (around ignore activate)
-    (setq ad-return-value (ad-get-arg 0))))
-(eval-after-load "helm-files"
-  '(define-key helm-find-files-map (kbd "C-i") 'helm-execute-persistent-action))
+    (setq ad-return-value (ad-get-arg 0)))
+  (bind-key "C-o" 'helm-occur-from-isearch isearch-mode-map)
+  (bind-keys ("C-:" . helm-mini)
+             ("C-z" . helm-resume)
+             ("M-y" . helm-show-kill-ring))
+  (bind-keys :map ctl-x-map
+             ("m" . helm-man-woman)
+             ("x" . helm-M-x)
+             ("C-a" . helm-apropos)
+             ("C-b" . helm-buffers-list)
+             ("C-d" . helm-descbinds)
+             ("C-f" . helm-find-files)
+             ("C-r" . helm-recentf)))
+(use-package helm-files
+  :config (bind-key "C-i" 'helm-execute-persistent-action helm-find-files-map))
+
+;; helm-ag
+;;
+(use-package helm-ag
+  :defer t
+  :config
+  (bind-key "C-g" 'helm-ag ctl-x-map)
+  (custom-set-variables '(helm-ag-insert-at-point 'symbol)))
+
+;; helm-swoop
+;;
+(use-package helm-swoop
+  :defer t
+  :bind ("C-t" . helm-swoop)
+  :config (bind-key "C-t" 'helm-swoop-from-isearch isearch-mode-map))
 
 ;; helm-gtags
 ;;
-(eval-after-load "helm-gtags"
-  '(progn
-     (custom-set-variables
-      ;; '(helm-c-gtags-path-style 'relative)
-      ;; '(helm-c-gtags-ignore-case t)
-      '(helm-gtags-auto-update t)
-      '(helm-gtags-update-interval-second 0)
-      '(helm-gtags-pulse-at-cursor nil))
-     (add-hook 'helm-gtags-mode-hook
-               (lambda ()
-                 (local-set-key (kbd "M-.") 'helm-gtags-dwim)
-                 (local-set-key (kbd "M-@") 'helm-gtags-find-rtag)
-                 (local-set-key (kbd "M-;") 'helm-gtags-find-symbol)
-                 (local-set-key (kbd "M-,") 'helm-gtags-pop-stack)))))
+(use-package helm-gtags
+  :config
+  (custom-set-variables
+   ;; '(helm-c-gtags-path-style 'relative)
+   ;; '(helm-c-gtags-ignore-case t)
+   '(helm-gtags-auto-update t)
+   '(helm-gtags-update-interval-second 0)
+   '(helm-gtags-pulse-at-cursor nil))
+  (add-hook 'helm-gtags-mode-hook
+            (lambda ()
+              (local-set-key (kbd "M-.") 'helm-gtags-dwim)
+              (local-set-key (kbd "M-@") 'helm-gtags-find-rtag)
+              (local-set-key (kbd "M-;") 'helm-gtags-find-symbol)
+              (local-set-key (kbd "M-,") 'helm-gtags-pop-stack))))
 
 ;; helm-cscope
 ;;
-(when (require 'helm-cscope nil 'noerror)
+(use-package helm-cscope
+  :config
   (require 'my-cscope nil 'noerror)
-  (define-key helm-cscope-mode-map (kbd "M-.") 'helm-cscope-find-global-definition)
-  (define-key helm-cscope-mode-map (kbd "M-@") 'helm-cscope-find-calling-this-funtcion)
-  (define-key helm-cscope-mode-map (kbd "M-;") 'helm-cscope-find-this-symbol)
-  (define-key helm-cscope-mode-map (kbd "M-,") 'helm-cscope-pop-mark)
+  (bind-keys :map helm-cscope-mode-map
+             ("M-." . helm-cscope-find-global-definition)
+             ("M-@" . helm-cscope-find-calling-this-funtcion)
+             ("M-;" . helm-cscope-find-this-symbol)
+             ("M-," . helm-cscope-pop-mark))
   (add-hook 'c-mode-common-hook
             (lambda ()
               (when (locate-dominating-file default-directory "cscope.out")
@@ -319,29 +387,9 @@
 
 ;; helm-c-yasnippet
 ;;
-(when (require 'helm-c-yasnippet nil 'noerror)
-  (custom-set-variables '(helm-yas-space-match-any-greedy t))
-  (global-set-key (kbd "C-c y") 'helm-yas-complete))
-
-;; helm-ag
-;;
-(eval-after-load "helm-ag"
-  '(custom-set-variables '(helm-ag-insert-at-point 'symbol)))
-
-;; wgrep-ag
-;;
-(eval-after-load "ag"
-  '(progn
-     (custom-set-variables
-      '(ag-highlight-search t)
-      '(ag-reuse-buffers t))
-     (require 'wgrep-ag nil 'noerror)))
-(eval-after-load "wgrep-ag"
-  '(progn
-     (custom-set-variables
-      '(wgrep-auto-save-buffer t) ; 編集完了と同時に保存
-      '(wgrep-enable-key "r")) ; "r" キーで編集モードに
-     (add-hook 'ag-mode-hook 'wgrep-ag-setup)))
+(use-package helm-c-yasnippet
+  :bind ("C-c y" . helm-yas-complete)
+  :config (custom-set-variables '(helm-yas-space-match-any-greedy t)))
 
 ;; recentf
 ;;
@@ -351,55 +399,63 @@
       '(recentf-save-file "~/.emacs.d/.recentf")
       '(recentf-max-saved-items 100)
       '(recentf-exclude '("/.simplenote2/*" "/TAGS$" "/COMMIT_EDITMSG$")))
-     (require 'recentf-ext nil 'noerror)))
+     (use-package recentf-ext)))
 
 ;; multiple-cursors
 ;;
-(when (require 'multiple-cursors nil 'noerror)
-  (require 'mc-extras nil 'noerror))
+(use-package multiple-cursors
+  :bind ("C-]" . mc/mark-all-dwim)
+  :config (use-package mc-extras))
 
 ;; expand-region
 ;;
-(require 'expand-region nil 'noerror)
+(use-package expand-region
+  :bind
+  ("C-@" . er/expand-region)
+  ("C-M-@" . er/contract-region))
 
 ;; region bindings mode
 ;;
-(when (require 'region-bindings-mode nil 'noerror)
+(use-package region-bindings-mode
+  :diminish region-bindings-mode
+  :config
   (region-bindings-mode-enable)
-  (define-key region-bindings-mode-map (kbd "<tab>") 'indent-region)
-  (define-key region-bindings-mode-map (kbd "C-]") 'mc/mark-all-like-this-dwim)
-  (define-key region-bindings-mode-map (kbd "C-l") 'mc/edit-lines)
-  (define-key region-bindings-mode-map (kbd "M-p") 'mc/mark-previous-like-this)
-  (define-key region-bindings-mode-map (kbd "M-n") 'mc/mark-next-like-this)
-  (define-key region-bindings-mode-map (kbd "M-u") 'mc/remove-current-cursor)
-  (define-key region-bindings-mode-map (kbd "C-M-n") 'mc/cycle-forward)
-  (define-key region-bindings-mode-map (kbd "C-M-p") 'mc/cycle-backward))
+  (bind-key "<tab>" 'indent-region region-bindings-mode-map)
+  (when (require 'multiple-cursors nil 'noerror)
+    (bind-keys :map region-bindings-mode-map
+               ("C-]" . mc/mark-all-like-this-dwim)
+               ("C-l" . mc/edit-lines)
+               ("M-n" . mc/mark-next-like-this)
+               ("M-p" . mc/mark-previous-like-this)
+               ("M-u" . mc/remove-current-cursor)
+               ("C-M-n" . mc/cycle-forward)
+               ("C-M-p" . mc/cycle-backward))))
 
 ;; smart-mode-line
 ;;
-(when (require 'smart-mode-line nil 'noerror)
+(use-package smart-mode-line
+  :config
   (custom-set-variables
-   '(rm-blacklist
-     "\\` Projectile\\|\\` Helm\\|\\` GitGutter\\'\\|\\` pair\\'\\|\
-\\` Abbrev\\'\\|\\` MRev\\'\\|\\` rk\\'\\|\\` company\\'\\|\\` Irony\\'\\|\\` SP\\|\\` yas\\'")
+   '(rm-blacklist "\\` Abbrev\\'\\|\\` MRev\\'")
    '(sml/name-width 32))
   (add-to-list 'rm-text-properties '("\\` mc" 'face 'font-lock-warning-face))
   (sml/setup))
 
 ;; quickrun
 ;;
-(eval-after-load "quickrun"
-  '(progn
-     (quickrun-add-command
-      "c++/g++"
-      '((:exec . ("%c -std=c++11 -pthread -Wall -Werror -Weffc++ %o -o %e %s" "%e %a")))
-      :override t)
-     (quickrun-add-command
-      "javascript/node-harmony"
-      '((:command . "node")
-        (:description . "Run Javascript file with node.js(harmony)")
-        (:cmdopt . "--harmony")))
-     (quickrun-set-default "javascript" "javascript/node-harmony")))
+(use-package quickrun
+  :defer t
+  :config
+  (quickrun-add-command
+   "c++/g++"
+   '((:exec . ("%c -std=c++11 -pthread -Wall -Werror -Weffc++ %o -o %e %s" "%e %a")))
+   :override t)
+  (quickrun-add-command
+   "javascript/node-harmony"
+   '((:command . "node")
+     (:description . "Run Javascript file with node.js(harmony)")
+     (:cmdopt . "--harmony")))
+  (quickrun-set-default "javascript" "javascript/node-harmony"))
 
 ;; c/c++ mode
 ;;
@@ -448,11 +504,11 @@
 ;; ruby mode
 ;;
 (eval-after-load "ruby-mode"
-'(progn
-   (require 'rcodetools nil 'noerror)
-   (add-hook 'ruby-mode-hook
-             (lambda ()
-               (local-set-key (kbd "C-c C-c") 'xmp)))))
+  '(progn
+     (require 'rcodetools nil 'noerror)
+     (add-hook 'ruby-mode-hook
+               (lambda ()
+                 (local-set-key (kbd "C-c C-c") 'xmp)))))
 
 ;; haskell mode
 ;;
@@ -484,57 +540,41 @@
 
 ;; input method
 ;;
-(when (require 'mozc nil 'noerror)
+(use-package mozc
+  :bind ("<henkan>" . toggle-input-method)
+  :config
   (custom-set-variables '(default-input-method "japanese-mozc"))
-  (define-key mozc-mode-map [henkan] 'toggle-input-method))
+  (bind-key "<henkan>" 'toggle-input-method mozc-mode-map))
 
 ;; global key bindings
 ;;
-(global-set-key (kbd "M-h") 'help-for-help)
-(define-key ctl-x-map (kbd "C-a") 'helm-apropos)
-(define-key ctl-x-map (kbd "C-b") 'helm-buffers-list)
-(define-key ctl-x-map (kbd "C-d") 'helm-descbinds)
-(define-key ctl-x-map (kbd "C-g") 'helm-ag)
-(define-key ctl-x-map (kbd "m") 'helm-man-woman)
-(define-key ctl-x-map (kbd "C-r") 'helm-recentf)
-(define-key ctl-x-map (kbd "C-z") 'save-buffers-kill-emacs)
-(define-key ctl-x-map (kbd "C-f") 'helm-find-files)
-(define-key ctl-x-map (kbd "t") 'toggle-truncate-lines)
-(define-key ctl-x-map (kbd "x") 'helm-M-x)
-(global-set-key (kbd "C-]") 'mc/mark-all-dwim)
-(global-set-key (kbd "C-;") 'comment-dwim)
-(global-set-key (kbd "C-:") 'helm-mini)
-(global-set-key (kbd "C-^") 'delete-indentation)
-(global-set-key (kbd "C-t") 'helm-swoop)
-(global-set-key (kbd "C-@") 'er/expand-region)
-(global-set-key (kbd "C-M-@") 'er/contract-region)
-(global-set-key (kbd "M-^") 'next-error)
-(global-set-key (kbd "C-M-^") 'previous-error)
-(global-set-key (kbd "C-,") 'beginning-of-buffer)
-(global-set-key (kbd "C-.") 'end-of-buffer)
-(global-set-key (kbd "M-i") 'indent-region)
-(global-set-key (kbd "M-(") 'backward-list)
-(global-set-key (kbd "M-)") 'forward-list)
-(global-set-key [M-left] 'elscreen-previous)
-(global-set-key [M-right] 'elscreen-next)
-(global-set-key (kbd "M-g") 'goto-line)
-(global-set-key (kbd "C-z") 'helm-resume)
-(global-set-key (kbd "M-y") 'helm-show-kill-ring)
-(global-set-key [hiragana-katakana] 'dabbrev-expand)
-(global-set-key [henkan] 'toggle-input-method)
-(global-set-key [f1] 'delete-other-windows)
-(global-set-key [f2] 'elscreen-previous)
-(global-set-key [f3] 'elscreen-next)
-(global-set-key [f4] 'split-window-vertically)
-(global-set-key [f5] 'quickrun)
-(global-set-key [f6] 'simplenote2-browse)
-(global-set-key [f7] 'compile)
-(global-set-key [f8] 'ag)
-(global-set-key [f9] 'vc-print-log)
-(global-set-key [f10] 'my-vc-status)
-(global-set-key [f11] 'vc-diff)
-(global-set-key [f12] 'vc-revert)
-(global-set-key [C-tab] 'other-window)
+(bind-keys :map ctl-x-map
+           ("C-z" . save-buffers-kill-emacs)
+           ("t" . toggle-truncate-lines))
+(bind-keys ("M-h" . help-for-help)
+           ("M-g" . goto-line)
+           ("C-;" . comment-dwim)
+           ("C-^" . delete-indentation)
+           ("M-^" . next-error)
+           ("C-M-^" . previous-error)
+           ("C-," . beginning-of-buffer)
+           ("C-." . end-of-buffer)
+           ("M-(" . backward-list)
+           ("M-)" . forward-list)
+           ("C-<tab>" . other-window)
+           ("<f1>" . delete-other-windows)
+           ("<f2>" . elscreen-previous)
+           ("<f3>" . elscreen-next)
+           ("<f4>" . split-window-vertically)
+           ("<f5>" . quickrun)
+           ("<f6>" . describe-personal-keybindings)
+           ("<f7>" . compile)
+           ("<f8>" . ag)
+           ("<f9>" . vc-print-log)
+           ("<f10>" . my-vc-status)
+           ("<f11>" . vc-diff)
+           ("<f12>" . vc-revert)
+           ("<hiragana-katakana>" . dabbrev-expand))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.

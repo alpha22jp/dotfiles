@@ -35,6 +35,7 @@
     simplenote2
     smart-mode-line
     solarized-theme
+    use-package
     wgrep-ag
     yasnippet
     ))
