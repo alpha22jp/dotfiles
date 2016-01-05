@@ -54,4 +54,6 @@ fi
 # For Ruby
 if [ -d $HOME/.gem/ruby/2.2.0/bin ]; then
     export PATH=$HOME/.gem/ruby/2.2.0/bin:$PATH
+elif [ -d $HOME/.gem/ruby/2.0.0/bin ]; then
+    export PATH=$HOME/.gem/ruby/2.0.0/bin:$PATH
 fi
