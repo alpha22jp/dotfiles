@@ -82,6 +82,8 @@
 ;; use-package
 ;;
 (require 'use-package nil 'noerror)
+(unless (locate-library "use-package")
+  (defmacro use-package (&rest args)))
 
 ;; exec-path-from-shell
 ;;
