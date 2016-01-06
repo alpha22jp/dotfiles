@@ -25,16 +25,11 @@
 
 ;; font settings
 ;;
-(defvar my-default-font-family "Ricty Diminished")
-(defvar my-default-font-size (if (eq system-type 'darwin) '160 '110))
+(defvar my-default-font
+  (if (eq system-type 'darwin) "Ricty Diminished-16" "Ricty Diminished-12"))
 (defun my-font-setting ()
   "My customized font setting function."
-  (set-face-attribute 'default nil
-                      :family my-default-font-family
-                      :height my-default-font-size)
-  (set-fontset-font (frame-parameter nil 'font)
-                    'japanese-jisx0208
-                    (font-spec :family my-default-font-family :size 16)))
+  (set-face-attribute 'default nil :font my-default-font))
 (unless (string= (frame-parameter nil 'font) "tty") (my-font-setting))
 
 ;; keyboard-translate settings
