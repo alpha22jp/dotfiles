@@ -1,7 +1,11 @@
 ;;; my-package-list.el --- install my favorite packages
 ;;;
 
+;;; Commentary:
+
 ;;; Code:
+
+(require 'package nil 'noerror)
 
 (defvar my-package-list
   '(ag
