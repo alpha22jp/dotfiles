@@ -348,9 +348,8 @@
 ;;
 (use-package helm-ag
   :defer t
-  :config
-  (bind-key "C-g" 'helm-ag ctl-x-map)
-  (custom-set-variables '(helm-ag-insert-at-point 'symbol)))
+  :init (bind-key "C-g" 'helm-ag ctl-x-map)
+  :config (custom-set-variables '(helm-ag-insert-at-point 'symbol)))
 
 ;; helm-swoop
 ;;
