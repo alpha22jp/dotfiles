@@ -74,6 +74,7 @@
 (set-scroll-bar-mode 'right) ;; スクロールバーを右側に表示
 (column-number-mode) ;; モードラインに桁数を表示する
 (show-paren-mode) ;; 対応する括弧を強調表示する
+(which-function-mode) ;; カーソル位置の関数名表示を有効にする
 (fset 'yes-or-no-p 'y-or-n-p) ;; "yes/no" が必要なときも "y/n" だけにする
 (setq kill-whole-line t) ;; 行頭で "C-k" すると改行を含む行全体を削除
 (setq auto-save-default nil) ;; 自動セーブしない
@@ -84,6 +85,8 @@
 (setq find-file-visit-truename t) ;; シンボリックリンクを実体のパスで開く
 (setq-default tab-width 4 indent-tabs-mode nil) ;; インデント幅は4で空白を使用
 (setq ad-redefinition-action 'accept) ;; defadviceによる二重定義の警告を無視
+(setq compile-command "LANG=C make") ;; デフォルトのコンパイルコマンド
+(setq compilation-scroll-output 'first-error)
 
 ;; use-package
 ;;
@@ -113,35 +116,27 @@
               (set-face-foreground 'default "#cfcfcf")
               (set-face-background 'default "#101010"))))
 
+;; recentf
+;;
+(eval-after-load "recentf"
+  '(progn
+     (setq recentf-save-file "~/.emacs.d/.recentf")
+     (setq recentf-max-saved-items 100)
+     (setq recentf-exclude '("/.simplenote2/*" "/TAGS$" "/COMMIT_EDITMSG$"))
+     (use-package recentf-ext)))
+
 ;; uniquify
 ;;
-(use-package uniquify
-  :config
-  (custom-set-variables
-   '(uniquify-buffer-name-style 'post-forward-angle-brackets)))
-
-;; which-function-mode
-;;
-(which-function-mode)
-(eval-after-load "which-function-mode"
-  (custom-set-variables
-   '(which-func-modes '(c-mode c++-mode java-mode ruby-mode python-mode))))
-
-;; compilation settings
-;;
-(eval-after-load "compile"
-  (custom-set-variables
-   '(compile-command "LANG=C make")
-   '(compilation-scroll-output t)))
+(when (require 'uniquify nil 'noerror)
+  (setq uniquify-buffer-name-style 'post-forward-angle-brackets))
 
 ;; autoinsert
 ;;
 (use-package autoinsert
   :config
   (auto-insert-mode)
-  (custom-set-variables
-   '(auto-insert-directory "~/.emacs.d/template/")
-   '(auto-insert-query t))
+  (setq auto-insert-directory "~/.emacs.d/template/")
+  (setq auto-insert-query t)
   (require 'my-auto-insert nil 'noerror))
 
 ;; yasnippet
@@ -184,7 +179,7 @@
 (use-package irony
   :diminish irony-mode
   :config
-  (custom-set-variables '(irony-additional-clang-options '("-std=c++11")))
+  (setq irony-additional-clang-options '("-std=c++11"))
   (add-to-list 'company-backends 'company-irony)
   (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
   (add-hook 'c-mode-common-hook 'irony-mode))
@@ -193,13 +188,12 @@
 ;;
 (use-package flycheck
   :config
-  (custom-set-variables
-   ;; エラーをポップアップで表示
-   '(flycheck-display-errors-function
-     (lambda (errors)
-       (let ((messages (mapcar #'flycheck-error-message errors)))
-         (popup-tip (mapconcat 'identity messages "\n")))))
-   '(flycheck-display-errors-delay 0.5))
+  (setq flycheck-display-errors-function
+        ;; エラーをポップアップで表示
+        (lambda (errors)
+          (let ((messages (mapcar #'flycheck-error-message errors)))
+            (popup-tip (mapconcat 'identity messages "\n")))))
+  (setq flycheck-display-errors-delay 0.5)
   (bind-keys :map flycheck-mode-map
              ("C-M-n" . flycheck-next-error)
              ("C-M-p" . flycheck-previous-error))
@@ -216,24 +210,23 @@
 (use-package flycheck-google-cpplint
   :if (locate-library "flycheck")
   :config
-  (custom-set-variables
-     '(flycheck-googlelint-extensions "cpp,hpp,c,h")
-     '(flycheck-googlelint-verbose "3")
-     '(flycheck-googlelint-linelength "120"))
+  (setq flycheck-googlelint-extensions "cpp,hpp,c,h")
+  (setq flycheck-googlelint-verbose "3")
+  (setq flycheck-googlelint-linelength "120")
   (flycheck-add-next-checker 'irony '(warning . c/c++-googlelint)))
 
 ;; rtags
 ;;
 (use-package rtags
   :config
+  (setq rtags-use-helm t)
   (add-hook 'c-mode-common-hook
             (lambda ()
               (when (rtags-is-indexed)
                 (local-set-key (kbd "M-.") 'rtags-find-symbol-at-point)
                 (local-set-key (kbd "M-;") 'rtags-find-symbol)
                 (local-set-key (kbd "M-@") 'rtags-find-references)
-                (local-set-key (kbd "M-,") 'rtags-location-stack-back))))
-  (custom-set-variables '(rtags-use-helm t)))
+                (local-set-key (kbd "M-,") 'rtags-location-stack-back)))))
 
 ;; fuzzy-format
 ;;
@@ -246,7 +239,7 @@
 ;;
 (use-package elscreen
   :config
-  (custom-set-variables '(elscreen-prefix-key "\C-o"))
+  (setq elscreen-prefix-key "\C-o")
   (elscreen-start)
   (add-hook 'dired-mode-hook (lambda () (local-unset-key "\C-o")))
   (add-hook 'svn-status-mode-hook (lambda () (local-unset-key "\C-o"))))
@@ -255,26 +248,25 @@
 ;;
 (use-package psvn
   :config
-  (custom-set-variables
-   '(svn-status-hide-unmodified t)
-   '(svn-status-hide-unknown t)
-   '(svn-status-svn-file-coding-system 'utf-8)))
+  (setq svn-status-hide-unmodified t)
+  (setq svn-status-hide-unknown t)
+  (setq svn-status-svn-file-coding-system 'utf-8))
 
 ;; magit
 ;;
 (use-package magit
   :defer t
   :config
-  (add-hook 'magit-mode-hook 'diff-mode-setup-faces)
-  (custom-set-variables '(magit-diff-refine-hunk 't)))
+  (setq magit-diff-refine-hunk t)
+  (add-hook 'magit-mode-hook 'diff-mode-setup-faces))
 
 ;; git-gutter
 ;;
 (use-package git-gutter
   :diminish git-gutter-mode
   :config
+  (setq git-gutter:handled-backends '(git svn))
   (global-git-gutter-mode t)
-  (custom-set-variables '(git-gutter:handled-backends '(git svn)))
   (use-package git-gutter-fringe)
   (add-hook 'git-gutter-mode-hook
             (lambda ()
@@ -287,9 +279,8 @@
 ;;
 (use-package simplenote2
   :config
-  (custom-set-variables
-   '(simplenote2-email "alpha22jp@gmail.com")
-   '(simplenote2-markdown-notes-mode 'markdown-mode))
+  (setq simplenote2-email user-mail-address)
+  (setq simplenote2-markdown-notes-mode 'markdown-mode)
   (add-hook 'simplenote2-create-note-hook 'simplenote2-set-markdown)
   (add-hook 'simplenote2-note-mode-hook
             (lambda ()
@@ -304,16 +295,16 @@
 (use-package ag
   :defer t
   :config
-  (custom-set-variables '(ag-highlight-search t)
-                        '(ag-reuse-buffers t)))
+  (setq ag-highlight-search t)
+  (setq ag-reuse-buffers t))
 
 ;; wgrep-ag
 ;;
 (use-package wgrep-ag
   :defer t
   :config
-  (custom-set-variables '(wgrep-auto-save-buffer t) ; 編集完了と同時に保存
-                        '(wgrep-enable-key "r"))
+  (setq wgrep-auto-save-buffer t) ;; 編集完了と同時に保存
+  (setq wgrep-enable-key "r")
   (add-hook 'ag-mode-hook 'wgrep-ag-setup))
 
 ;; helm
@@ -321,10 +312,9 @@
 (use-package helm-config
   :diminish helm-mode
   :config
-  (custom-set-variables
-   '(helm-delete-minibuffer-contents-from-point t)
-   '(helm-buffer-max-length 35)
-   '(helm-autoresize-min-height 20))
+  (setq helm-delete-minibuffer-contents-from-point t)
+  (setq helm-buffer-max-length 35)
+  (setq helm-autoresize-min-height 20)
   (helm-autoresize-mode 1)
   ;; バッファの並び順を変更しない
   (defadvice helm-buffers-sort-transformer (around ignore activate)
@@ -349,7 +339,7 @@
 (use-package helm-ag
   :defer t
   :init (bind-key "C-g" 'helm-ag ctl-x-map)
-  :config (custom-set-variables '(helm-ag-insert-at-point 'symbol)))
+  :config (setq helm-ag-insert-at-point 'symbol))
 
 ;; helm-swoop
 ;;
@@ -362,12 +352,11 @@
 ;;
 (use-package helm-gtags
   :config
-  (custom-set-variables
-   ;; '(helm-c-gtags-path-style 'relative)
-   ;; '(helm-c-gtags-ignore-case t)
-   '(helm-gtags-auto-update t)
-   '(helm-gtags-update-interval-second 0)
-   '(helm-gtags-pulse-at-cursor nil))
+  ;; (setq helm-c-gtags-path-style 'relative)
+  ;; (setq helm-c-gtags-ignore-case t)
+  (setq helm-gtags-auto-update t)
+  (setq helm-gtags-update-interval-second 0)
+  (setq helm-gtags-pulse-at-cursor nil)
   (add-hook 'helm-gtags-mode-hook
             (lambda ()
               (local-set-key (kbd "M-.") 'helm-gtags-dwim)
@@ -394,17 +383,7 @@
 ;;
 (use-package helm-c-yasnippet
   :bind ("C-c y" . helm-yas-complete)
-  :config (custom-set-variables '(helm-yas-space-match-any-greedy t)))
-
-;; recentf
-;;
-(eval-after-load "recentf"
-  '(progn
-     (custom-set-variables
-      '(recentf-save-file "~/.emacs.d/.recentf")
-      '(recentf-max-saved-items 100)
-      '(recentf-exclude '("/.simplenote2/*" "/TAGS$" "/COMMIT_EDITMSG$")))
-     (use-package recentf-ext)))
+  :config (setq helm-yas-space-match-any-greedy t))
 
 ;; multiple-cursors
 ;;
@@ -440,9 +419,8 @@
 ;;
 (use-package smart-mode-line
   :config
-  (custom-set-variables
-   '(rm-blacklist "\\` Abbrev\\'\\|\\` MRev\\'")
-   '(sml/name-width 32))
+  (setq rm-blacklist "\\` Abbrev\\'\\|\\` MRev\\'")
+  (setq sml/name-width 32)
   (add-to-list 'rm-text-properties '("\\` mc" 'face 'font-lock-warning-face))
   (sml/setup))
 
@@ -466,10 +444,10 @@
 ;;
 (eval-after-load "cc-mode"
   '(progn
-     (custom-set-variables '(c-default-style "stroustrup"))
      (add-hook 'c-mode-common-hook
                (lambda ()
-                 (custom-set-variables '(c-basic-offset 4))
+                 (c-set-style "stroustrup")
+                 (setq c-basic-offset 4)
                  (c-set-offset 'case-label 0)
                  (c-set-offset 'member-init-intro '+)
                  (when (locate-library "helm-gtags")
@@ -491,7 +469,7 @@
 (eval-after-load "hexl"
   '(progn
      ;; (setq hexl-options "-hex -group-by-8-bits")
-     (custom-set-variables '(hexl-bits 8))
+     (setq hexl-bits 8)
      (add-hook 'hexl-mode-hook
                (lambda ()
                  (local-set-key (kbd "C-c C-s") 'hexl-insert-hex-string)))))
@@ -500,7 +478,7 @@
 ;;
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 (eval-after-load "js2-mode"
-  '(custom-set-variables '(js-indent-level 2)))
+  (setq js-indent-level 2))
 
 ;; json mode
 ;;
@@ -548,7 +526,7 @@
 (use-package mozc
   :bind ("<henkan>" . toggle-input-method)
   :config
-  (custom-set-variables '(default-input-method "japanese-mozc"))
+  (setq default-input-method "japanese-mozc")
   (bind-key "<henkan>" 'toggle-input-method mozc-mode-map))
 
 ;; global key bindings
@@ -585,7 +563,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
-)
+ '(package-selected-packages
+   (quote
+    (wgrep-ag use-package swift-mode solarized-theme smartparens smart-mode-line simplenote2 rtags region-bindings-mode recentf-ext quickrun popup mozc mc-extras markdown-mode magit json-mode js2-mode helm-swoop helm-gtags helm-descbinds helm-cscope helm-c-yasnippet helm-ag google-c-style git-gutter-fringe ghc flycheck-irony flycheck-haskell expand-region exec-path-from-shell company-irony cmake-mode ag ac-dabbrev))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
