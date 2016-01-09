@@ -330,7 +330,7 @@
   (defadvice helm-buffers-sort-transformer (around ignore activate)
     (setq ad-return-value (ad-get-arg 0)))
   (bind-key "C-o" 'helm-occur-from-isearch isearch-mode-map)
-  (bind-keys ("C-:" . helm-mini)
+  (bind-keys ("C-;" . helm-mini)
              ("C-z" . helm-resume)
              ("M-y" . helm-show-kill-ring))
   (bind-keys :map ctl-x-map
@@ -558,7 +558,6 @@
            ("t" . toggle-truncate-lines))
 (bind-keys ("M-h" . help-for-help)
            ("M-g" . goto-line)
-           ("C-;" . comment-dwim)
            ("C-^" . delete-indentation)
            ("M-^" . next-error)
            ("C-M-^" . previous-error)
