@@ -389,7 +389,8 @@
 ;; helm-c-yasnippet
 ;;
 (use-package helm-c-yasnippet
-  :bind ("C-c y" . helm-yas-complete)
+  :if (locate-library "yasnippet")
+  :init (bind-key "C-y" 'helm-yas-complete ctl-x-map)
   :config (setq helm-yas-space-match-any-greedy t))
 
 ;; multiple-cursors
