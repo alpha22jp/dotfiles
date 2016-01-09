@@ -332,7 +332,7 @@
              ("C-f" . helm-find-files)
              ("C-r" . helm-recentf)))
 (use-package helm-files
-  :config (bind-key "C-i" 'helm-execute-persistent-action helm-find-files-map))
+  :config (bind-key "<tab>" 'helm-execute-persistent-action helm-find-files-map))
 
 ;; helm-ag
 ;;
