@@ -223,7 +223,7 @@
             (lambda ()
               (when (rtags-is-indexed)
                 (local-set-key (kbd "M-.") 'rtags-find-symbol-at-point)
-                (local-set-key (kbd "M-;") 'rtags-find-symbol)
+                (local-set-key (kbd "M-[") 'rtags-find-symbol)
                 (local-set-key (kbd "M-@") 'rtags-find-references)
                 (local-set-key (kbd "M-,") 'rtags-location-stack-back)))))
 
@@ -367,7 +367,7 @@
             (lambda ()
               (local-set-key (kbd "M-.") 'helm-gtags-dwim)
               (local-set-key (kbd "M-@") 'helm-gtags-find-rtag)
-              (local-set-key (kbd "M-;") 'helm-gtags-find-symbol)
+              (local-set-key (kbd "M-[") 'helm-gtags-find-symbol)
               (local-set-key (kbd "M-,") 'helm-gtags-pop-stack))))
 
 ;; helm-cscope
@@ -380,7 +380,7 @@
   (bind-keys :map helm-cscope-mode-map
              ("M-." . helm-cscope-find-global-definition)
              ("M-@" . helm-cscope-find-calling-this-funtcion)
-             ("M-;" . helm-cscope-find-this-symbol)
+             ("M-[" . helm-cscope-find-this-symbol)
              ("M-," . helm-cscope-pop-mark))
   (add-hook 'c-mode-common-hook
             (lambda ()
