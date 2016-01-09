@@ -356,6 +356,7 @@
 ;; helm-gtags
 ;;
 (use-package helm-gtags
+  :diminish helm-gtags-mode
   :config
   ;; (setq helm-c-gtags-path-style 'relative)
   ;; (setq helm-c-gtags-ignore-case t)
@@ -372,6 +373,7 @@
 ;; helm-cscope
 ;;
 (use-package helm-cscope
+  :diminish helm-cscope-mode
   :config
   (require 'my-cscope nil 'noerror)
   (bind-keys :map helm-cscope-mode-map
