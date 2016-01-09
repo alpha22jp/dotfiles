@@ -373,6 +373,7 @@
 ;; helm-cscope
 ;;
 (use-package helm-cscope
+  :disabled t
   :diminish helm-cscope-mode
   :config
   (require 'my-cscope nil 'noerror)
