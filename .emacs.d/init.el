@@ -544,6 +544,7 @@
            ("C-z" . save-buffers-kill-emacs)
            ("t" . toggle-truncate-lines))
 (bind-keys ("M-h" . help-for-help)
+           ("C-M-h" . help-for-help)
            ("M-g" . goto-line)
            ("C-^" . delete-indentation)
            ("M-^" . next-error)
