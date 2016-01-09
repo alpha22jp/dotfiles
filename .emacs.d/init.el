@@ -143,7 +143,6 @@
 ;;
 (use-package yasnippet
   :diminish yas-minor-mode
-  :defer t
   :config
   ;; companyと競合するのでyasnippetのフィールド移動は "C-i" のみにする
   (define-key yas-keymap (kbd "<tab>") nil)
