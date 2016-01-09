@@ -278,6 +278,7 @@
 ;; simplenote2
 ;;
 (use-package simplenote2
+  :disabled t
   :config
   (setq simplenote2-email user-mail-address)
   (setq simplenote2-markdown-notes-mode 'markdown-mode)
