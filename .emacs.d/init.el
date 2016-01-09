@@ -332,7 +332,12 @@
              ("C-f" . helm-find-files)
              ("C-r" . helm-recentf)))
 (use-package helm-files
-  :config (bind-key "<tab>" 'helm-execute-persistent-action helm-find-files-map))
+  :config
+  ;; ファイルが存在しないは何もしない
+  (defadvice helm-ff-kill-or-find-buffer-fname (around ignore activate)
+    (when (file-exists-p candidate)
+      ad-do-it))
+  (bind-key "<tab>" 'helm-execute-persistent-action helm-find-files-map))
 
 ;; helm-ag
 ;;
