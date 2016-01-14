@@ -50,7 +50,7 @@
 ;;
 (setq default-frame-alist
       (append (list
-               '(cursor-color . "red3")
+               '(cursor-color . "firebrick4")
                '(alpha . 90)
                '(width .  80)
                '(height . 40))
