@@ -416,6 +416,7 @@
   (bind-key "<tab>" 'indent-region region-bindings-mode-map)
   (when (require 'multiple-cursors nil 'noerror)
     (bind-keys :map region-bindings-mode-map
+               ("C-;" . comment-dwim)
                ("C-]" . mc/mark-all-like-this-dwim)
                ("C-l" . mc/edit-lines)
                ("M-n" . mc/mark-next-like-this)
