@@ -241,6 +241,7 @@
   (setq elscreen-prefix-key "\C-o")
   (elscreen-start)
   (add-hook 'dired-mode-hook (lambda () (local-unset-key "\C-o")))
+  (add-hook 'compilation-mode-hook (lambda () (local-unset-key "\C-o")))
   (add-hook 'svn-status-mode-hook (lambda () (local-unset-key "\C-o"))))
 
 ;; psvn
