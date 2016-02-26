@@ -56,3 +56,13 @@ if [ -d $HOME/.gem/ruby/2.2.0/bin ]; then
 elif [ -d $HOME/.gem/ruby/2.0.0/bin ]; then
     export PATH=$HOME/.gem/ruby/2.0.0/bin:$PATH
 fi
+
+# For Git
+if [ -f ~/.git-completion.bash ]; then
+    . ~/.git-completion.bash
+fi
+if [ -f ~/.git-prompt.sh ]; then
+    GIT_PS1_SHOWDIRTYSTATE=1
+    . ~/.git-prompt.sh
+    PS1='\u@\h:\W$(__git_ps1 "(%s)")\$ '
+fi
