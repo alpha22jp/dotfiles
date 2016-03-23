@@ -64,5 +64,5 @@ fi
 if [ -f ~/.git-prompt.sh ]; then
     GIT_PS1_SHOWDIRTYSTATE=1
     . ~/.git-prompt.sh
-    PS1='\u@\h:\W$(__git_ps1 "(%s)")\$ '
+    PS1='\u@\h$(__git_ps1 "<<%s>>"):\w\$ '
 fi
