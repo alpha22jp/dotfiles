@@ -195,8 +195,7 @@
   (setq flycheck-display-errors-delay 0.5)
   (bind-keys :map flycheck-mode-map
              ("C-M-n" . flycheck-next-error)
-             ("C-M-p" . flycheck-previous-error))
-  (add-hook 'c-mode-common-hook 'flycheck-mode))
+             ("C-M-p" . flycheck-previous-error)))
 
 ;; flycheck-irony
 ;;
