@@ -317,7 +317,7 @@
 
 ;; helm
 ;;
-(use-package helm-config
+(use-package helm
   :diminish helm-mode
   :config
   (setq helm-delete-minibuffer-contents-from-point t)
