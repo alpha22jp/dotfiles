@@ -9,9 +9,17 @@
 ;; package settings
 ;;
 (when (require 'package nil 'noerror)
-  (add-to-list 'package-archives
-               '("melpa" . "http://melpa.milkbox.net/packages/"))
-  (package-initialize))
+  (setq package-archives
+        '(("gnu" . "http://elpa.gnu.org/packages/")
+          ("melpa-stable" . "https://stable.melpa.org/packages/")
+          ("melpa" . "http://melpa.org/packages/")))
+  (package-initialize)
+  (setq package-pinned-packages
+        '((git-commit . "melpa-stable")
+          (magit . "melpa-stable")
+          (magit-popup . "melpa-stable")
+          (with-editor . "melpa-stable"))))
+
 
 ;; local lisp path settings
 ;;
