@@ -31,11 +31,13 @@
     json-mode
     magit
     markdown-mode
+    mozc
     multiple-cursors
     mc-extras
     quickrun
     region-bindings-mode
     recentf-ext
+    rtags
     smartparens
     simplenote2
     smart-mode-line
