@@ -29,6 +29,7 @@
     irony
     js2-mode
     json-mode
+    magit
     markdown-mode
     multiple-cursors
     mc-extras
@@ -45,14 +46,9 @@
     yasnippet
     ))
 
-(defvar my-package-list-24.4
-  '(magit
-    ))
-
 (let (packages)
   (mapc (lambda (e) (unless (package-installed-p e) (push e packages)))
-          (append my-package-list (if (>= emacs-minor-version 4)
-                                      my-package-list-24.4 nil)))
+        my-package-list)
   (when packages
     (package-refresh-contents)
     (mapc (lambda (e) (package-install e)) packages)))
