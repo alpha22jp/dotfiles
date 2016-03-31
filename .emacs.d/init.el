@@ -13,13 +13,7 @@
         '(("gnu" . "http://elpa.gnu.org/packages/")
           ("melpa-stable" . "https://stable.melpa.org/packages/")
           ("melpa" . "http://melpa.org/packages/")))
-  (package-initialize)
-  (setq package-pinned-packages
-        '((git-commit . "melpa-stable")
-          (magit . "melpa-stable")
-          (magit-popup . "melpa-stable")
-          (with-editor . "melpa-stable"))))
-
+  (package-initialize))
 
 ;; local lisp path settings
 ;;
@@ -537,7 +531,6 @@
 ;;
 (set-language-environment "Japanese")
 (prefer-coding-system 'utf-8)
-(setq default-process-coding-system 'utf-8)
 
 ;; input method
 ;;
