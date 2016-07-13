@@ -124,7 +124,7 @@
   '(progn
      (setq recentf-save-file "~/.emacs.d/.recentf")
      (setq recentf-max-saved-items 100)
-     (setq recentf-exclude '("/.simplenote2/*" "/TAGS$" "/COMMIT_EDITMSG$"))
+     (setq recentf-exclude '("/.emacs.d/elpa/*" "/.simplenote2/*" "/TAGS$" "/COMMIT_EDITMSG$"))
      (use-package recentf-ext)))
 
 ;; uniquify
