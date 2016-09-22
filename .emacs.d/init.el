@@ -88,7 +88,7 @@
 (setq-default tab-width 4 indent-tabs-mode nil) ;; インデント幅は4で空白を使用
 (setq ad-redefinition-action 'accept) ;; defadviceによる二重定義の警告を無視
 (setq compile-command "LANG=C make") ;; デフォルトのコンパイルコマンド
-(setq compilation-scroll-output 'first-error)
+(setq compilation-scroll-output 't) ;; compilationバッファを出力に合わせてスクロール
 
 ;; use-package
 ;;
