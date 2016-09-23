@@ -90,17 +90,6 @@
 (setq compile-command "LANG=C make") ;; デフォルトのコンパイルコマンド
 (setq compilation-scroll-output 't) ;; compilationバッファを出力に合わせてスクロール
 
-;; use-package
-;;
-(require 'use-package nil 'noerror)
-(unless (locate-library "use-package")
-  (defmacro use-package (&rest args)))
-
-;; exec-path-from-shell
-;;
-(use-package exec-path-from-shell
-  :config (exec-path-from-shell-initialize))
-
 ;; extra local settings
 ;;
 (require 'my-package-list nil 'noerror) ;; パッケージの一括インストール
@@ -118,6 +107,22 @@
               (set-face-foreground 'default "#cfcfcf")
               (set-face-background 'default "#101010"))))
 
+;; uniquify
+;;
+(when (require 'uniquify nil 'noerror)
+  (setq uniquify-buffer-name-style 'post-forward-angle-brackets))
+
+;; use-package
+;;
+(require 'use-package nil 'noerror)
+(unless (locate-library "use-package")
+  (defmacro use-package (&rest args)))
+
+;; exec-path-from-shell
+;;
+(use-package exec-path-from-shell
+  :config (exec-path-from-shell-initialize))
+
 ;; recentf
 ;;
 (eval-after-load "recentf"
@@ -126,11 +131,6 @@
      (setq recentf-max-saved-items 100)
      (setq recentf-exclude '("/.emacs.d/elpa/*" "/.simplenote2/*" "/TAGS$" "/COMMIT_EDITMSG$"))
      (use-package recentf-ext)))
-
-;; uniquify
-;;
-(when (require 'uniquify nil 'noerror)
-  (setq uniquify-buffer-name-style 'post-forward-angle-brackets))
 
 ;; autoinsert
 ;;
