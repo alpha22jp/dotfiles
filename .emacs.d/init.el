@@ -92,8 +92,8 @@
 
 ;; extra local settings
 ;;
-(require 'my-package-list nil 'noerror) ;; パッケージの一括インストール
 (require 'my-proxy-toggle nil 'noerror) ;; HTTPプロキシをトグルする
+(require 'my-package-list nil 'noerror) ;; パッケージの一括インストール
 (require 'diff-color nil 'noerror) ;; diffのカラー表示設定
 (require 'isearch-region nil 'noerror) ;; リージョンをisearchできるようにする
 (require 'my-vc-status nil 'noerror) ;; VCバックエンドに応じたstatus関数を呼び出す
