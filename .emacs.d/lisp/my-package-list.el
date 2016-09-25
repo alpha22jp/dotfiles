@@ -34,6 +34,7 @@
     mozc
     multiple-cursors
     mc-extras
+    powerline
     quickrun
     region-bindings-mode
     recentf-ext

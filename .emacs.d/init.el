@@ -97,6 +97,7 @@
 (require 'diff-color nil 'noerror) ;; diffのカラー表示設定
 (require 'isearch-region nil 'noerror) ;; リージョンをisearchできるようにする
 (require 'my-vc-status nil 'noerror) ;; VCバックエンドに応じたstatus関数を呼び出す
+(require 'my-mode-line nil 'noerror) ;; モードラインのカスタマイズ
 
 ;; color-theme
 ;;
@@ -430,11 +431,20 @@
 ;; smart-mode-line
 ;;
 (use-package smart-mode-line
+  :disabled t
   :config
   (setq rm-blacklist "\\` Abbrev\\'\\|\\` MRev\\'")
   (setq sml/name-width 32)
   (add-to-list 'rm-text-properties '("\\` mc" 'face 'font-lock-warning-face))
   (sml/setup))
+
+;; powerline
+;;
+(use-package powerline
+  :config
+  (require 'my-powerline nil 'noerror)
+  (setq powerline-display-buffer-size nil)
+  (powerline-my-theme))
 
 ;; quickrun
 ;;
