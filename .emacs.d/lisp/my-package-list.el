@@ -12,6 +12,7 @@
     cmake-mode
     company
     company-irony
+    edit-server
     exec-path-from-shell
     expand-region
     flycheck
