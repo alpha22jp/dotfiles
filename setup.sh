@@ -18,6 +18,7 @@ symlink_to_dotfiles()
 files=(
     ".agignore"
     ".aspell.conf"
+    ".bash_profile"
     ".bashrc"
     ".gemrc"
     ".gitconfig"
