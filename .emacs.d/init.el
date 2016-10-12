@@ -98,6 +98,7 @@
 (require 'isearch-region nil 'noerror) ;; リージョンをisearchできるようにする
 (require 'my-vc-status nil 'noerror) ;; VCバックエンドに応じたstatus関数を呼び出す
 (require 'my-mode-line nil 'noerror) ;; モードラインのカスタマイズ
+(require 'my-swap-buffer nil 'noerror) ;; バッファを分割されたウィンドウ間で入れ替え
 
 ;; color-theme
 ;;
@@ -560,6 +561,7 @@
 ;; global key bindings
 ;;
 (bind-keys :map ctl-x-map
+           ("C-o" . my-swap-buffer)
            ("C-z" . save-buffers-kill-emacs)
            ("t" . toggle-truncate-lines))
 (bind-keys ("M-h" . help-for-help)
