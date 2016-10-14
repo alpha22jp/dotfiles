@@ -16,7 +16,7 @@ if [ -n "$BASH_VERSION" ]; then
     fi
 fi
 
-if [ -v $BASH_PROFILE_LOADED ]; then
+if [ -z $BASH_PROFILE_LOADED ]; then
     export BASH_PROFILE_LOADED=1
 
     export LD_LIBRARY_PATH=/usr/local/lib
