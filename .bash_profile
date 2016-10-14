@@ -52,16 +52,6 @@ if [ -z $BASH_PROFILE_LOADED ]; then
         fi
     fi
 
-    # For Git
-    if [ -f ~/.git-completion.bash ]; then
-        . ~/.git-completion.bash
-    fi
-    if [ -f ~/.git-prompt.sh ]; then
-        GIT_PS1_SHOWDIRTYSTATE=1
-        . ~/.git-prompt.sh
-        PS1='\u@\h$(__git_ps1 "<<%s>>"):\w\$ '
-    fi
-
     # Google depot tools
     if [ -d $HOME/work/depot_tools ]; then
         PATH=$HOME/work/depot_tools:$PATH

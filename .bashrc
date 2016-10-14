@@ -42,6 +42,16 @@ if [ "$TERM" == "screen" ]; then
     export PROMPT_COMMAND='echo -ne "\ek$(basename $(pwd))\e\\"'
 fi
 
+# For Git
+if [ -f ~/.git-completion.bash ]; then
+    . ~/.git-completion.bash
+fi
+if [ -f ~/.git-prompt.sh ]; then
+    GIT_PS1_SHOWDIRTYSTATE=1
+    . ~/.git-prompt.sh
+    PS1='\u@\h$(__git_ps1 "<<%s>>"):\w\$ '
+fi
+
 # Source local definitions
 if [ -f $HOME/.bashrc.local ]; then
     . $HOME/.bashrc.local
