@@ -116,9 +116,10 @@
 
 ;; use-package
 ;;
-(require 'use-package nil 'noerror)
-(unless (locate-library "use-package")
-  (defmacro use-package (&rest args)))
+(if (locate-library "use-package")
+    (require 'use-package nil 'noerror)
+  (defmacro use-package (&rest args))
+  (defmacro bind-keys (&rest args)))
 
 ;; exec-path-from-shell
 ;;
@@ -492,7 +493,8 @@
 
 ;; emacs-lisp mode
 ;;
-(add-hook 'emacs-lisp-mode-hook 'flycheck-mode)
+(when (locate-library "flycheck")
+  (add-hook 'emacs-lisp-mode-hook 'flycheck-mode))
 
 ;; hexl mode
 ;;

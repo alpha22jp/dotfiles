@@ -5,6 +5,8 @@
 
 ;;; Code:
 
+(eval-when-compile (require 'cl))
+
 (defvar mode-line-cleaner-alist
   '((abbrev-mode . "")
     (emacs-lisp-mode . "Elisp")))
