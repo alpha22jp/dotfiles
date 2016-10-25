@@ -8,12 +8,11 @@
 (require 'package nil 'noerror)
 
 (defvar my-package-list
-  '(ag
+  '(atomic-chrome
+    ag
     cmake-mode
     company
     company-irony
-    edit-server
-    exec-path-from-shell
     expand-region
     flycheck
     flycheck-irony
@@ -32,7 +31,6 @@
     json-mode
     magit
     markdown-mode
-    mozc
     multiple-cursors
     mc-extras
     powerline
@@ -49,6 +47,10 @@
     wgrep-ag
     yasnippet
     ))
+
+(unless (eq system-type 'windows-nt)
+  (setq my-package-list
+        (append 'my-package-list '(exec-path-from-shell mozc))))
 
 (let (packages)
   (mapc (lambda (e) (unless (package-installed-p e) (push e packages)))
