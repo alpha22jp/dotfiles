@@ -34,7 +34,10 @@
   "My customized font setting function."
   (set-face-attribute 'default nil :font
                       (concat my-default-font-family "-"
-                              (number-to-string my-default-font-size))))
+                              (number-to-string my-default-font-size)))
+  (set-fontset-font (frame-parameter nil 'font)
+                    'japanese-jisx0208
+                    (font-spec :family "Ricty Diminished" :size 16)))
 (unless (string= (frame-parameter nil 'font) "tty") (my-font-setting))
 
 ;; keyboard-translate settings
