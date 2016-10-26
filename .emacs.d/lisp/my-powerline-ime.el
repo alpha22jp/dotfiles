@@ -55,7 +55,7 @@
   :group 'powerline)
 
 (defface powerline-active6
-  '((t (:background "white" :inherit mode-line-inactive)))
+  '((t (:background "grey80" :inherit mode-line-inactive)))
   "Powerline face 6."
   :group 'powerline)
 
