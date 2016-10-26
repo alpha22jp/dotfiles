@@ -559,11 +559,15 @@
 
 ;; input method
 ;;
-(use-package mozc
-  :bind ("<henkan>" . toggle-input-method)
-  :config
-  (setq default-input-method "japanese-mozc")
-  (bind-key "<henkan>" 'toggle-input-method mozc-mode-map))
+(if (eq system-type 'windows-nt)
+    ;; WindowsではWindows上のIMEを使う
+    (require 'ime-temp-off nil 'noerror) ;; ミニバッファ中は自動的にIMEオフ
+  (use-package mozc
+    :bind ("<henkan>" . toggle-input-method)
+    :config
+    ((setq )etq default-input-method "japanese-mozc")
+    (bind-key "<henkan>" 'toggle-input-method mozc-mode-map)))
+
 
 ;; global key bindings
 ;;
