@@ -100,15 +100,16 @@
                                                            (cdr powerline-default-separator-dir))))
                           (lhs (list
                                 ;; (powerline-raw "%*" nil 'l)
-                                (cond
-                                 ((ime-get-mode)
-                                  (powerline-ime-mode face3 'l))
-                                 (t (powerline-ime-mode face4 'l)))
-                                (cond
-                                 ((ime-get-mode)
-                                  (funcall separator-left face3 nil))
-                                 (t (funcall separator-left face4 nil)))
-
+                                (if (eq system-type 'windows-nt)
+                                    (progn
+                                      (cond ((ime-get-mode)
+                                             (powerline-ime-mode face3 'l))
+                                            (t (powerline-ime-mode face4 'l)))
+                                      (cond ((ime-get-mode)
+                                             (funcall separator-left face3 nil))
+                                            (t (funcall separator-left face4 nil))))
+                                  (when powerline-display-mule-info
+                                    (powerline-raw mode-line-mule-info mode-line 'l)))
                                 (powerline-coding-type nil 'l)
                                 (powerline-buffer-status nil 'l)
                                 ;; (powerline-buffer-size nil 'l)
