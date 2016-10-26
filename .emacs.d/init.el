@@ -144,7 +144,9 @@
 
 ;; atomic-chrome
 ;;
-(use-package atomic-chrome)
+(use-package atomic-chrome
+  :config
+  (atomic-chrome-start-server))
 
 ;; autoinsert
 ;;
