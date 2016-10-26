@@ -10,7 +10,7 @@
     (otherwise "??")))
 
 (defun get-buffer-coding-type-without-eol-type ()
-  (labels
+  (cl-labels
       ((remove-os-info (string)
                        (replace-regexp-in-string "-\\(dos\\|unix\\|mac\\)$" "" string)))
     (lexical-let
