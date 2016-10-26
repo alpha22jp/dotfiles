@@ -78,7 +78,7 @@
            (if (buffer-modified-p) "*" "-")))
 
      
-(defun powerline-my-theme ()
+(defun powerline-my-ime-theme ()
   "Setup a mode-line with major and minor modes centered."
   (interactive)
   (setq-default mode-line-format
