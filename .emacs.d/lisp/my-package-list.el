@@ -50,7 +50,7 @@
 
 (unless (eq system-type 'windows-nt)
   (setq my-package-list
-        (append 'my-package-list '(exec-path-from-shell mozc))))
+        (append my-package-list '(exec-path-from-shell mozc))))
 
 (let (packages)
   (mapc (lambda (e) (unless (package-installed-p e) (push e packages)))
