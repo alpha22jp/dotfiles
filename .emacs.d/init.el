@@ -567,7 +567,7 @@
   (use-package mozc
     :bind ("<henkan>" . toggle-input-method)
     :config
-    ((setq )etq default-input-method "japanese-mozc")
+    (setq default-input-method "japanese-mozc")
     (bind-key "<henkan>" 'toggle-input-method mozc-mode-map)))
 
 
