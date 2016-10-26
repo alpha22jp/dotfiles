@@ -59,7 +59,7 @@
 (setq default-frame-alist
       (append (list
                '(cursor-color . "firebrick4")
-               '(alpha . 90)
+               '(alpha . 95)
                '(width .  80)
                '(height . 40))
               default-frame-alist))
@@ -109,8 +109,7 @@
 ;; color-theme
 ;;
 (if (locate-library "solarized-theme")
-    (load-theme (if (eq system-type 'windows-nt)
-                    'solarized-light 'solarized-dark) t)
+    (load-theme 'solarized-dark t)
   (add-hook 'window-setup-hook
             (lambda ()
               (set-face-foreground 'default "#cfcfcf")
