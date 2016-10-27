@@ -457,10 +457,9 @@
 (use-package powerline
   :config
   (setq powerline-display-buffer-size nil)
-  (if (eq system-type 'windows-nt)
-      (require 'my-powerline-win nil 'noerror)
-    (require 'my-powerline nil 'noerror))
-  (powerline-my-theme))
+  (if (require 'my-powerline nil 'noerror)
+      (powerline-my-theme)
+    (powerline-default-theme)))
 
 ;; quickrun
 ;;

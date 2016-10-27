@@ -6,6 +6,28 @@
 
 ;;; Code:
 
+(unless (functionp 'ime-get-mode)
+  (defun ime-get-mode () current-input-method))
+
+(defun get-buffer-file-eol-type ()
+  (case (coding-system-eol-type buffer-file-coding-system)
+    (0 "LF")
+    (1 "CRLF")
+    (2 "CR")
+    (otherwise "??")))
+
+(defun get-buffer-coding-type-without-eol-type ()
+  (cl-labels
+      ((remove-os-info (string)
+                       (replace-regexp-in-string "-\\(dos\\|unix\\|mac\\)$" "" string)))
+    (lexical-let
+        ((string
+          (replace-regexp-in-string "-with-signature" "(bom)"
+                                    (remove-os-info  (symbol-name buffer-file-coding-system)))))
+      (if (string-match-p "(bom)" string)
+          (downcase string)
+        (upcase string)))))
+
 (defface powerline-active3
   '((t (:background "Springgreen4" :inherit mode-line-inactive
         :foreground "white")))
@@ -49,6 +71,12 @@
   "Powerline face 6."
   :group 'powerline)
 
+(defpowerline powerline-ime-mode
+  (if (ime-get-mode) "[あ]" "[Aa]"))
+
+(defpowerline powerline-coding-type
+   (concat (get-buffer-coding-type-without-eol-type) "[" (get-buffer-file-eol-type) "]"))
+
 (defpowerline powerline-buffer-status
   (concat (if (buffer-modified-p) "M" "-") ":"
           (if buffer-read-only "R" "-")))
@@ -74,8 +102,9 @@
                                                            powerline-default-separator
                                                            (cdr powerline-default-separator-dir))))
                           (lhs (list
-                                (powerline-raw mode-line-mule-info face3 'l)
-                                (funcall separator-left face3 nil)
+                                (powerline-ime-mode (if (ime-get-mode) face4 face3) 'l)
+                                (funcall separator-left (if (ime-get-mode) face4 face3) nil)
+                                (powerline-coding-type nil 'l)
                                 (powerline-buffer-status nil 'l)
                                 (funcall separator-left face2 face6)
                                 (powerline-buffer-id face6 'l)
