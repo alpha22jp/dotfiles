@@ -99,9 +99,8 @@
                                                            powerline-default-separator
                                                            (cdr powerline-default-separator-dir))))
                           (lhs (list
-                                (when powerline-display-mule-info
-                                  (powerline-ime-mode (if (ime-get-mode) face3 face4) 'l)
-                                  (funcall separator-left (if (ime-get-mode) face3 face4) nil))
+                                (powerline-ime-mode (if (ime-get-mode) face3 face4) 'l)
+                                (funcall separator-left (if (ime-get-mode) face3 face4) nil)
                                 (powerline-buffer-status nil 'l)
                                 (funcall separator-left face2 face6)
                                 (powerline-buffer-id face6 'l)
@@ -127,6 +126,6 @@
                              (powerline-fill face2 (powerline-width rhs))
                              (powerline-render rhs)))))))
 
-(provide 'my-powerline)
+(provide 'my-powerline-win)
 
 ;;; my-powerline-win.el ends here
