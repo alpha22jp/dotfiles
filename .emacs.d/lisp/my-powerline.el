@@ -74,8 +74,8 @@
                                                            powerline-default-separator
                                                            (cdr powerline-default-separator-dir))))
                           (lhs (list
-                                (when powerline-display-mule-info
-                                  (powerline-raw mode-line-mule-info face3 'l))
+                                (powerline-raw mode-line-mule-info face3 'l)
+                                (funcall separator-left face3 nil)
                                 (powerline-buffer-status nil 'l)
                                 (funcall separator-left face2 face6)
                                 (powerline-buffer-id face6 'l)
