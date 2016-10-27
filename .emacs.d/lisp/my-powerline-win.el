@@ -101,6 +101,7 @@
                           (lhs (list
                                 (powerline-ime-mode (if (ime-get-mode) face3 face4) 'l)
                                 (funcall separator-left (if (ime-get-mode) face3 face4) nil)
+                                (powerline-coding-type nil 'l)
                                 (powerline-buffer-status nil 'l)
                                 (funcall separator-left face2 face6)
                                 (powerline-buffer-id face6 'l)
