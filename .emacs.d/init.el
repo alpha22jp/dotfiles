@@ -96,6 +96,11 @@
 (setq compile-command "LANG=C make") ;; デフォルトのコンパイルコマンド
 (setq compilation-scroll-output 't) ;; compilationバッファを出力に合わせてスクロール
 
+;; custom variable settings
+;;
+(setq custom-file (locate-user-emacs-file "custom.el"))
+(load custom-file)
+
 ;; extra local settings
 ;;
 (require 'my-proxy-toggle nil 'noerror) ;; HTTPプロキシをトグルする
@@ -600,21 +605,6 @@
            ("<f11>" . vc-diff)
            ("<f12>" . vc-revert)
            ("<hiragana-katakana>" . dabbrev-expand))
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (atomic-chrome wgrep-ag use-package swift-mode solarized-theme smartparens smart-mode-line simplenote2 rtags region-bindings-mode recentf-ext quickrun popup mozc mc-extras markdown-mode magit json-mode js2-mode helm-swoop helm-gtags helm-descbinds helm-cscope helm-c-yasnippet helm-ag google-c-style git-gutter-fringe flycheck-irony expand-region exec-path-from-shell company-irony cmake-mode ag haskell-mode powerline))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(helm-selection ((t (:inherit highlight :background "firebrick4")))))
 
 (provide 'init)
 

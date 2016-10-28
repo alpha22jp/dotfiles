@@ -10,6 +10,7 @@ if [ `which emacs` ]; then
     if [ $emacs_version -ge 24 ]; then
         mkdir -p ~/.emacs.d/lisp-local
         ln -sf {$base_dir,~}/.emacs.d/init.el
+        ln -sf {$base_dir,~}/.emacs.d/custom.el
         ln -sf {$base_dir,~}/.emacs.d/lisp
         ln -sf {$base_dir,~}/.emacs.d/snippets
     else
