@@ -6,47 +6,38 @@
 
 ;;; Code:
 
-(defface powerline-active3
+(defface my-powerline-inactive
+  '((t (:background "grey60" :inherit mode-line-inactive)))
+  "My powerline inactive face."
+  :group 'powerline)
+
+(defface my-powerline-ime-active
   '((t (:background "Springgreen4" :inherit mode-line-inactive
         :foreground "white")))
-  "Powerline face 3."
+  "My powerline active face for ime active mode."
   :group 'powerline)
 
-(defface powerline-inactive3
-  '((t (:background "grey60" :inherit mode-line-inactive)))
-  "Powerline face 3."
-  :group 'powerline)
-
-(defface powerline-active4
+(defface my-powerline-ime-inactive
   '((t (:background "VioletRed" :inherit mode-line-inactive
         :foreground "white")))
-  "Powerline face 4."
+  "My powerline active face for ime inactive mode."
   :group 'powerline)
 
-(defface powerline-inactive4
-  '((t (:background "grey20" :inherit mode-line-inactive)))
-  "Powerline face 4."
+(defface my-powerline-buffer-name
+  '((t (:background "royal blue" :inherit mode-line-inactive
+        :foreground "white")))
+  "My powerline active face for buffer name."
   :group 'powerline)
 
-(defface powerline-active5
+(defface my-powerline-major-mode
+  '((t (:background "grey80" :inherit mode-line-inactive)))
+  "My powerline active face for major mode."
+  :group 'powerline)
+
+(defface my-powerline-line-num
   '((t (:background "Yellow4" :inherit mode-line-inactive
         :foreground "white")))
-  "Powerline face 5."
-  :group 'powerline)
-
-(defface powerline-inactive5
-  '((t (:background "grey60" :inherit mode-line-inactive)))
-  "Powerline face 5."
-  :group 'powerline)
-
-(defface powerline-active6
-  '((t (:background "grey80" :inherit mode-line-inactive)))
-  "Powerline face 6."
-  :group 'powerline)
-
-(defface powerline-inactive6
-  '((t (:background "grey60" :inherit mode-line-inactive)))
-  "Powerline face 6."
+  "My powerline active face for line number."
   :group 'powerline)
 
 (unless (functionp 'ime-get-mode)
@@ -89,10 +80,12 @@
                           (mode-line (if active 'mode-line 'mode-line-inactive))
                           (face1 (if active 'powerline-active1 'powerline-inactive1))
                           (face2 (if active 'powerline-active2 'powerline-inactive2))
-                          (face3 (if active 'powerline-active3 'powerline-inactive3))
-                          (face4 (if active 'powerline-active4 'powerline-inactive4))
-                          (face5 (if active 'powerline-active5 'powerline-inactive5))
-                          (face6 (if active 'powerline-active6 'powerline-inactive6))
+                          (face3 (if active 'my-powerline-ime-active 'my-powerline-inactive))
+                          (face4 (if active 'my-powerline-ime-inactive 'my-powerline-inactive))
+                          (face5 (if active 'my-powerline-line-num 'my-powerline-inactive))
+                          (face6 (if active 'my-powerline-buffer-name 'my-powerline-inactive))
+                          (face7 (if active 'my-powerline-major-mode 'my-powerline-inactive))
+                          (face-ime (if (ime-get-mode) face4 face3))
                           (separator-left (intern (format "powerline-%s-%s"
                                                           powerline-default-separator
                                                           (car powerline-default-separator-dir))))
@@ -100,31 +93,27 @@
                                                            powerline-default-separator
                                                            (cdr powerline-default-separator-dir))))
                           (lhs (list
-                                (powerline-ime-mode (if (ime-get-mode) face4 face3) 'l)
-                                (funcall separator-left (if (ime-get-mode) face4 face3) nil)
-                                (powerline-coding-type nil 'l)
-                                (powerline-buffer-status nil 'l)
+                                (powerline-raw "%4l" face5 'r)
+                                (powerline-raw ":" face5)
+                                (powerline-raw "%3c" face5 'r)
+                                (funcall separator-left face5 face-ime)
+                                (powerline-ime-mode face-ime 'l)
+                                (funcall separator-left face-ime face1)
+                                (powerline-coding-type face1 'l)
+                                (funcall separator-left face1 face2)
+                                (powerline-buffer-status face2 'l)
                                 (funcall separator-left face2 face6)
                                 (powerline-buffer-id face6 'l)
-                                (funcall separator-left face6 face1)
-                                (powerline-major-mode face1 'l)
-                                (powerline-narrow face1 'l)
-                                (powerline-minor-modes face1 'l)))
-                          (center (list (powerline-raw " " face1)
-                                        (funcall separator-left face1 face2)
-                                        (powerline-process face2)
-                                        (powerline-vc face2)))
-                          (rhs (list (powerline-raw global-mode-string face1 'r)
-                                     (when (and (boundp 'which-func-mode) which-func-mode)
-                                          (powerline-raw which-func-format face2 'r))
-                                     (funcall separator-right face2 face5)
-                                     (powerline-raw "%4l" face5 'r)
-                                     (powerline-raw ":" face5)
-                                     (powerline-raw "%3c" face5 'r)
-                                     (powerline-hud face2 face1))))
+                                (funcall separator-left face6 face7)
+                                (powerline-major-mode face7 'l)
+                                (funcall separator-left face7 face1)
+                                (powerline-minor-modes face1 'l)
+                                (funcall separator-left face1 face2)
+                                (powerline-vc face2)
+                                (powerline-raw " " face2)))
+                          (rhs (list
+                                (powerline-raw which-func-format face2 'r))))
                      (concat (powerline-render lhs)
-                             (powerline-fill-center face1 (/ (powerline-width center) 2.0))
-                             (powerline-render center)
                              (powerline-fill face2 (powerline-width rhs))
                              (powerline-render rhs)))))))
 
