@@ -147,16 +147,6 @@
   (setq auto-insert-query t)
   (require 'my-auto-insert nil 'noerror))
 
-;; yasnippet
-;;
-(use-package yasnippet
-  :disabled t
-  :diminish yas-minor-mode
-  :config
-  ;; companyと競合するのでyasnippetのフィールド移動は "C-i" のみにする
-  (define-key yas-keymap (kbd "<tab>") nil)
-  (yas-global-mode))
-
 ;; smartparens
 ;;
 (use-package smartparens-config
@@ -402,14 +392,6 @@
             (lambda ()
               (when (locate-dominating-file default-directory "cscope.out")
                 (helm-cscope-mode)))))
-
-;; helm-c-yasnippet
-;;
-(use-package helm-c-yasnippet
-  :disabled t
-  :if (locate-library "yasnippet")
-  :init (bind-key "C-y" 'helm-yas-complete ctl-x-map)
-  :config (setq helm-yas-space-match-any-greedy t))
 
 ;; multiple-cursors
 ;;
