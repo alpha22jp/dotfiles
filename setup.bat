@@ -17,6 +17,11 @@ if exist init.el (
 )
 mklink init.el ..\dotfiles\.emacs.d\init.el
 
+if exist custom.el (
+   rename custom.el custom.el.bak
+)
+mklink custom.el ..\dotfiles\.emacs.d\custom.el
+
 if exist lisp (
    rename lisp lisp.bak
 )
