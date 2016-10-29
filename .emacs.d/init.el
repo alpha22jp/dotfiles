@@ -69,21 +69,15 @@
               (my-font-setting)
               (my-keyboard-translate))))
 
-;; personal information settings
+;; custom variable settings
 ;;
-(setq user-full-name "alpha22jp")
-(setq user-mail-address "alpha22jp@gmail.com")
+(setq custom-file (locate-user-emacs-file "custom.el"))
+(load custom-file)
 
 ;; general settings
 ;;
-(tool-bar-mode 0) ;; ツールバーを表示しない
-(tooltip-mode 0) ;; ツールチップを表示しない
-(menu-bar-mode 0) ;; メニューバーを表示しない
-(set-scroll-bar-mode 'right) ;; スクロールバーを右側に表示
-(column-number-mode) ;; モードラインに桁数を表示する
-(show-paren-mode) ;; 対応する括弧を強調表示する
-(which-function-mode) ;; カーソル位置の関数名表示を有効にする
-(fset 'yes-or-no-p 'y-or-n-p) ;; "yes/no" が必要なときも "y/n" だけにする
+(setq user-full-name "alpha22jp")
+(setq user-mail-address "alpha22jp@gmail.com")
 (setq kill-whole-line t) ;; 行頭で "C-k" すると改行を含む行全体を削除
 (setq auto-save-default nil) ;; 自動セーブしない
 (setq create-lockfiles nil) ;; ロックファイルを作成しない
@@ -95,11 +89,8 @@
 (setq ad-redefinition-action 'accept) ;; defadviceによる二重定義の警告を無視
 (setq compile-command "LANG=C make") ;; デフォルトのコンパイルコマンド
 (setq compilation-scroll-output 't) ;; compilationバッファを出力に合わせてスクロール
-
-;; custom variable settings
-;;
-(setq custom-file (locate-user-emacs-file "custom.el"))
-(load custom-file)
+(which-function-mode) ;; カーソル位置の関数名表示を有効にする
+(fset 'yes-or-no-p 'y-or-n-p) ;; "yes/no" が必要なときも "y/n" だけにする
 
 ;; extra local settings
 ;;
@@ -118,11 +109,6 @@
             (lambda ()
               (set-face-foreground 'default "#cfcfcf")
               (set-face-background 'default "#101010"))))
-
-;; uniquify
-;;
-(when (require 'uniquify nil 'noerror)
-  (setq uniquify-buffer-name-style 'post-forward-angle-brackets))
 
 ;; use-package
 ;;
