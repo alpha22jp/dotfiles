@@ -164,6 +164,7 @@
 ;; yasnippet
 ;;
 (use-package yasnippet
+  :disabled t
   :diminish yas-minor-mode
   :config
   ;; companyと競合するのでyasnippetのフィールド移動は "C-i" のみにする
@@ -208,12 +209,13 @@
 ;; flycheck
 ;;
 (use-package flycheck
+  :defer t
   :config
-  (setq flycheck-display-errors-function
-        ;; エラーをポップアップで表示
-        (lambda (errors)
-          (let ((messages (mapcar #'flycheck-error-message errors)))
-            (popup-tip (mapconcat 'identity messages "\n")))))
+  (when (require 'popup nil 'noerror)
+    (setq flycheck-display-errors-function
+          (lambda (errors)
+            (let ((messages (mapcar #'flycheck-error-message errors)))
+              (popup-tip (mapconcat 'identity messages "\n"))))))
   (setq flycheck-display-errors-delay 0.5)
   (bind-keys :map flycheck-mode-map
              ("C-M-n" . flycheck-next-error)
@@ -222,12 +224,14 @@
 ;; flycheck-irony
 ;;
 (use-package flycheck-irony
+  :defer t
   :if (locate-library "flycheck")
   :config (flycheck-irony-setup))
 
 ;; flycheck-cpplint
 ;;
 (use-package flycheck-google-cpplint
+  :defer t
   :if (locate-library "flycheck")
   :config
   (setq flycheck-googlelint-extensions "cpp,hpp,c,h")
@@ -238,6 +242,7 @@
 ;; rtags
 ;;
 (use-package rtags
+  :defer t
   :config
   (setq rtags-use-helm t)
   (add-hook 'c-mode-common-hook
@@ -268,6 +273,7 @@
 ;; psvn
 ;;
 (use-package psvn
+  :defer t
   :config
   (setq svn-status-hide-unmodified t)
   (setq svn-status-hide-unknown t)
@@ -354,6 +360,7 @@
              ("C-f" . helm-find-files)
              ("C-r" . helm-recentf)))
 (use-package helm-files
+  :defer t
   :config
   ;; ファイルが存在しないは何もしない
   (defadvice helm-ff-kill-or-find-buffer-fname (around ignore activate)
@@ -378,6 +385,7 @@
 ;; helm-gtags
 ;;
 (use-package helm-gtags
+  :defer t
   :diminish helm-gtags-mode
   :config
   ;; (setq helm-c-gtags-path-style 'relative)
@@ -412,6 +420,7 @@
 ;; helm-c-yasnippet
 ;;
 (use-package helm-c-yasnippet
+  :disabled t
   :if (locate-library "yasnippet")
   :init (bind-key "C-y" 'helm-yas-complete ctl-x-map)
   :config (setq helm-yas-space-match-any-greedy t))
