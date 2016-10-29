@@ -112,7 +112,8 @@
                                 (powerline-vc face2)
                                 (powerline-raw " " face2)))
                           (rhs (list
-                                (powerline-raw which-func-format face2 'r))))
+                                (when which-function-mode
+                                  (powerline-raw which-func-format face2 'r)))))
                      (concat (powerline-render lhs)
                              (powerline-fill face2 (powerline-width rhs))
                              (powerline-render rhs)))))))
