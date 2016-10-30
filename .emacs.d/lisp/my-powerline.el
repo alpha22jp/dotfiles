@@ -61,7 +61,7 @@
           ((string-match-p "shift" coding-type-str) "S-JIS")
           ((string-match-p "euc-jp" coding-type-str) "EUC-JP")
           ((string-match-p "iso-8bit" coding-type-str) "JIS")
-          (t "Unknown"))))
+          (t "ASCII"))))
 
 (defpowerline powerline-coding-type
    (concat (get-buffer-file-coding-type) "[" (get-buffer-file-eol-type) "]"))
