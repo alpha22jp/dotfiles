@@ -533,7 +533,7 @@
 ;; markdown mode
 ;;
 (add-to-list 'auto-mode-alist
-             '("\\.md\\'\\|app\\.simplenote\\.com_" . markdown-mode))
+             '("\\.md\\'\\|app\\.simplenote\\.com_" . gfm-mode))
 
 ;; coding system settings
 ;;
