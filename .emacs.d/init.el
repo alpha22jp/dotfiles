@@ -294,22 +294,14 @@
   (require 'my-simplenote2 nil 'noerror)
   (simplenote2-setup))
 
-;; ag
+;; pt/wgrep-pt
 ;;
-(use-package ag
-  :defer t
-  :config
-  (setq ag-highlight-search t)
-  (setq ag-reuse-buffers t))
-
-;; wgrep-ag
-;;
-(use-package wgrep-ag
+(use-package wgrep-pt
   :defer t
   :config
   (setq wgrep-auto-save-buffer t) ;; 編集完了と同時に保存
   (setq wgrep-enable-key "r")
-  (add-hook 'ag-mode-hook 'wgrep-ag-setup))
+  (add-hook 'pt-search-mode-hook 'wgrep-pt-setup))
 
 ;; helm
 ;;
@@ -348,8 +340,7 @@
 ;;
 (use-package helm-ag
   :defer t
-  :init (bind-key "C-g" 'helm-ag ctl-x-map)
-  :config (setq helm-ag-insert-at-point 'symbol))
+  :init (bind-key "C-g" 'helm-ag ctl-x-map))
 
 ;; helm-swoop
 ;;
@@ -576,7 +567,7 @@
            ("<f5>" . quickrun)
            ("<f6>" . describe-personal-keybindings)
            ("<f7>" . compile)
-           ("<f8>" . ag)
+           ("<f8>" . pt-regexp)
            ("<f9>" . vc-print-log)
            ("<f10>" . my-vc-status)
            ("<f11>" . vc-diff)
