@@ -59,8 +59,8 @@
   (let ((coding-type-str (symbol-name buffer-file-coding-system)))
     (cond ((string-match-p "utf-8" coding-type-str) "UTF-8")
           ((string-match-p "shift" coding-type-str) "S-JIS")
-          ((string-match-p "euc-jp" coding-type-str) "EUC-JP")
-          ((string-match-p "iso-8bit" coding-type-str) "JIS")
+          ((string-match-p "japanese-iso-8bit" coding-type-str) "EUC-JP")
+          ((string-match-p "iso-2022-jp" coding-type-str) "JIS")
           (t "ASCII"))))
 
 (defpowerline powerline-coding-type
