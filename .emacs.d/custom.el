@@ -11,6 +11,7 @@
     (wgrep-pt pt textile-mode atomic-chrome use-package swift-mode solarized-theme smartparens smart-mode-line simplenote2 rtags region-bindings-mode recentf-ext quickrun popup mozc mc-extras markdown-mode magit json-mode js2-mode helm-swoop helm-gtags helm-descbinds helm-cscope helm-ag google-c-style git-gutter-fringe flycheck-irony expand-region exec-path-from-shell company-irony cmake-mode haskell-mode powerline)))
  '(pt-arguments (quote ("--smart-case" "--follow")))
  '(show-paren-mode t)
+ '(sp-ignore-modes-list (quote (minibuffer-inactive-mode markdown-mode gfm-mode)))
  '(tool-bar-mode nil)
  '(tooltip-mode nil))
 (custom-set-faces
