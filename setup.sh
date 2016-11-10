@@ -22,6 +22,7 @@ files=(
     ".bashrc"
     ".gemrc"
     ".gitconfig"
+    ".git-prompt.sh"
     ".npmrc"
     ".tmux.conf"
     ".screenrc"
