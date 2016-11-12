@@ -219,9 +219,9 @@
 ;; rtags
 ;;
 (use-package rtags
-  :defer t
   :config
-  (setq rtags-use-helm t)
+  (when (require 'rtags-helm nil 'noerror)
+    (setq rtags-use-helm t))
   (add-hook 'c-mode-common-hook
             (lambda ()
               (when (rtags-is-indexed)
