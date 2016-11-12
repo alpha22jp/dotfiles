@@ -181,7 +181,7 @@
   (add-to-list 'company-backends 'company-irony)
   (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
   (add-hook 'c-mode-hook 'irony-mode)
-  (add-hook 'c++-mode-hook 'irony-moe))
+  (add-hook 'c++-mode-hook 'irony-mode))
 
 ;; flycheck
 ;;
