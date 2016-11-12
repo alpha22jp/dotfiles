@@ -526,6 +526,8 @@
 ;;
 (add-to-list 'auto-mode-alist
              '("\\.md\\'\\|app\\.simplenote\\.com_" . gfm-mode))
+(add-hook 'markdown-mode-hook
+          (lambda () (show-paren-mode 0)))
 
 ;; coding system settings
 ;;
