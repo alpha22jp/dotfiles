@@ -5,6 +5,7 @@
  ;; If there is more than one, they won't work right.
  '(column-number-mode t)
  '(helm-ag-base-command "pt --nocolor --nogroup --follow")
+ '(magit-display-buffer-function (quote magit-display-buffer-same-window-except-diff-v1))
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
