@@ -22,7 +22,7 @@ if [ -z $BASH_PROFILE_LOADED ]; then
     export LD_LIBRARY_PATH=/usr/local/lib
 
     # Shell prompt setting
-    export PS1='\u@\h:\w\$ '
+    export PS1='\[\033[32m\]\u@\h\[\033[34m\]:\w\[\033[00m\]\n\$ '
 
     # For subversion
     export SVN_EDITOR=emacsclient

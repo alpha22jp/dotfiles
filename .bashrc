@@ -49,7 +49,7 @@ fi
 if [ -f ~/.git-prompt.sh ]; then
     GIT_PS1_SHOWDIRTYSTATE=1
     . ~/.git-prompt.sh
-    PS1='\u@\h$(__git_ps1 "<<%s>>"):\w\$ '
+    PS1='\[\033[32m\]\u@\h\[\033[36m\]$(__git_ps1 "<<%s>>")\[\033[34m\]:\w\[\033[00m\]\n\$ '
 fi
 
 # Source local definitions
