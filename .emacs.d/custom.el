@@ -4,6 +4,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(column-number-mode t)
+ '(company-minimum-prefix-length 1)
  '(helm-ag-base-command "pt --nocolor --nogroup --follow")
  '(magit-display-buffer-function (quote magit-display-buffer-same-window-except-diff-v1))
  '(menu-bar-mode nil)
