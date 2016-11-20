@@ -136,6 +136,11 @@
 ;;
 (use-package atomic-chrome
   :config
+  (setq atomic-chrome-url-major-mode-alist
+        '(("github\\.com" . gfm-mode)
+          ("mail\\.google\\.com" . html-mode)
+          ("redmine" . textile-mode)))
+  (setq atomic-chrome-buffer-open-style 'frame)
   (atomic-chrome-start-server))
 
 ;; autoinsert
