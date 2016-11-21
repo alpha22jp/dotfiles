@@ -5,6 +5,17 @@
  ;; If there is more than one, they won't work right.
  '(column-number-mode t)
  '(company-minimum-prefix-length 1)
+ '(gist-list-format
+   (quote
+    ((files "Filename" 24 nil identity)
+     (created "Created" 16 nil "%D %R")
+     (visibility "Visibility" 10 nil
+                 (lambda
+                   (public)
+                   (or
+                    (and public "public")
+                    "private")))
+     (description "Description" 0 nil identity))))
  '(helm-ag-base-command "pt --nocolor --nogroup --follow")
  '(magit-display-buffer-function (quote magit-display-buffer-same-window-except-diff-v1))
  '(menu-bar-mode nil)
