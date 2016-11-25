@@ -7,27 +7,12 @@ if exist .gitconfig (
 )
 mklink .gitconfig dotfiles\.gitconfig
 
-if not exist .emacs.d (
-   mkdir .emacs.d
+if exist .bashrc (
+   rename .bashrc .bashrc.bak
 )
+mklink .bashrc dotfiles\.bashrc
 
-cd .emacs.d
-if exist init.el (
-   rename init.el init.el.bak
+if exist .bash_profile (
+   rename .bash_profile .bash_profile.bak
 )
-mklink init.el ..\dotfiles\.emacs.d\init.el
-
-if exist custom.el (
-   rename custom.el custom.el.bak
-)
-mklink custom.el ..\dotfiles\.emacs.d\custom.el
-
-if exist lisp (
-   rename lisp lisp.bak
-)
-mklink /D lisp ..\dotfiles\.emacs.d\lisp
-
-if exist lisp-local (
-   rename lisp-local lisp-local.bak
-)
-mkdir lisp-local > NUL 2>&1
+mklink .bash_profile dotfiles\.bash_profile

@@ -22,7 +22,9 @@ if [ -z $BASH_PROFILE_LOADED ]; then
     export LD_LIBRARY_PATH=/usr/local/lib
 
     # Shell prompt setting
-    export PS1='\[\033[32m\]\u@\h\[\033[34m\]:\w\[\033[00m\]\n\$ '
+    if [ $OS != "Windows_NT" ]; then
+        export PS1='\[\033[32m\]\u@\h\[\033[34m\]:\w\[\033[00m\]\n\$ '
+    fi
 
     # For subversion
     export SVN_EDITOR=emacsclient
@@ -70,4 +72,8 @@ if [ -z $BASH_PROFILE_LOADED ]; then
     if [ -f $HOME/.bash_profile.local ]; then
         . $HOME/.bash_profile.local
     fi
+fi
+
+if [ $OS = "Windows_NT" ]; then
+    cd ~
 fi
