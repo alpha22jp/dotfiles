@@ -1,6 +1,3 @@
-[include]
-	path = .gitconfig.local
-
 [alias]
 	s = status -s
 	b = branch
@@ -27,3 +24,6 @@
 
 [color]
 	ui = auto
+
+[include]
+	path = .gitconfig.local
