@@ -1,29 +1,27 @@
+[include]
+    path = .gitconfig.local
+    path = .gitconfig.os
+
 [alias]
-	s = status -s
-	b = branch
-	co = checkout
-	df = diff --no-prefix
-	l = log --graph --abbrev-commit --name-status --date=local
-	graph = log --graph --date-order --all --pretty=format:'%h %Cred%d %Cgreen%ad %Cblue%cn %Creset%s' --date=short
+    s = status -s
+    b = branch
+    co = checkout
+    df = diff --no-prefix
+    l = log --graph --abbrev-commit --name-status --date=local
+    graph = log --graph --date-order --all --pretty=format:'%h %Cred%d %Cgreen%ad %Cblue%cn %Creset%s' --date=short
     svn-url = config --get svn-remote.svn.url
     svn-clone = svn clone --trunk=trunk --branches=branches
 
 [user]
-	email = alpha22jp@gmail.com
-	name = alpha22jp
+    email = alpha22jp@gmail.com
+    name = alpha22jp
 
 [push]
-	default = matching
+    default = matching
 
 [core]
-	quotepath = false
-	editor = emacsclient
-
-[credential]
-	helper = cache --timeout=3600
+    quotepath = false
+    editor = emacsclient
 
 [color]
-	ui = auto
-
-[include]
-	path = .gitconfig.local
+    ui = auto

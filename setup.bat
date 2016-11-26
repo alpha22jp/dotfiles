@@ -7,6 +7,11 @@ if exist .gitconfig (
 )
 mklink .gitconfig dotfiles\.gitconfig
 
+if exist .gitconfig.os (
+   rename .gitconfig.os .gitconfig.os.bak
+)
+mklink .gitconfig.os dotfiles\.gitconfig.windows
+
 if exist .bashrc (
    rename .bashrc .bashrc.bak
 )

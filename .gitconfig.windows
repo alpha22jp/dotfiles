@@ -1,0 +1,2 @@
+[credential]
+	helper = !'C:\\Tools\\bin\\git-credential-winstore.exe'

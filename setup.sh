@@ -5,14 +5,15 @@
 
 base_dir=$(cd $(dirname $0); pwd)
 
-symlink_to_dotfiles()
+make_symlink()
 {
-    file=$1
+    target=$1
+    name=$2
     if [ -f $file -a ! -L $file ]; then
         echo "$file alyready exists, rename it to $file.org"
         mv $file{,.org}
     fi
-    ln -sf {$base_dir/,}$file
+    ln -sf {$base_dir/,}$target $name
 }
 
 files=(
@@ -31,5 +32,6 @@ files=(
 cd ~
 
 for file in ${files[@]}; do
-    symlink_to_dotfiles $file
+    make_symlink $file $file
 done
+make_symlink ".gitconfig.linux" ".gitconfig.os"
