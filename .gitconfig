@@ -12,9 +12,6 @@
     email = alpha22jp@gmail.com
     name = alpha22jp
 
-[push]
-    default = matching
-
 [core]
     quotepath = false
     editor = emacsclient
