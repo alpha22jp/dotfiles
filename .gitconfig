@@ -19,6 +19,9 @@
 [color]
     ui = auto
 
+[pager]
+    branch = cat
+
 [include]
     path = .gitconfig.local
     path = .gitconfig.os
