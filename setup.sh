@@ -9,11 +9,11 @@ make_symlink()
 {
     target=$1
     name=$2
-    if [ -f $file -a ! -L $file ]; then
-        echo "$file alyready exists, rename it to $file.org"
-        mv $file{,.org}
+    if [ -f $target -a ! -L $target ]; then
+        echo "$file alyready exists, rename it to $target.org"
+        mv $target{,.org}
     fi
-    ln -sf {$base_dir/,}$target $name
+    ln -sf $base_dir/$target $name
 }
 
 files=(
