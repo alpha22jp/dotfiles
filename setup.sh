@@ -23,6 +23,7 @@ files=(
     ".bashrc"
     ".gemrc"
     ".gitconfig"
+    ".git-completion.bash"
     ".git-prompt.sh"
     ".npmrc"
     ".tmux.conf"
