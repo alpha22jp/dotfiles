@@ -25,3 +25,9 @@
 [include]
     path = .gitconfig.local
     path = .gitconfig.os
+
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
