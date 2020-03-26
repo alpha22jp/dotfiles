@@ -32,6 +32,8 @@ else
     alias ls='ls -aF --color=auto'
 fi
 alias ll='ls -al'
+alias pu='pushd'
+alias po='popd'
 alias screen='screen -U -D -RR'
 alias emacsc='emacsclient -n -c -a ""'
 alias emacsq='emacsclient -e "(kill-emacs)"'
