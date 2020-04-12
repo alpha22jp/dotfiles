@@ -8,14 +8,6 @@
 # for ssh logins, install and configure the libpam-umask package.
 #umask 022
 
-# if running bash
-if [ -n "$BASH_VERSION" ]; then
-    # include .bashrc if it exists
-    if [ -f "$HOME/.bashrc" ]; then
-	    . "$HOME/.bashrc"
-    fi
-fi
-
 if [ -z $BASH_PROFILE_LOADED ]; then
     export BASH_PROFILE_LOADED=1
 
@@ -68,6 +60,14 @@ if [ -z $BASH_PROFILE_LOADED ]; then
     # Source local definitions
     if [ -f $HOME/.bash_profile.local ]; then
         . $HOME/.bash_profile.local
+    fi
+fi
+
+# if running bash
+if [ -n "$BASH_VERSION" ]; then
+    # include .bashrc if it exists
+    if [ -f "$HOME/.bashrc" ]; then
+	    . "$HOME/.bashrc"
     fi
 fi
 
