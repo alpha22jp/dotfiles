@@ -32,8 +32,10 @@ if [ -z $BASH_PROFILE_LOADED ]; then
     fi
 
     # For Ruby
-    RUBY_VERSION=`ruby --version | sed 's/^ruby\s\([0-9]\.[0-9]\).*$/\1/'`
-    export PATH=$HOME/.gem/ruby/$RUBY_VERSION.0/bin:$PATH
+    if [ -f /usr/bin/ruby ]; then
+        RUBY_VERSION=`ruby --version | sed 's/^ruby\s\([0-9]\.[0-9]\).*$/\1/'`
+        export PATH=$HOME/.gem/ruby/$RUBY_VERSION.0/bin:$PATH
+    fi
 
     # For node.js (nvm)
     if [ -d $HOME/.nvm ]; then
