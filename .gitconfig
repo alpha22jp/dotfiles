@@ -16,6 +16,9 @@
     quotepath = false
     editor = emacsclient
 
+[pull]
+    rebase = false
+
 [color]
     ui = auto
 
