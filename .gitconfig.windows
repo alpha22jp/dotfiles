@@ -1,2 +1,2 @@
 [credential]
-	helper = manager
+    helper = wincred
