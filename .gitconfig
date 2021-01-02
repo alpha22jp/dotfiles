@@ -34,3 +34,6 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+
+[tig]
+    main-view = id:yes date:local=yes author:full commit-title:graph=yes,refs=yes
