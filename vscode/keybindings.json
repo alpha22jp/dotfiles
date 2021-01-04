@@ -147,5 +147,25 @@
         "key": "shift+alt+f3",
         "command": "-editor.action.dirtydiff.previous",
         "when": "editorTextFocus"
+    },
+    {
+        "key": "alt+[Equal]",
+        "command": "editor.action.marker.nextInFiles",
+        "when": "editorFocus"
+    },
+    {
+        "key": "f8",
+        "command": "-editor.action.marker.nextInFiles",
+        "when": "editorFocus"
+    },
+    {
+        "key": "shift+alt+[Equal]",
+        "command": "editor.action.marker.prevInFiles",
+        "when": "editorFocus"
+    },
+    {
+        "key": "shift+f8",
+        "command": "-editor.action.marker.prevInFiles",
+        "when": "editorFocus"
     }
 ]
