@@ -36,3 +36,5 @@ for file in ${files[@]}; do
     make_symlink $file $file
 done
 make_symlink ".gitconfig.linux" ".gitconfig.os"
+make_symlink "vscode/settings.json" ".config/Code/User/settings.json"
+make_symlink "vscode/keybindings.json" ".config/Code/User/keybindings.json"
