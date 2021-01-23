@@ -114,16 +114,6 @@
         "command": "-workbench.action.previousEditor"
     },
     {
-        "key": "alt+n",
-        "command": "editor.action.dirtydiff.next",
-        "when": "editorTextFocus"
-    },
-    {
-        "key": "alt+f3",
-        "command": "-editor.action.dirtydiff.next",
-        "when": "editorTextFocus"
-    },
-    {
         "key": "alt+p",
         "command": "-keybindings.editor.toggleSortByPrecedence",
         "when": "inKeybindings"
@@ -137,16 +127,6 @@
         "key": "alt+p",
         "command": "-toggleSearchPreserveCase",
         "when": "searchViewletFocus"
-    },
-    {
-        "key": "alt+p",
-        "command": "editor.action.dirtydiff.previous",
-        "when": "editorTextFocus"
-    },
-    {
-        "key": "shift+alt+f3",
-        "command": "-editor.action.dirtydiff.previous",
-        "when": "editorTextFocus"
     },
     {
         "key": "alt+[Equal]",
@@ -167,5 +147,45 @@
         "key": "shift+f8",
         "command": "-editor.action.marker.prevInFiles",
         "when": "editorFocus"
+    },
+    {
+        "key": "alt+n",
+        "command": "workbench.action.editor.nextChange",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "alt+f5",
+        "command": "-workbench.action.editor.nextChange",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "alt+n",
+        "command": "workbench.action.compareEditor.nextChange",
+        "when": "textCompareEditorVisible"
+    },
+    {
+        "key": "alt+f5",
+        "command": "-workbench.action.compareEditor.nextChange",
+        "when": "textCompareEditorVisible"
+    },
+    {
+        "key": "alt+p",
+        "command": "workbench.action.editor.previousChange",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "shift+alt+f5",
+        "command": "-workbench.action.editor.previousChange",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "alt+p",
+        "command": "workbench.action.compareEditor.previousChange",
+        "when": "textCompareEditorVisible"
+    },
+    {
+        "key": "shift+alt+f5",
+        "command": "-workbench.action.compareEditor.previousChange",
+        "when": "textCompareEditorVisible"
     }
 ]
