@@ -1,4 +1,5 @@
 {
     "editor.fontSize": 16,
-    "emacs-mcx.killWholeLine": true
+    "emacs-mcx.killWholeLine": true,
+    "C_Cpp.updateChannel": "Insiders"
 }
