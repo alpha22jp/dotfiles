@@ -61,5 +61,5 @@ Conversion	F8	ConvertToHalfWidth
 Conversion	F9	ConvertToFullAlphanumeric
 Conversion	PageDown	ConvertNextPage
 Conversion	PageUp	ConvertPrevPage
-DirectInput	Henkan	IMEOn
-Precomposition	Henkan	IMEOff
+DirectInput	Ctrl Space	IMEOn
+Precomposition	Ctrl Space	IMEOff
