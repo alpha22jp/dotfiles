@@ -217,5 +217,45 @@
         "key": "shift+alt+f12",
         "command": "-references-view.findReferences",
         "when": "editorHasReferenceProvider"
+    },
+    {
+        "key": "alt+g",
+        "command": "workbench.action.gotoLine",
+        "when": "!config.emacs-mcx.useMetaPrefixMacCmd"
+    },
+    {
+        "key": "alt+g alt+g",
+        "command": "-workbench.action.gotoLine",
+        "when": "!config.emacs-mcx.useMetaPrefixMacCmd"
+    },
+    {
+        "key": "alt+g",
+        "command": "workbench.action.gotoLine",
+        "when": "config.emacs-mcx.useMetaPrefixMacCmd"
+    },
+    {
+        "key": "alt+g alt+g",
+        "command": "-workbench.action.gotoLine",
+        "when": "config.emacs-mcx.useMetaPrefixMacCmd"
+    },
+    {
+        "key": "alt+g",
+        "command": "emacs-mcx.executeCommands",
+        "when": "editorFocus && findWidgetVisible && !config.emacs-mcx.useMetaPrefixMacCmd && !isComposing"
+    },
+    {
+        "key": "alt+g alt+g",
+        "command": "-emacs-mcx.executeCommands",
+        "when": "editorFocus && findWidgetVisible && !config.emacs-mcx.useMetaPrefixMacCmd && !isComposing"
+    },
+    {
+        "key": "alt+g",
+        "command": "emacs-mcx.executeCommands",
+        "when": "config.emacs-mcx.useMetaPrefixMacCmd && editorFocus && findWidgetVisible && !isComposing"
+    },
+    {
+        "key": "alt+g alt+g",
+        "command": "-emacs-mcx.executeCommands",
+        "when": "config.emacs-mcx.useMetaPrefixMacCmd && editorFocus && findWidgetVisible && !isComposing"
     }
 ]
