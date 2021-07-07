@@ -28,6 +28,7 @@
 [include]
     path = .gitconfig.local
     path = .gitconfig.os
+    path = .gitconfig.github
 
 [filter "lfs"]
 	clean = git-lfs clean -- %f
