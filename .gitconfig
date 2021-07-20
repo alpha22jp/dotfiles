@@ -38,3 +38,4 @@
 
 [tig]
     main-view = id:yes date:local=yes author:full commit-title:graph=yes,refs=yes
+    vertical-split = no
